@@ -1,0 +1,4 @@
+rootProject.name = 'engapp'
+
+include("db-service")
+include("main-server")

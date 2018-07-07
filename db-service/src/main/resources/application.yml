@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: db-service
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      authentication-database: admin
+      database: engapp
+      username: toby
+      password: ZAQ!2wsx
+      
+server:
+  port: 8001
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka
