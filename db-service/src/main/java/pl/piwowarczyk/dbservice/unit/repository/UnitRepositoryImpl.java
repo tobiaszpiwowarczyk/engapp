@@ -1,7 +1,7 @@
 package pl.piwowarczyk.dbservice.unit.repository;
 
+import lombok.AllArgsConstructor;
 import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.query.Query;
@@ -9,25 +9,23 @@ import org.springframework.data.mongodb.core.query.Update;
 import pl.piwowarczyk.dbservice.unit.Unit;
 import pl.piwowarczyk.dbservice.unit.domain.UnitEditionEntity;
 import pl.piwowarczyk.dbservice.word.Word;
+import pl.piwowarczyk.library.util.UserPermissions;
 
 import java.util.List;
 
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 
+@AllArgsConstructor
 public class UnitRepositoryImpl implements UnitRepositoryCustom {
 
+    private final String collectionName = "units";
     private MongoTemplate mongoTemplate;
-
-    @Autowired
-    public UnitRepositoryImpl(MongoTemplate mongoTemplate) {
-        this.mongoTemplate = mongoTemplate;
-    }
 
     
     @Override
-    public List<Unit> findAllUnits(boolean admin) {
-        Aggregation aggregation = admin ? newAggregation(
+    public List<Unit> findAllUnits() {
+        Aggregation aggregation = UserPermissions.isAdmin() ? newAggregation(
                 project("id", "name", "color", "published")
                         .and("words").size().as("wordsCount")
         ) : newAggregation(
@@ -35,22 +33,22 @@ public class UnitRepositoryImpl implements UnitRepositoryCustom {
                 project("id", "name", "color")
         );
 
-        return mongoTemplate.aggregate(aggregation, "units", Unit.class).getMappedResults();
+        return mongoTemplate.aggregate(aggregation, collectionName, Unit.class).getMappedResults();
     }
 
     
     @Override
-    public Unit findUnitById(String id, boolean admin) {
+    public Unit findUnitById(String id) {
 
         Aggregation aggregation = newAggregation(
                 match(where("_id").is(new ObjectId(id))),
-                admin ? project("id", "name", "color", "words", "published")
+                UserPermissions.isAdmin() ? project("id", "name", "color", "words", "published")
                         .and("words").size().as("wordsCount") :
                         project("id", "name", "color")
                                 .and("words").size().as("wordsCount")
         );
 
-        return mongoTemplate.aggregate(aggregation, "units", Unit.class).getUniqueMappedResult();
+        return mongoTemplate.aggregate(aggregation, collectionName, Unit.class).getUniqueMappedResult();
     }
 
     
@@ -64,10 +62,10 @@ public class UnitRepositoryImpl implements UnitRepositoryCustom {
                     if(unit.getPublished() != null) set("published", unit.getPublished());
                 }},
                 Unit.class,
-                "units"
+                collectionName
         );
         
-        return this.findUnitById(unit.getId(), true);
+        return this.findUnitById(unit.getId());
     }
 
 
@@ -82,14 +80,17 @@ public class UnitRepositoryImpl implements UnitRepositoryCustom {
                         .and("words.english").as("english")
         );
         
-        return mongoTemplate.aggregate(aggregation, "units", Word.class).getUniqueMappedResult();
+        return mongoTemplate.aggregate(aggregation, collectionName, Word.class).getUniqueMappedResult();
     }
 
     
     @Override
     public boolean existsByWordNumber(String unitId, Long wordNumber) {
-        return mongoTemplate.count(new Query(){{
-            addCriteria(where("_id").is(unitId).and("words.wordNumber").is(wordNumber));
-        }}, "units") == 1;
+        return mongoTemplate.count(new Query().addCriteria(where("_id").is(unitId).and("words.wordNumber").is(wordNumber)), collectionName) == 1;
+    }
+
+    @Override
+    public boolean existsBy(String field, Object value) {
+        return mongoTemplate.count(new Query().addCriteria(where(field).is(value)), collectionName) == 1;
     }
 }

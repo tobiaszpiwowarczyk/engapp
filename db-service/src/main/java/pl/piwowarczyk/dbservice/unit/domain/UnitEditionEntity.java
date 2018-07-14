@@ -2,7 +2,10 @@ package pl.piwowarczyk.dbservice.unit.domain;
 
 import lombok.Data;
 import pl.piwowarczyk.dbservice.unit.validator.*;
-import pl.piwowarczyk.dbservice.unit.validator.order.UnitCreationEntityValidationOrder.*;
+import pl.piwowarczyk.dbservice.unit.validator.order.UnitCreationEntityValidationOrder.ColorNotBlankProperty;
+import pl.piwowarczyk.dbservice.unit.validator.order.UnitCreationEntityValidationOrder.ColorPatternProperty;
+import pl.piwowarczyk.dbservice.unit.validator.order.UnitCreationEntityValidationOrder.NameNotBlankProperty;
+import pl.piwowarczyk.dbservice.unit.validator.order.UnitCreationEntityValidationOrder.NamePatternProperty;
 import pl.piwowarczyk.dbservice.unit.validator.order.UnitEditionEntityValidationOrder.*;
 import pl.piwowarczyk.dbservice.validator.CorrectId;
 
@@ -10,7 +13,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Data
-@VerifyUnit(groups = NameUnitExistenceProperty.class)
+@VerifyUnit(groups = VerifyUnitGroup.class)
 public class UnitEditionEntity {
 
     @NotBlank(groups = IdNotBlankProperty.class)

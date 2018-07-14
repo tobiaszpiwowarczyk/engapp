@@ -22,10 +22,10 @@ public class VerifyUnitValidator implements ConstraintValidator<VerifyUnit, Unit
 
         if (unit.getName().equals(unitFound.getName()))
             return true;
-        else if (unitRepository.existsBy("name", unit.getName(), "units"))
+        else if (unitRepository.existsBy("name", unit.getName()))
             context.buildConstraintViolationWithTemplate("{UnitExistence.name}")
                     .addPropertyNode("name").addConstraintViolation();
 
-        return !unitRepository.existsBy("name", unit.getName(), "units");
+        return !unitRepository.existsBy("name", unit.getName());
     }
 }

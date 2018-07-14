@@ -3,8 +3,6 @@ package pl.piwowarczyk.dbservice.unit.converter;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.springframework.core.convert.converter.Converter;
-import org.springframework.lang.NonNullApi;
-import org.springframework.lang.Nullable;
 import pl.piwowarczyk.dbservice.unit.Unit;
 
 public class UnitWriterConverter implements Converter<Unit, Document> {

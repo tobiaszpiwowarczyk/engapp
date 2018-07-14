@@ -1,8 +1,8 @@
 package pl.piwowarczyk.dbservice.unit.repository;
 
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
-import pl.piwowarczyk.dbservice.repository.BaseRepository;
 import pl.piwowarczyk.dbservice.unit.Unit;
 
 @Repository
-public interface UnitRepository extends UnitRepositoryCustom, BaseRepository<Unit, String> {}
+public interface UnitRepository extends UnitRepositoryCustom, MongoRepository<Unit, String> {}

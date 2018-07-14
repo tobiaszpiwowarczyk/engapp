@@ -1,5 +1,6 @@
 package pl.piwowarczyk.dbservice.unit.validator.impl;
 
+import org.bson.types.ObjectId;
 import pl.piwowarczyk.dbservice.unit.repository.UnitRepository;
 import pl.piwowarczyk.dbservice.unit.validator.UnitExistence;
 
@@ -22,6 +23,6 @@ public class UnitExistenceValidator implements ConstraintValidator<UnitExistence
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        return unitRepository.existsBy(unitExistence.property(), value, "units") == unitExistence.exists();
+        return unitRepository.existsBy(unitExistence.property(), unitExistence.property().equals("_id") ? new ObjectId(value) : value) == unitExistence.exists();
     }
 }

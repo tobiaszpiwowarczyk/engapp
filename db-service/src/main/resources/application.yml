@@ -17,3 +17,15 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8000/eureka
+      
+security:
+  basic:
+    enabled: false
+  oauth2:
+    client:
+      client-id: engapp-client
+      client-secret: engapp-secret
+      access-token-uri: http://localhost:8002/oauth/token
+      user-authorization-uri: http://localhost:8002/oauth/authorize
+    resource:
+      user-info-uri: http://localhost:8002/api/user/account

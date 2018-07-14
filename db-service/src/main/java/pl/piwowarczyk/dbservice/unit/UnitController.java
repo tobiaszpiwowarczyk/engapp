@@ -2,17 +2,21 @@ package pl.piwowarczyk.dbservice.unit;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.piwowarczyk.dbservice.unit.domain.UnitCreationEntity;
 import pl.piwowarczyk.dbservice.unit.domain.UnitEditionEntity;
 import pl.piwowarczyk.dbservice.unit.service.UnitServiceImpl;
-import pl.piwowarczyk.dbservice.validator.CorrectId;
 import pl.piwowarczyk.dbservice.unit.validator.UnitExistence;
 import pl.piwowarczyk.dbservice.unit.validator.order.UnitCreationEntityValidationOrder.ColorGroupSequence;
 import pl.piwowarczyk.dbservice.unit.validator.order.UnitCreationEntityValidationOrder.NameGroupSequence;
-import pl.piwowarczyk.dbservice.unit.validator.order.UnitEditionEntityValidationOrder.*;
+import pl.piwowarczyk.dbservice.unit.validator.order.UnitEditionEntityValidationOrder.IdExistenceProperty;
+import pl.piwowarczyk.dbservice.unit.validator.order.UnitEditionEntityValidationOrder.IdGroupSequence;
+import pl.piwowarczyk.dbservice.unit.validator.order.UnitEditionEntityValidationOrder.IdNotBlankProperty;
+import pl.piwowarczyk.dbservice.unit.validator.order.UnitEditionEntityValidationOrder.PublishedGroupSequence;
 
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.Map;
 
@@ -30,26 +34,23 @@ public class UnitController {
      * @return list of {@link Unit} objects
      */
     @GetMapping
-    public List<Unit> findAll(@RequestParam(required = false, defaultValue = "false") boolean admin) {
-        return unitService.findAll(admin);
+    public List<Unit> findAll() {
+        return unitService.findAll();
     }
 
 
     /**
      * Retrieves {@link Unit} object from database by it's {@param id}
      *
-     * @param id must not be {@literal null}
+     * @param id must not be null
      * @return {@link Unit} object
      */
     @GetMapping("{id}")
     public Unit findById(
-            @CorrectId(groups = IdPatternProperty.class)
-            @UnitExistence(exists = true, message = "{engapp.messages.unit.id.not-existence}", property = "_id", groups = IdExistenceProperty.class)
-            @PathVariable String id,
-
-            @RequestParam(required = false, defaultValue = "false") boolean admin
+            @UnitExistence(exists = true, property = "_id", groups = IdExistenceProperty.class)
+            @PathVariable String id
     ) {
-        return unitService.findById(id, admin);
+        return unitService.findById(id);
     }
 
 
@@ -61,6 +62,7 @@ public class UnitController {
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public Unit addUnit(
             @Validated({NameGroupSequence.class, ColorGroupSequence.class})
             @RequestBody UnitCreationEntity unit
@@ -76,6 +78,7 @@ public class UnitController {
      * @return edited {@link Unit} object
      */
     @PutMapping
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public Unit editUnit(
             @Validated({IdGroupSequence.class, NameGroupSequence.class, ColorGroupSequence.class, PublishedGroupSequence.class})
             @RequestBody UnitEditionEntity unit
@@ -91,9 +94,10 @@ public class UnitController {
      * @return {@link Map} width {@code state} message
      */
     @DeleteMapping("{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public Map deleteUnit(
-            @CorrectId(groups = IdPatternProperty.class)
-            @UnitExistence(exists = true, message = "{engapp.messages.unit.id.not-existence}", property = "_id", groups = IdExistenceProperty.class)
+            @NotBlank(groups = IdNotBlankProperty.class)
+            @UnitExistence(exists = true, property = "_id", groups = IdExistenceProperty.class)
             @PathVariable String id
     ) {
         return unitService.deleteUnit(id);

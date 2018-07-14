@@ -4,11 +4,13 @@ import javax.validation.GroupSequence;
 
 public class UnitEditionEntityValidationOrder {
     
+    public interface VerifyUnitGroup {}
+    
     public interface IdNotBlankProperty {}
     public interface IdPatternProperty {}
     public interface IdExistenceProperty {}
     
-    @GroupSequence({IdNotBlankProperty.class, IdPatternProperty.class, IdExistenceProperty.class})
+    @GroupSequence({IdNotBlankProperty.class, IdPatternProperty.class, IdExistenceProperty.class, VerifyUnitGroup.class})
     public interface IdGroupSequence {}
     
     

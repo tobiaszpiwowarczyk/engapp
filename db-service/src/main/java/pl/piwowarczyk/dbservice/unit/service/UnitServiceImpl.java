@@ -18,13 +18,13 @@ public class UnitServiceImpl implements UnitService {
     private UnitRepository unitRepository;
 
     @Override
-    public List<Unit> findAll(boolean admin) {
-        return unitRepository.findAllUnits(admin);
+    public List<Unit> findAll() {
+        return unitRepository.findAllUnits();
     }
 
     @Override
-    public Unit findById(String id, boolean admin) {
-        return unitRepository.findUnitById(id, admin);
+    public Unit findById(String id) {
+        return unitRepository.findUnitById(id);
     }
 
     @Override
