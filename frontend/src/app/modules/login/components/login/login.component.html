@@ -1,0 +1,23 @@
+<div class="container container__form container--centerized">
+  <div class="form">
+    <h1>Zaloguj się</h1>
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <div class="form__content">
+        <app-input type="text" icon="person" placeholder="Nazwa użytkownika..." formControlName="username"></app-input>
+        <app-input type="password" icon="lock" placeholder="Hasło..." formControlName="password"></app-input>
+      </div>
+  
+      <button type="submit" class="button button--fluid">Zaloguj się</button>
+    </form>
+
+    <div class="form__footer">
+      <p>Jesli nie posiadasz konta, <a [routerLink]="['register']">Zarejestruj się</a></p>
+    </div>
+  </div>
+  <div class="banner">
+    <div class="banner__inner">
+      <h1 class="banner__title">EngApp</h1>
+    <p class="banner__description">I nauka angielskiego staje się przyjemniejsza!</p>
+    </div>
+  </div>
+</div>
