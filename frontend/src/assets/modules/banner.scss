@@ -3,8 +3,8 @@
 
 .banner {
   position: relative;
-  width: 800px;
-  height: 600px;
+  min-width: 800px;
+  min-height: 600px;
   display: flex;
   align-items: center;
   background: linear-gradient(to bottom, rgba($black, 0.5), rgba($black, 0.8)), url("assets/img/england-photo.jpg"), {
