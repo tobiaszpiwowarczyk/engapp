@@ -1,5 +1,6 @@
 <div class="input" [ngClass]="{
-  'input--focused': focused
+  'input--focused': focused,
+  'input--fluid': fluid
 }">
   <div class="input__icon material-icons">{{icon}}</div>
   <input [type]="type" [placeholder]="placeholder" [ngModel]="value" (ngModelChange)="change($event)" />

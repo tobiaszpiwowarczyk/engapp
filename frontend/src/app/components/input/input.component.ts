@@ -17,6 +17,7 @@ export class InputComponent implements OnInit, ControlValueAccessor {
   @Input() placeholder: string;
   @Input() disabled: boolean = false;
   @Input() value: string;
+  @Input() fluid: boolean = false;
 
   focused: boolean = false;
 
