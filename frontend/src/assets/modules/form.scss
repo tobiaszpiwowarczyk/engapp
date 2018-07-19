@@ -1,0 +1,22 @@
+.form {
+  position: relative;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  h1 {
+    text-align: center;
+  }
+
+  &__content {
+    position: relative;
+    width: 100%;
+    margin: 40px 0;
+  }
+
+  &__footer {
+    text-align: center;
+    margin-top: 20px;
+  }
+}

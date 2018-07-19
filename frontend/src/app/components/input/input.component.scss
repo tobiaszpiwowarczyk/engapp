@@ -1,0 +1,60 @@
+@import "../../../assets/_variables";
+
+.input {
+  position: relative;
+  width: 300px;
+  height: $input-height;
+  background: $white;
+  border: 1px solid $grey, {
+    radius: 3px;
+  };
+  margin: 10px 0;
+  display: flex;
+  overflow: hidden;
+
+  &__icon {
+    position: relative;
+    min-width: $input-height;
+    height: $input-height;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $grey;
+  }
+
+  input {
+    position: relative;
+    width: 100%;
+    border: none;
+    background: none;
+    font-size: $input-font-size;
+
+    &::-webkit-input-placeholder {
+      color: $grey;
+    }
+  }
+
+  &--focused {
+    border-color: $black;
+
+    .input__icon {
+      color: $black;
+    }
+  }
+
+  &--invalid {
+    border-color: $red;
+    
+    * {
+      color: $red;
+    }
+  }
+
+  &--valid {
+    border-color: $green;
+
+    * {
+      color: $green;
+    }
+  }
+}

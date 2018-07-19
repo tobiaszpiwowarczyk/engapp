@@ -1,0 +1,29 @@
+@import "../_variables";
+
+.button {
+  position: relative;
+  height: $input-height;
+  width: $input-height * 2.5;
+  border: none, {
+    radius: $border-radius;
+  };
+  background: $blue;
+  color: $white;
+  font: {
+    size: $input-font-size;
+    weight: 900;
+  }
+  cursor: pointer;
+
+  &:hover {
+    background: lighten($blue, 5%);
+  }
+
+  &:active {
+    background: darken($blue, 5%);
+  }
+
+  &--fluid {
+    width: 100%;
+  }
+}
