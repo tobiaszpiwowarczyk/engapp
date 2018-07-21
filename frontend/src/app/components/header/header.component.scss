@@ -1,0 +1,24 @@
+
+@import "../../../assets/_variables";
+
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: $header-height;
+  background: $white;
+  box-shadow: $box-shadow;
+  z-index: 10;
+
+  .brand {
+    position: relative;
+    height: 100%;
+    line-height: $header-height;
+    width: 120px;
+    background: $blue;
+    color: $white;
+    text-align: center;
+  }
+}

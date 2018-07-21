@@ -1,0 +1,9 @@
+<app-header></app-header>
+
+<div class="content wrapper">
+  <h1>Wybierz rozdział</h1>
+
+  <div class="units">
+    <app-unit *ngFor="let unit of units" [unit]="unit"></app-unit>
+  </div>
+</div>
