@@ -2,6 +2,8 @@
   'input--focused': focused,
   'input--fluid': fluid
 }">
-  <div class="input__icon material-icons">{{icon}}</div>
-  <input [type]="type" [placeholder]="placeholder" [ngModel]="value" (ngModelChange)="change($event)" />
+  <div class="input__icon material-icons" *ngIf="icon != null">{{icon}}</div>
+  <input [type]="type" [placeholder]="placeholder" 
+         [ngClass]="{'no-icon': icon == null}"
+         [ngModel]="value" (ngModelChange)="change($event)" />
 </div>

@@ -12,13 +12,23 @@
   box-shadow: $box-shadow;
   z-index: 10;
 
-  .brand {
+  .wrapper {
+    display: flex;
+
+    .brand {
+      position: relative;
+      height: 100%;
+      line-height: $header-height;
+      width: 120px;
+      background: $blue;
+      color: $white;
+      text-align: center;
+    }
+  }
+
+  &__subtitle {
     position: relative;
-    height: 100%;
     line-height: $header-height;
-    width: 120px;
-    background: $blue;
-    color: $white;
-    text-align: center;
+    padding: 0 20px;
   }
 }

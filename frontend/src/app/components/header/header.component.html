@@ -1,8 +1,11 @@
 <div class="header">
   <div class="wrapper">
-      <div class="brand">
-        <h5>EngApp</h5>
-      </div>
+    <a class="brand" [routerLink]="['/']">
+      <h5>EngApp</h5>
+    </a>
+    <div class="header__subtitle">
+      <ng-content></ng-content>
+    </div>
+    <!-- todo: create menu for logout -->
   </div>
-  <!-- todo: create menu for logout -->
 </div>

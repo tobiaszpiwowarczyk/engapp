@@ -34,6 +34,10 @@ $input-border-width: 1px;
     &::-webkit-input-placeholder {
       color: $grey;
     }
+
+    &.no-icon {
+      text-indent: $input-height / 2;
+    }
   }
 
   &--fluid {
