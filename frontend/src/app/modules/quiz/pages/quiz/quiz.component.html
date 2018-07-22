@@ -1,3 +1,20 @@
-<p>
-  quiz works!
-</p>
+<app-header>
+  <h3>Rozdział: {{unit?.title}}</h3>
+</app-header>
+
+<div class="content wrapper quiz">
+  <div class="quiz__form">
+    <h4>{{word?.polish}}</h4>
+    <form [formGroup]="quizForm">
+      <app-input formControlName="word"></app-input>
+      <button class="button button--fluid" (click)="check()">Sprawdź</button>
+    </form>
+    <div class="quiz__validator" *ngIf="shown" [ngClass]="{
+      'quiz__validator--valid': valid,
+      'quiz__validator--invalid': !valid
+    }">
+      <h6 *ngIf="valid">Odpowiedź prawidłowa</h6>
+      <h6 *ngIf="!valid">Odpowiedź nieprawidłowa</h6>
+    </div>
+  </div>
+</div>

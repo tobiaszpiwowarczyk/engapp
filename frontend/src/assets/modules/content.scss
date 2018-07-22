@@ -1,0 +1,9 @@
+
+@import "../variables";
+
+.content {
+  position: relative;
+  margin-top: $header-height;
+  min-height: calc(100vh - #{$header-height});
+  padding: 40px 0;
+}
