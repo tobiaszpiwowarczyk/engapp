@@ -2,6 +2,7 @@ export class Unit {
   id: string;
   name: string;
   color: string;
+  image?: string;
   wordsCount?: number;
   words?: Array<any>;
 
