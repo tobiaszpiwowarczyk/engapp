@@ -17,6 +17,7 @@ import java.util.Collection;
 @AllArgsConstructor
 @Builder
 @Document(collection = "users")
+// TODO: 26.07.18 Create image profile 
 public class User implements UserDetails {
     
     @Id

@@ -15,6 +15,7 @@ import java.util.ArrayList;
 @NoArgsConstructor
 @Builder
 @Document(collection = "units")
+// TODO: 26.07.18 Create image background 
 public class Unit {
 
     @Id

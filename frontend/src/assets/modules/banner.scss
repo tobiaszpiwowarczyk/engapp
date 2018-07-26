@@ -1,5 +1,6 @@
 
 @import "../_variables";
+@import "../mixins";
 
 .banner {
   position: relative;
@@ -32,11 +33,19 @@
       height: 100%;
       background: $yellow;
     }
+
+    @include laptop {
+      font-size: 48px;
+    }
   }
 
   &__description {
     font-size: 18px;
     color: $white;
     margin-top: 18px;
+  }
+
+  @include tablet {
+    display: none;
   }
 }
