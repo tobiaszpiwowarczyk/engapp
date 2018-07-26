@@ -1,0 +1,66 @@
+<app-header>
+  <h3>Rozdział: <span [ngStyle]="{'color': unit?.color}">{{unit?.name}}</span></h3>
+</app-header>
+
+<div class="content wrapper quiz">
+  <div class="quiz__form" *ngIf="!finished">
+
+    <app-loader #quizLoader></app-loader>
+
+    <h4>{{word?.polish}}</h4>
+    <form [formGroup]="quizForm">
+      <app-input formControlName="word" [fluid]="true" #wordInput></app-input>
+      <button class="button button--fluid" type="submit"
+              (click)="check()"
+              [ngStyle]="{'background': unit?.color}"
+              *ngIf="!shown">Sprawdź</button>
+
+      <button class="button button--fluid" type="submit" 
+              (click)="next()"
+              [ngStyle]="{'background': unit?.color}"
+              *ngIf="shown">Następny</button>
+
+    </form>
+
+
+    <div class="quiz__validator" *ngIf="shown" [ngClass]="{
+      'quiz__validator--valid': valid,
+      'quiz__validator--invalid': !valid
+    }">
+      <div *ngIf="valid" class="quiz__validator__message">
+        <p>Odpowiedź prawidłowa</p>
+
+        <div class="quiz__validator__message--multiple" *ngIf="multipleAnswers">
+            Mogłeś również użyć:
+            <ul>
+              <li *ngFor="let w of word?.english">{{w}}</li>
+            </ul>
+        </div>
+
+      </div>
+
+      <div *ngIf="!valid" class="quiz__validator__message">
+        <p>Odpowiedź nieprawidłowa</p>
+        <p *ngIf="!multipleAnswers">Prawidłowa odpowiedź to: <b>{{word?.english}}</b></p>
+
+        <div class="quiz__validator__message--multiple" *ngIf="multipleAnswers">
+            Prawidłowe odpowiedzi to:
+            <ul>
+              <li *ngFor="let w of word?.english">{{w}}</li>
+            </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz__form quiz__form--finished" *ngIf="finished">
+    <div class="quiz__form__finish-message">
+      <h2>Koniec</h2>
+      <h5>Uzyskałeś {{points}} punktów na {{scope}} możliwych</h5>
+    </div>
+    <button class="button button--fluid" 
+            [ngStyle]="{'background': unit?.color}"
+            (click)="restart()">Zacznij od nowa</button>
+  </div>
+</div>

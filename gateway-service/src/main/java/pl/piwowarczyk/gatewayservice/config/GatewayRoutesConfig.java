@@ -20,7 +20,7 @@ public class GatewayRoutesConfig {
                 //auth-service routes
                 .route("auth-service", r -> r
                         .path("/auth/**")
-                        .filters(x -> x.rewritePath("/auth/(?<route>.*)", "/api/${route}"))
+                        .filters(x -> x.stripPrefix(1))
                         .uri("lb://auth-service")
                 )
                 //login route

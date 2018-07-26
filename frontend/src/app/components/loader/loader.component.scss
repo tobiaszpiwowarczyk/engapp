@@ -1,0 +1,66 @@
+
+@import "../../../assets/_variables";
+
+$loader-width: 50;
+$loader-stroke-width: 6;
+$loader-animation-time: 1.35s;
+
+.loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: $loader-z-index;
+  background: rgba($white, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    animation: svg-rotate $loader-animation-time linear infinite;
+  }
+
+  circle {
+    position: relative;
+    stroke: $black, {
+      width: $loader-stroke-width;
+      linecap: round;
+      dasharray: ($loader-width - $loader-stroke-width) * 3.14;
+      dashoffset: ($loader-width - $loader-stroke-width) * 3.14;
+    };
+    transform: rotate(0), {
+      origin: 50% 50%;
+    };
+    animation: circle-anim $loader-animation-time ease-in-out infinite;
+  }
+
+  &--no-fill {
+    background: none;
+  }
+}
+
+
+@keyframes svg-rotate {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(270deg);
+  }
+}
+
+@keyframes circle-anim {
+  0%{
+    stroke-dashoffset: ($loader-width - $loader-stroke-width) * 3.14;
+    transform: rotate(0);
+  }
+  50% {
+    stroke-dashoffset: $loader-width - $loader-stroke-width;
+    transform: rotate(135deg);
+  }
+  100% {
+    stroke-dashoffset: ($loader-width - $loader-stroke-width) * 3.14;
+    transform: rotate(450deg);
+  }
+}

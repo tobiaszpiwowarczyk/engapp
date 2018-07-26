@@ -1,0 +1,39 @@
+
+@import "../../../assets/_variables";
+
+.message {
+  position: relative;
+  width: 100%;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  border-radius: $border-radius;
+  padding: 15px 0, {
+    right: 15px;
+  };
+
+  &__icon {
+    position: relative;
+    min-width: 50px;
+    text-align: center;
+  }
+
+  &__content {
+    font-size: 16px;
+    font-weight: 900;
+    word-wrap: break-word;
+  }
+
+
+  &--success {
+    background: $green;
+  }
+
+  &--warning {
+    background: $orange;
+  }
+
+  &--danger {
+    background: $red;
+  }
+}

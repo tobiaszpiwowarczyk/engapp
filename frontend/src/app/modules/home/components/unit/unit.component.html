@@ -1,0 +1,10 @@
+
+<!-- todo: create image background -->
+<a class="unit" 
+  [routerLink]="['/quiz', unit?.id]"
+  [ngStyle]="{
+    'background': unit?.color
+  }">
+
+  <h3 class="unit__title">{{unit?.name}}</h3>
+</a>

@@ -1,0 +1,78 @@
+
+@import "../../../../assets/_variables";
+
+.header__item {
+  position: relative;
+  cursor: pointer;
+  min-width: 90px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  &__image {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .material-icons {
+      display: block;
+      font-size: 36px;
+    }
+
+    img {
+      position: relative;
+      width: 36px;
+      border-radius: 36px;
+    }
+  }
+
+  &__label {
+    display: block;
+    position: relative;
+    width: 100%;
+    text-align: center;
+    margin-top: 6px;
+    height: 16px;
+    overflow: hidden;
+  }
+
+
+
+
+  &::before, &::after {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: 0;
+    transition: .2s $bezier;
+  }
+
+  &::before {
+    left: 0;
+    width: 100%;
+    height: 0;
+    background: linear-gradient(to bottom, $white, rgba($black, 0.2));
+  }
+
+  &::after {
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background: $black;
+  }
+
+  &:hover {
+
+    &::before {
+      height: 100%;
+    }
+
+    &::after {
+      width: 100%;
+      left: 0;
+    }
+  }
+}

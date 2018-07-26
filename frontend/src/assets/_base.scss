@@ -1,0 +1,60 @@
+@import "_variables";
+
+* {
+  box-sizing: border-box;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+html, body {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  font-family: Roboto;
+  background: linear-gradient(to bottom, rgba($white, 0.7), rgba($white, 0.7)), url("/assets/img/england-photo.jpg"), {
+    attachment: fixed;
+    size: cover;
+    position: 50% 50%;
+  };
+  color: $black;
+  overflow: auto;
+}
+
+h1 {
+  font-size: 48px;
+}
+
+h2 {
+  font-size: 36px;
+}
+
+h3 {
+  font-size: 24px;
+}
+
+h4 {
+  font-size: 21px;
+}
+
+h5 {
+  font-size: 18px;
+}
+
+h6 {
+  font-size: 16px;
+}
+
+p {
+  font-size: 14px;
+}
+
+a {
+  text-decoration: none;
+  color: $blue;
+
+  &:hover{
+    text-decoration: underline;
+  }
+}

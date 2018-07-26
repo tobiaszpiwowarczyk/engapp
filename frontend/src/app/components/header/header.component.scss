@@ -1,0 +1,42 @@
+
+@import "../../../assets/_variables";
+
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: $header-height;
+  background: $white;
+  box-shadow: $box-shadow;
+  z-index: $header-z-index;
+
+  .wrapper {
+    display: flex;
+
+    .brand {
+      position: relative;
+      height: 100%;
+      line-height: $header-height;
+      width: 120px;
+      background: $blue;
+      color: $white;
+      text-align: center;
+    }
+  }
+
+  &__subtitle {
+    position: relative;
+    line-height: $header-height;
+    padding: 0 20px;
+  }
+
+  &__menu {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    display: flex;
+  }
+}

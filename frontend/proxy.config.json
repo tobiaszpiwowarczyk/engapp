@@ -1,0 +1,12 @@
+{
+  "/db": {
+    "target": "http://localhost:8003/",
+    "secure": false,
+    "logLevel": "debug"
+  },
+  "/auth": {
+    "target": "http://localhost:8003/",
+    "secure": false,
+    "logLevel": "debug"
+  }
+}
