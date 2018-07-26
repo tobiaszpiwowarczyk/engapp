@@ -6,7 +6,15 @@
     <div class="header__subtitle">
       <ng-content></ng-content>
     </div>
-    <div class="header__menu">
+
+    <app-menu-opener (onOpen)="open($event)" #opener></app-menu-opener>
+    
+    <div class="header__menu__shadow" 
+         [ngClass]="{'header__menu__shadow--opened': opened}"
+         (click)="close()"></div>
+    <div class="header__menu" [ngClass]="{
+      'header__menu--opened': opened
+    }">
       <!-- todo: crete image profile support -->
       <app-header-item [label]="user?.firstName +' '+ user?.lastName" itemType="image" imageSrc="https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.nzasianleaders.com%2Fwp-content%2Fuploads%2Fdefault-avatar.jpg&f=1"></app-header-item>
       <app-header-item label="Wyloguj się" imageSrc="power_settings_new" (click)="logout()"></app-header-item>

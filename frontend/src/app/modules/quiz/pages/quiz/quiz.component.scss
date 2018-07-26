@@ -1,5 +1,6 @@
 
 @import "../../../../../assets/_variables";
+@import "../../../../../assets/mixins";
 
 .quiz {
   display: flex;
@@ -15,7 +16,7 @@
     background: $white;
     box-shadow: $box-shadow;
     padding: 40px;
-    width: 400px;
+    width: $mobile-width;
 
     form {
       margin: 30px 0;
@@ -31,6 +32,10 @@
 
     &__finish-message {
       margin-bottom: 20px;
+    }
+
+    @include mobile {
+      width: 100%;
     }
   }
 

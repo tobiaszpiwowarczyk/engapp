@@ -1,10 +1,10 @@
 
 <!-- todo: create image background -->
-<a class="unit" 
-  [routerLink]="['/quiz', unit?.id]"
+<div class="unit"
   [ngStyle]="{
-    'background': unit?.color
+    'backgroundImage': 'url('+unit?.image+')'
   }">
-
-  <h3 class="unit__title">{{unit?.name}}</h3>
-</a>
+  <div class="unit__filter">
+    <a [routerLink]="['/quiz', unit?.id]"><h3 class="unit__title">{{unit?.name}}</h3></a>
+  </div>
+</div>

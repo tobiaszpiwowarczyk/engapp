@@ -21,6 +21,7 @@ import static pl.piwowarczyk.authservice.user.validator.order.UserRegisterValida
 @RequestMapping("api/user")
 @AllArgsConstructor
 @Validated(UsernameGroupSequence.class)
+// TODO: 26.07.18 Create function for validating specified fields 
 public class UserController {
     
     

@@ -1,6 +1,15 @@
+
+@import "../_variables";
+@import "../mixins";
+
 .wrapper {
   position: relative;
-  width: 1024px;
+  width: $laptop-width;
   height: 100%;
   margin: 0 auto;
+
+  @include laptop {
+    width: 100%;
+  }
+
 }

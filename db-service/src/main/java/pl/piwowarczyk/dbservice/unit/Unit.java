@@ -23,6 +23,7 @@ public class Unit {
 
     private String name;
     private String color;
+    private String image;
 
     @Builder.Default
     private Boolean published = false;

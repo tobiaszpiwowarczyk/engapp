@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { MenuOpenerComponent } from './menu-opener/menu-opener.component';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { LoginService } from '../../services/login/login.service';
 import { User } from '../../services/user/User';
 import { UserService } from '../../services/user/user.service';
@@ -7,11 +8,14 @@ import { UserService } from '../../services/user/user.service';
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  providers: [LoginService, UserService]
+  providers: [LoginService, UserService],
 })
 export class HeaderComponent implements OnInit {
 
+  @ViewChild("opener") opener: MenuOpenerComponent;
+
   user: User;
+  opened: boolean = false;
 
   constructor(
     private ls: LoginService,
@@ -32,8 +36,17 @@ export class HeaderComponent implements OnInit {
   }
 
 
-  public logout() {
+  public logout(): void {
     this.ls.logout();
+  }
+
+  public open(evt: boolean): void {
+    this.opened = evt;
+  }
+
+  public close(): void {
+    this.opened = false;
+    this.opener.opened = false;
   }
 
 }
