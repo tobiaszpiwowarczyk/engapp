@@ -1,26 +1,42 @@
+<!-- todo: create dynamic input validation -->
 <div class="container container__form container--centerized">
   <div class="form">
+    <app-loader #registerLoader></app-loader>
     <h1>Zarejestruj się</h1>
     <form [formGroup]="registerForm" (ngSubmit)="register()">
       <div class="form__content">
-        <app-input icon="person" placeholder="Nazwa użytkownika..." formControlName="username" [fluid]="true"></app-input>
-        <app-input type="password" icon="lock" placeholder="Hasło..." formControlName="password" [fluid]="true"></app-input>
+        <app-input icon="person" placeholder="Nazwa użytkownika..." 
+                   formControlName="username" [errors]="filterErrors('username')" 
+                   [fluid]="true" #username></app-input>
+
+        <app-input type="password" icon="lock" placeholder="Hasło..." 
+                   formControlName="password" [errors]="filterErrors('password')" 
+                   [fluid]="true"></app-input>
 
         <hr />
 
-        <app-input icon="label" placeholder="Imię..." formControlName="firstName" [fluid]="true"></app-input>
-        <app-input icon="label" placeholder="Nazwisko..." formControlName="lastName" [fluid]="true"></app-input>
-        <app-input type="email" icon="mail" placeholder="Adres e-mail..." formControlName="email" [fluid]="true"></app-input>
+
+        <app-input icon="label" placeholder="Imię..." 
+                   formControlName="firstName" [errors]="filterErrors('firstName')" 
+                   [fluid]="true"></app-input>
+
+        <app-input icon="label" placeholder="Nazwisko..." 
+                   formControlName="lastName" [errors]="filterErrors('lastName')" 
+                   [fluid]="true"></app-input>
+
+        <app-input type="email" icon="mail" placeholder="Adres e-mail..." 
+                   formControlName="email" [errors]="filterErrors('email')" 
+                   [fluid]="true"></app-input>
 
       </div>
-  
+
       <button type="submit" class="button button--fluid">Zarejestruj się</button>
     </form>
   </div>
   <div class="banner">
     <div class="banner__inner">
       <h1 class="banner__title">EngApp</h1>
-    <p class="banner__description">I nauka angielskiego staje się przyjemniejsza!</p>
+      <p class="banner__description">I nauka angielskiego staje się przyjemniejsza!</p>
     </div>
   </div>
 </div>

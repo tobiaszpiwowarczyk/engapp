@@ -1,6 +1,7 @@
 .form {
   position: relative;
-  width: 380px;
+  min-width: 380px;
+  max-width: 380px;
   padding: 40px;
   display: flex;
   flex-direction: column;

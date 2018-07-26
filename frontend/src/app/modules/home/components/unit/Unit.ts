@@ -1,6 +1,6 @@
 export class Unit {
   id: string;
-  title: string;
+  name: string;
   color: string;
   wordsCount?: number;
   words?: Array<any>;

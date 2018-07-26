@@ -30,7 +30,7 @@ dependencies {
 	compile('org.springframework.cloud:spring-cloud-starter-oauth2')
 	compile('org.springframework.boot:spring-boot-starter-data-mongodb')
 	compile('org.projectlombok:lombok')
-	compile project(":library")
+	compile files("../library/build/libs/library-1.0-SNAPSHOT.jar")
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 

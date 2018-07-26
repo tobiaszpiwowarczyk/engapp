@@ -1,9 +1,13 @@
 <div class="container container__form container--centerized">
   <div class="form">
+    <app-loader #loginLoader></app-loader>
     <h1>Zaloguj się</h1>
     <form [formGroup]="loginForm" (ngSubmit)="login()">
       <div class="form__content">
-        <app-input type="text" icon="person" placeholder="Nazwa użytkownika..." formControlName="username" [fluid]="true"></app-input>
+        <app-message content="Nieprawidłowy login lub hasło" type="warning" *ngIf="hasErrors"></app-message>
+        <app-input type="text" icon="person" placeholder="Nazwa użytkownika..." 
+                   formControlName="username" [fluid]="true"
+                   #username></app-input>
         <app-input type="password" icon="lock" placeholder="Hasło..." formControlName="password" [fluid]="true"></app-input>
       </div>
   

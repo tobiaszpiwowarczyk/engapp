@@ -13,7 +13,12 @@ html, body {
   width: 100%;
   min-height: 100vh;
   font-family: Roboto;
-  background: $light-grey;
+  background: linear-gradient(to bottom, rgba($white, 0.7), rgba($white, 0.7)), url("/assets/img/england-photo.jpg"), {
+    attachment: fixed;
+    size: cover;
+    position: 50% 50%;
+  };
+  color: $black;
   overflow: auto;
 }
 

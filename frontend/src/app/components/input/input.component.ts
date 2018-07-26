@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef, forwardRef, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, forwardRef, Input, OnInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -18,6 +18,7 @@ export class InputComponent implements OnInit, ControlValueAccessor {
   @Input() disabled: boolean = false;
   @Input() value: string = "";
   @Input() fluid: boolean = false;
+  @Input() errors: any[] = [];
 
   focused: boolean = false;
 

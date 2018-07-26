@@ -1,26 +1,44 @@
+import { Headers, RequestOptionsArgs } from '@angular/http';
+import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Unit } from '../../modules/home/components/unit/Unit';
+import { LoginService } from '../login/login.service';
+import { Observable } from 'rxjs/Observable';
 
-// todo: add http requests
+import "rxjs/add/operator/map";
+import "rxjs/add/operator/catch";
+import "rxjs/add/operator/toPromise";
+import "rxjs/add/observable/throw";
+
 @Injectable()
 export class UnitService {
 
-  private units: Array<Unit> = [
-    new Unit({id: "1", title: "Unit 1", color: "#339966"}),
-    new Unit({id: "2", title: "Unit 2", color: "#5E35B1"}),
-    new Unit({id: "3", title: "Unit 3", color: "#D81B60"}),
-    new Unit({id: "4", title: "Unit 4", color: "#43A047"}),
-    new Unit({id: "5", title: "Unit 5", color: "#FB8C00"})
-  ];
+  private headers: Headers;
+  private options: RequestOptionsArgs;
 
-  constructor() { }
+  constructor(
+    private http: Http,
+    private ls: LoginService
+  ) {
+    this.headers = new Headers();
+    this.headers.append(this.ls.AUTHORIZATION_HEADER, this.ls.getAccessToken());
 
-  public findAll(): Array<Unit> {
-    return this.units;
+    this.options = {
+      headers: this.headers
+    };
   }
 
-  public findById(id: string): Unit {
-    return this.units.filter((u: Unit) => u.id === id)[0];
+  public findAll(): Observable<Array<Unit>> {
+    return this.http.get("/db/api/unit", this.options)
+      .map(res => res.json().map(x => new Unit(x)))
+      .catch(err => Observable.throw(err.json()));
+  }
+
+  public findById(id: string): Promise<Unit> {
+    return this.http.get(`/db/api/unit/${id}`, this.options)
+      .map(res => new Unit(res.json()))
+      .catch(err => Observable.throw(err))
+      .toPromise();
   }
 
 }

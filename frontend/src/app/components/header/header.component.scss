@@ -10,7 +10,7 @@
   height: $header-height;
   background: $white;
   box-shadow: $box-shadow;
-  z-index: 10;
+  z-index: $header-z-index;
 
   .wrapper {
     display: flex;
@@ -30,5 +30,13 @@
     position: relative;
     line-height: $header-height;
     padding: 0 20px;
+  }
+
+  &__menu {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    display: flex;
   }
 }
