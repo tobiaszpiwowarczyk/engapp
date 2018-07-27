@@ -4,6 +4,7 @@
   position: relative;
   height: $input-height;
   width: $input-height * 2.5;
+  padding: 0;
   border: none, {
     radius: $border-radius;
   };
@@ -25,5 +26,9 @@
 
   &--fluid {
     width: 100%;
+  }
+
+  &--circular {
+    border-radius: 100%;
   }
 }
