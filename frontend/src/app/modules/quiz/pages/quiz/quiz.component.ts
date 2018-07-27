@@ -35,7 +35,7 @@ export class QuizComponent implements OnInit {
   nums: number[] = [];
 
   points: number = 0;
-  scope: number = 20;
+  scope: number = 0;
   currentWord: number = 1;
   currentBadWord: number = 0;
 
@@ -49,6 +49,7 @@ export class QuizComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(r => {
+      this.scope = parseInt(localStorage.getItem("scope"), 10);
       this.unitService.findById(r.id)
         .then(res => {
           this.unit = res;
