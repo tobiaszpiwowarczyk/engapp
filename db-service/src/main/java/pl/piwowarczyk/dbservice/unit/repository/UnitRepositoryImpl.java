@@ -26,11 +26,11 @@ public class UnitRepositoryImpl implements UnitRepositoryCustom {
     @Override
     public List<Unit> findAllUnits() {
         Aggregation aggregation = UserPermissions.isAdmin() ? newAggregation(
-                project("id", "name", "color", "published")
+                project("id", "name", "color", "image", "published")
                         .and("words").size().as("wordsCount")
         ) : newAggregation(
                 match(where("published").is(true)),
-                project("id", "name", "color")
+                project("id", "name", "color", "image")
         );
 
         return mongoTemplate.aggregate(aggregation, collectionName, Unit.class).getMappedResults();

@@ -2,9 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import "rxjs/add/operator/finally";
-import { LoginService } from '../../../../services/login/login.service';
 import { InputComponent } from '../../../../components/input/input.component';
 import { LoaderComponent } from '../../../../components/loader/loader.component';
+import { LoginService } from '../../../../services/login/login.service';
 
 
 @Component({

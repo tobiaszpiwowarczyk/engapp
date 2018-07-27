@@ -8,11 +8,13 @@
         <app-input type="text" icon="person" placeholder="Nazwa użytkownika..." 
                    formControlName="username" [fluid]="true"
                    #username></app-input>
-        <app-input type="password" icon="lock" placeholder="Hasło..." formControlName="password" [fluid]="true"></app-input>
+        <app-input type="password" icon="lock" placeholder="Hasło..." 
+                   formControlName="password" [fluid]="true"></app-input>
       </div>
   
       <button type="submit" class="button button--fluid">Zaloguj się</button>
     </form>
+
 
     <div class="form__footer">
       <p>Jesli nie posiadasz konta, <a [routerLink]="['/register']">Zarejestruj się</a></p>
