@@ -7,7 +7,6 @@ import pl.piwowarczyk.authservice.user.validator.UserExistence;
 import pl.piwowarczyk.authservice.user.validator.VerifyData;
 import pl.piwowarczyk.authservice.user.validator.order.UserRegisterValidationOrder.*;
 import pl.piwowarczyk.authservice.validator.CorrectId;
-import pl.piwowarczyk.authservice.validator.PasswordStrength;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -27,11 +26,6 @@ public class UserEditionEntity {
     @NotBlank(groups = UsernameNotBlankProperty.class)
     @Size(min = 6, groups = UsernameSizeProperty.class)
     private String username;
-
-    @NotBlank(groups = PasswordNotBlankProperty.class)
-    @Size(min = 7, groups = PasswordSizeProperty.class)
-    @PasswordStrength(groups = PasswordStrengthProperty.class)
-    private String password;
 
     @NotBlank(groups = FirstNameNotBlankProperty.class)
     @CorrectName(groups = FirstNameCorrectProperty.class)

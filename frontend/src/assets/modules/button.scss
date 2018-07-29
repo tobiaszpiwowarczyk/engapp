@@ -1,4 +1,6 @@
+
 @import "../_variables";
+@import "../mixins";
 
 .button {
   position: relative;
@@ -15,13 +17,10 @@
     weight: 900;
   }
   cursor: pointer;
-
-  &:hover {
-    background: lighten($blue, 5%);
-  }
+  @include hoverLayer(lighten($blue, $lighten-offset));
 
   &:active {
-    background: darken($blue, 5%);
+    background: darken($blue, $lighten-offset);
   }
 
   &--fluid {

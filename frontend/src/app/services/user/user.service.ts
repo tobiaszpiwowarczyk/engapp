@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http, RequestOptionsArgs } from '@angular/http';
+import { Headers, Http } from '@angular/http';
 import "rxjs/add/observable/throw";
 import "rxjs/add/operator/catch";
 import "rxjs/add/operator/map";
@@ -12,7 +12,7 @@ import { User } from './User';
 export class UserService {
 
   private headers: Headers;
-  private options: RequestOptionsArgs;
+  private accountHeaders: Headers;
 
   constructor(
     private http: Http,
@@ -21,34 +21,30 @@ export class UserService {
     this.headers = new Headers();
     this.headers.append("Content-Type", "application/json");
 
-    this.options = {
-      headers: this.headers
-    };
+    this.accountHeaders = new Headers();
+    this.accountHeaders.append("Content-Type", "application/json");
+    this.accountHeaders.append(this.ls.AUTHORIZATION_HEADER, this.ls.getAccessToken());
 
   }
 
 
   public register(user: User): Observable<any> {
-    return this.http.post("/auth/api/user", JSON.stringify(user), this.options)
+    return this.http.post("/auth/api/user", JSON.stringify(user), {headers: this.headers})
             .map(res => new User(res.json()))
             .catch(err => Observable.throw(err.json().errors));
   }
 
 
-
-
-  public getUserData(): User {
-    return JSON.parse(localStorage.getItem(this.ls.USER_DATA));
+  public updateUser(user: User): Observable<User> {
+    return this.http.put("/auth/api/user", JSON.stringify(user), {headers: this.accountHeaders})
+        .map(res => new User(res.json()))
+        .catch(err => Observable.throw(err.json().errors));
   }
 
 
 
   public account(): Observable<User> {
-
-    const h = new Headers();
-    h.append(this.ls.AUTHORIZATION_HEADER, this.ls.getAccessToken());
-
-    return this.http.get("/auth/api/user/account", {headers: h})
+    return this.http.get("/auth/api/user/account", {headers: this.accountHeaders})
               .map(res => new User(res.json()))
               .catch(err => Observable.throw(err.json()));
   }

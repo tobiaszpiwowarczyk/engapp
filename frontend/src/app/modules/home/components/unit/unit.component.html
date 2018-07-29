@@ -4,7 +4,7 @@
     'backgroundImage': 'url('+unit?.image+')'
   }">
   <div class="unit__filter">
-    <a [routerLink]="['/quiz', unit?.id]" (click)="saveScope()">
+    <a [routerLink]="['/quiz', unit?.id]" (click)="saveScope()" [attr.title]="unit?.name">
       <h3 class="unit__title">{{unit?.name}}</h3>
     </a>
 
