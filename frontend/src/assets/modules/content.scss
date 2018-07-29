@@ -4,9 +4,10 @@
 
 .content {
   position: relative;
-  margin-top: $header-height;
-  min-height: calc(100vh - #{$header-height});
-  padding: 40px 0;
+  min-height: 100vh;
+  padding: $content-padding 0, {
+    top: $header-height + $content-padding
+  };
 
   @include laptop {
     width: 90%;

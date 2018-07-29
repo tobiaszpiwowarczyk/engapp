@@ -1,7 +1,7 @@
-<div class="header__item">
-    <div class="header__item__image">
-      <div class="material-icons" *ngIf="itemType == 'icon'">{{imageSrc}}</div>
-      <img [attr.src]="imageSrc" alt="image" *ngIf="itemType == 'image'">
-    </div>
-    <p class="header__item__label">{{label}}</p>
+<div class="header__item" [attr.title]="label">
+  <div class="header__item__image">
+    <div class="material-icons" *ngIf="itemType == 'icon'">{{imageSrc}}</div>
+    <img [attr.src]="imageSrc" alt="image" *ngIf="itemType == 'image'">
   </div>
+  <p class="header__item__label">{{label}}</p>
+</div>

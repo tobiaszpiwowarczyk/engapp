@@ -1,9 +1,13 @@
 
 @import "../../../../../assets/_variables";
+@import "../../../../../assets/mixins";
 
+$unit-padding: 30px;
 $unit-option-width: 50px;
 $unit-option-border-width: 3px;
+$unit-btn-width: 60px;
 
+$unit-responsive-offset: 20px;
 
 .unit {
   position: relative;
@@ -22,24 +26,32 @@ $unit-option-border-width: 3px;
     position: relative;
     width: 100%;
     height: 100%;
-    padding: 20px;
     background: rgba($black, 0.4);
+
+    a {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: 100%;
+      padding: $unit-padding;
+      color: $white;
+    }
 
     .button {
       position: absolute;
       bottom: 20px;
       right: 20px;
-      width: 60px;
-      height: 60px;
+      width: $unit-btn-width;
+      height: $unit-btn-width;
       z-index: 4;
       transition: .4s $bezier;
       overflow: hidden;
 
       &__icon {
         position: relative;
-        top: -60px;
-        width: 60px;
-        height: 60px;
+        top: -$unit-btn-width;
+        width: 100%;
+        height: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -58,6 +70,15 @@ $unit-option-border-width: 3px;
 
       &:hover { transform: scale(1.1); }
       &:active { transform: scale(0.9); }
+
+      @include tablet {
+        width: $unit-btn-width + $unit-responsive-offset;
+        height: $unit-btn-width + $unit-responsive-offset;
+
+        &__icon {
+          top: -($unit-btn-width + $unit-responsive-offset);
+        }
+      }
     }
   }
 
@@ -70,7 +91,7 @@ $unit-option-border-width: 3px;
     left: 0;
     width: 100%;
     height: 100%;
-    padding: 20px;
+    padding: $unit-padding;
     background: $black;
     color: $white;
     transition: .4s $bezier;
@@ -120,18 +141,18 @@ $unit-option-border-width: 3px;
 
 
     &:last-child { margin-right: 0; }
-    &:hover { transform: scale(1.2); }
-    &:active { transform: scale(0.9); }
+    &:hover { transform: scale(1.2) !important; }
+    &:active { transform: scale(0.9) !important; }
 
 
 
     &__label {
       position: absolute;
-      top: -4px;
-      left: -4px;
-      width: $unit-option-width + 2px;
-      height: $unit-option-width + 2px;
-      border-radius: $unit-option-width + 2px;
+      top: -($unit-option-border-width);
+      left: -($unit-option-border-width);
+      width: $unit-option-width + ($unit-option-border-width / 2);
+      height: $unit-option-width + ($unit-option-border-width / 2);
+      border-radius: $unit-option-width + ($unit-option-border-width / 2);
       z-index: -1;
       transform: scale(0);
       transition: .4s $bezier;
@@ -146,10 +167,18 @@ $unit-option-border-width: 3px;
         transform: scale(1);
       }
     }
-  }
 
-  a {
-    color: $white;
+    @include tablet {
+      width: $unit-option-width + $unit-responsive-offset;
+      height: $unit-option-width + $unit-responsive-offset;
+      line-height: $unit-option-width + $unit-responsive-offset - $unit-option-border-width;
+      font-size: 19px;
+
+      &__label {
+        width: $unit-option-width + $unit-responsive-offset + ($unit-option-border-width / 2);
+        height: $unit-option-width + $unit-responsive-offset + ($unit-option-border-width / 2);
+      }
+    }
   }
 
 

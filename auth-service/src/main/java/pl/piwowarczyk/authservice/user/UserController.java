@@ -107,7 +107,6 @@ public class UserController {
             @Validated({
                     IdGroupSequence.class,
                     UsernameGroupSequence.class,
-                    PasswordGroupSequence.class,
                     FirstNameNotBlankProperty.class,
                     LastNameGroupSequence.class,
                     EmailGroupSequence.class

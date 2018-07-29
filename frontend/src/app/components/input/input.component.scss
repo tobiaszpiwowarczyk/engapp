@@ -1,7 +1,6 @@
 
 @import "../../../assets/_variables";
 
-$input-border-width: 1px;
 
 .input {
   position: relative;
@@ -81,17 +80,18 @@ $input-border-width: 1px;
 
   &--invalid {
     border-color: $red;
-
-    .input__content {
-      border-bottom: $input-border-width solid $red;
-    }
-
-    .input__errors {
-      display: block;
-    }
     
     * {
       color: $red;
+    }
+  }
+
+  &--invalid & {
+    &__content {
+      border-bottom: $input-border-width solid $red;
+    }
+    &__errors {
+      display: block;
     }
   }
 

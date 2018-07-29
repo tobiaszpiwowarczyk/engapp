@@ -22,7 +22,6 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
                 new Query().addCriteria(where("_id").is(new ObjectId(user.getId()))),
                 new Update() {{
                     if(user.getUsername() != null) set("username", user.getUsername());
-                    if(user.getPassword() != null) set("password", user.getPassword());
                     if(user.getFirstName() != null) set("firstName", user.getFirstName());
                     if(user.getLastName() != null) set("lastName", user.getLastName());
                     if(user.getEmail() != null) set("email", user.getEmail());

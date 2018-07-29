@@ -1,0 +1,69 @@
+<app-header></app-header>
+
+<div class="profile">
+  <div class="profile__background" [ngStyle]="{ 
+    'backgroundImage': 'url(assets/img/mountain-bg.jpg)',
+    'backgroundPosition': backgroundPosition
+  }"></div>
+  <div class="profile__avatar container">
+    <div class="profile__image">
+      <img src="assets/img/default.jpg" [attr.alt]="user?.firstName +' '+ user?.lastName">
+    </div>
+    <div class="profile__data">
+      <h3>{{user?.firstName}} {{user?.lastName}}</h3>
+    </div>
+  </div>
+</div>
+
+<div class="account">
+  <app-tab-menu name="user">
+    <app-tab-menu-item id="data" text="Dane" appMenuActive></app-tab-menu-item>
+    <app-tab-menu-item id="accountSettings" text="Ustawienia"></app-tab-menu-item>
+  </app-tab-menu>
+  <app-tab-view>
+    <app-tab-view-item for="data">
+      <div class="container container__box">
+        <h2 class="container__box__header">Dane użytkownika</h2>
+        <p>Nazywasz się {{user?.firstName}} {{user?.lastName}}</p>
+      </div>
+    </app-tab-view-item>
+    <app-tab-view-item for="accountSettings">
+      <div class="container container__box">
+        <app-loader #accountSettingsLoader></app-loader>
+        <h2 class="container__box__header">Ustawienia konta</h2>
+
+        <!-- todo: add router preloader -->
+        <form [formGroup]="accountForm" (ngSubmit)="update()">
+          
+          <input type="hidden" formControlName="id" />
+
+          <div class="container__box__content">
+            <div class="account__input">
+              <div class="label">Nazwa użytkownika</div>
+              <app-input formControlName="username" [fluid]="true" [errors]="filterErrors('username')" #username></app-input>
+            </div>
+  
+            <div class="account__input">
+              <div class="label">Imię</div>
+              <app-input formControlName="firstName" [errors]="filterErrors('firstName')" [fluid]="true"></app-input>
+            </div>
+            <div class="account__input">
+              <div class="label">Nazwisko</div>
+              <app-input formControlName="lastName" [errors]="filterErrors('lastName')" [fluid]="true"></app-input>
+            </div>
+            <div class="account__input">
+              <div class="label">Adres email</div>
+              <app-input formControlName="email" [errors]="filterErrors('email')" [fluid]="true"></app-input>
+            </div>
+          </div>
+
+          <div class="account__input">
+            <div class="label"></div>
+            <button class="button" type="submit">Zapisz dane</button>
+          </div>
+        </form>
+      </div>
+
+    </app-tab-view-item>
+  </app-tab-view>
+</div>

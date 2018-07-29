@@ -1,6 +1,6 @@
 <div class="header">
   <div class="wrapper">
-    <a class="brand" [routerLink]="['/']">
+    <a class="brand" [routerLink]="['/']" title="Strona główna">
       <h5>EngApp</h5>
     </a>
     <div class="header__subtitle">
@@ -16,7 +16,10 @@
       'header__menu--opened': opened
     }">
       <!-- todo: crete image profile support -->
-      <app-header-item [label]="user?.firstName +' '+ user?.lastName" itemType="image" imageSrc="https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.nzasianleaders.com%2Fwp-content%2Fuploads%2Fdefault-avatar.jpg&f=1"></app-header-item>
+      <app-header-item [label]="user?.firstName +' '+ user?.lastName" 
+                       itemType="image" imageSrc="assets/img/default.jpg"
+                       (click)="account()"></app-header-item>
+
       <app-header-item label="Wyloguj się" imageSrc="power_settings_new" (click)="logout()"></app-header-item>
     </div>
   </div>
