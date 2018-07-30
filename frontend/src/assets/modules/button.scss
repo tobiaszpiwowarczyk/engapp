@@ -17,7 +17,7 @@
     weight: 900;
   }
   cursor: pointer;
-  @include hoverLayer(lighten($blue, $lighten-offset));
+  @include hoverLayer(rgba($white, 0.15));
 
   &:active {
     background: darken($blue, $lighten-offset);
@@ -29,5 +29,10 @@
 
   &--circular {
     border-radius: 100%;
+  }
+
+
+  @include mobile {
+    width: 100%;
   }
 }

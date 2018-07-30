@@ -1,3 +1,4 @@
+import { HeaderComponent } from './../../../../components/header/header.component';
 import { InputComponent } from '../../../../components/input/input.component';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Unit } from '../../../home/components/unit/Unit';
@@ -19,6 +20,7 @@ export class QuizComponent implements OnInit {
 
   @ViewChild("wordInput") wordInput: InputComponent;
   @ViewChild("quizLoader") quizLoader: LoaderComponent;
+  @ViewChild("header") header: HeaderComponent;
 
   unit: Unit;
   word: Word;
@@ -54,6 +56,7 @@ export class QuizComponent implements OnInit {
         .then(res => {
           this.unit = res;
           this.title.setTitle("EngApp - Rozdział: " + this.unit.name);
+          this.header.showSubtitle();
           this.renderWord();
         }, err => this.errors = err);
     });

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TabMenuItemComponent } from '../tab-menu-item/tab-menu-item.component';
-import { TabViewItemComponent } from './../tab-view-item/tab-view-item.component';
+import { TabViewItemComponent } from '../tab-view-item/tab-view-item.component';
 
 @Injectable()
 export class TabService {

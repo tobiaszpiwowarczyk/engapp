@@ -6,11 +6,12 @@
   position: relative;
   width: 300px;
   background: $white;
-  border: $input-border-width solid $grey, {
+  border: $input-border-width solid darken($white, 40%), {
     radius: 3px;
   };
   margin: 10px 0;
   overflow: hidden;
+  transition: border-color .4s $bezier;
 
   &__content {
     position: relative;
@@ -26,7 +27,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: $grey;
+    color: darken($white, 40%);
+    transition: .4s $bezier;
   }
 
   input {
@@ -62,6 +64,9 @@
     width: 100%;
   }
 
+  &--compact {
+    margin: 0;
+  }
 
   &--focused {
     border-color: $black;

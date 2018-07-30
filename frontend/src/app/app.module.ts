@@ -4,8 +4,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { UserService } from './services/user/user.service';
 import { LoginService } from './services/login/login.service';
+import { ThemeService } from './services/theme/theme.service';
+import { UserService } from './services/user/user.service';
 
 
 @NgModule({
@@ -18,7 +19,7 @@ import { LoginService } from './services/login/login.service';
     RouterModule,
     HttpModule
   ],
-  providers: [UserService, LoginService],
+  providers: [UserService, LoginService, ThemeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

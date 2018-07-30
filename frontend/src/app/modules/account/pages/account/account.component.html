@@ -28,6 +28,20 @@
       </div>
     </app-tab-view-item>
     <app-tab-view-item for="accountSettings">
+
+      <div class="container container__box">
+        <h2 class="container__box__loader">Ustawienia ogólne</h2>
+
+        <div class="container__box__content">
+          <div class="account__option">
+            <div class="account__option__label">Ciemny motyw</div>
+            <div class="account__option__input">
+              <app-switch (onchange)="switchTheme($event)" #themeSwitch></app-switch>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="container container__box">
         <app-loader #accountSettingsLoader></app-loader>
         <h2 class="container__box__header">Ustawienia konta</h2>
@@ -38,27 +52,35 @@
           <input type="hidden" formControlName="id" />
 
           <div class="container__box__content">
-            <div class="account__input">
-              <div class="label">Nazwa użytkownika</div>
-              <app-input formControlName="username" [fluid]="true" [errors]="filterErrors('username')" #username></app-input>
+            <div class="account__option">
+              <div class="account__option__label">Nazwa użytkownika</div>
+              <div class="account__option__input">
+                <app-input formControlName="username" [errors]="filterErrors('username')" appInputFluid appInputCompact #username></app-input>
+              </div>
             </div>
   
-            <div class="account__input">
-              <div class="label">Imię</div>
-              <app-input formControlName="firstName" [errors]="filterErrors('firstName')" [fluid]="true"></app-input>
+            <div class="account__option">
+              <div class="account__option__label">Imię</div>
+              <div class="account__option__input">
+                <app-input formControlName="firstName" [errors]="filterErrors('firstName')" appInputFluid appInputCompact></app-input>
+              </div>
             </div>
-            <div class="account__input">
-              <div class="label">Nazwisko</div>
-              <app-input formControlName="lastName" [errors]="filterErrors('lastName')" [fluid]="true"></app-input>
+            <div class="account__option">
+              <div class="account__option__label">Nazwisko</div>
+              <div class="account__option__input">
+                <app-input formControlName="lastName" [errors]="filterErrors('lastName')" appInputFluid appInputCompact></app-input>
+              </div>
             </div>
-            <div class="account__input">
-              <div class="label">Adres email</div>
-              <app-input formControlName="email" [errors]="filterErrors('email')" [fluid]="true"></app-input>
+            <div class="account__option">
+              <div class="account__option__label">Adres email</div>
+              <div class="account__option__input">
+                <app-input formControlName="email" [errors]="filterErrors('email')" appInputFluid appInputCompact></app-input>
+              </div>
             </div>
           </div>
 
-          <div class="account__input">
-            <div class="label"></div>
+          <div class="account__option">
+            <div class="account__option__label"></div>
             <button class="button" type="submit">Zapisz dane</button>
           </div>
         </form>
