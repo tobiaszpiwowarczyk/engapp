@@ -7,26 +7,26 @@
       <div class="form__content">
         <app-input icon="person" placeholder="Nazwa użytkownika..." 
                    formControlName="username" [errors]="filterErrors('username')" 
-                   [fluid]="true" #username></app-input>
+                   appInputFluid #username></app-input>
 
         <app-input type="password" icon="lock" placeholder="Hasło..." 
                    formControlName="password" [errors]="filterErrors('password')" 
-                   [fluid]="true"></app-input>
+                   appInputFluid></app-input>
 
         <hr />
 
 
         <app-input icon="label" placeholder="Imię..." 
                    formControlName="firstName" [errors]="filterErrors('firstName')" 
-                   [fluid]="true"></app-input>
+                   appInputFluid></app-input>
 
         <app-input icon="label" placeholder="Nazwisko..." 
                    formControlName="lastName" [errors]="filterErrors('lastName')" 
-                   [fluid]="true"></app-input>
+                   appInputFluid></app-input>
 
         <app-input type="email" icon="mail" placeholder="Adres e-mail..." 
                    formControlName="email" [errors]="filterErrors('email')" 
-                   [fluid]="true"></app-input>
+                   appInputFluid></app-input>
 
       </div>
 

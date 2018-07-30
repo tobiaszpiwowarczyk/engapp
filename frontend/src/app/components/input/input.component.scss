@@ -1,17 +1,17 @@
 
 @import "../../../assets/_variables";
 
-$input-border-width: 1px;
 
 .input {
   position: relative;
   width: 300px;
   background: $white;
-  border: $input-border-width solid $grey, {
+  border: $input-border-width solid darken($white, 40%), {
     radius: 3px;
   };
   margin: 10px 0;
   overflow: hidden;
+  transition: border-color .4s $bezier;
 
   &__content {
     position: relative;
@@ -27,7 +27,8 @@ $input-border-width: 1px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: $grey;
+    color: darken($white, 40%);
+    transition: .4s $bezier;
   }
 
   input {
@@ -63,6 +64,9 @@ $input-border-width: 1px;
     width: 100%;
   }
 
+  &--compact {
+    margin: 0;
+  }
 
   &--focused {
     border-color: $black;
@@ -81,17 +85,18 @@ $input-border-width: 1px;
 
   &--invalid {
     border-color: $red;
-
-    .input__content {
-      border-bottom: $input-border-width solid $red;
-    }
-
-    .input__errors {
-      display: block;
-    }
     
     * {
       color: $red;
+    }
+  }
+
+  &--invalid & {
+    &__content {
+      border-bottom: $input-border-width solid $red;
+    }
+    &__errors {
+      display: block;
     }
   }
 

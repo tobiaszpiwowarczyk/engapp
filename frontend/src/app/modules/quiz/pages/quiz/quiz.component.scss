@@ -76,4 +76,8 @@
       color: $red;
     }
   }
+
+  @include tablet {
+    padding-top: 200px;
+  }
 }

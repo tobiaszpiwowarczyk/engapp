@@ -5,11 +5,11 @@
     <form [formGroup]="loginForm" (ngSubmit)="login()">
       <div class="form__content">
         <app-message content="Nieprawidłowy login lub hasło" type="warning" *ngIf="hasErrors"></app-message>
-        <app-input type="text" icon="person" placeholder="Nazwa użytkownika..." 
-                   formControlName="username" [fluid]="true"
+        <app-input icon="person" placeholder="Nazwa użytkownika..." 
+                   formControlName="username" appInputFluid
                    #username></app-input>
         <app-input type="password" icon="lock" placeholder="Hasło..." 
-                   formControlName="password" [fluid]="true"></app-input>
+                   formControlName="password" appInputFluid></app-input>
       </div>
   
       <button type="submit" class="button button--fluid">Zaloguj się</button>

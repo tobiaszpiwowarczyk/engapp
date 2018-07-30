@@ -20,10 +20,12 @@
       position: relative;
       height: 100%;
       line-height: $header-height;
-      width: 120px;
+      padding: 0 $content-padding;
       background: $blue;
       color: $white;
       text-align: center;
+      z-index: 1;
+      @include hoverLayer(rgba($white, 0.15));
     }
   }
 
@@ -32,6 +34,16 @@
     padding: 0 20px;
     display: flex;
     align-items: center;
+    background: $white;
+
+    @include tablet {
+      position: absolute;
+      top: $header-height;
+      left: 0;
+      width: 100%;
+      height: $header-height;
+      justify-content: center;
+    }
   }
 
   &__menu {

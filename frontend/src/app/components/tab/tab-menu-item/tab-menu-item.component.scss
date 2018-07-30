@@ -1,0 +1,35 @@
+
+@import "../../../../assets/_variables";
+@import "../../../../assets/mixins";
+
+.tab-menu__item {
+  position: relative;
+  height: 50px;
+  line-height: 50px;
+  padding: 0 20px;
+  text-transform: uppercase;
+  cursor: pointer;
+  @include hoverLayer(rgba($black, 0.2));
+
+  &::after {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: 0;
+    transition: .4s $bezier;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background: $black;
+  }
+
+  &--active {
+    font-weight: 900;
+    background: rgba($black, 0.4);
+
+    &::after { width: 100%; left: 0; }
+    &:hover::before {
+      height: 0;
+    }
+  }
+}

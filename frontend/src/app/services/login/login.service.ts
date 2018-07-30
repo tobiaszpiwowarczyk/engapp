@@ -4,8 +4,10 @@ import { Router } from '@angular/router';
 import "rxjs/add/observable/throw";
 import "rxjs/add/operator/catch";
 import "rxjs/add/operator/map";
+import "rxjs/add/operator/finally";
 import { Observable } from 'rxjs/Observable';
 import { Credentials } from './Credentials';
+import { User } from '../user/User';
 
 @Injectable()
 export class LoginService {
@@ -13,9 +15,9 @@ export class LoginService {
 
   private readonly BEARER_PREFIX: string = "Bearer ";
   private loginHeaders: Headers;
+  private user: User;
 
   public readonly AUTHORIZATION_HEADER: string = "Authorization";
-  public readonly USER_DATA: string = "userData";
 
 
 
@@ -47,9 +49,12 @@ export class LoginService {
   }
 
 
+  public getUserData(): User {
+    return this.user;
+  }
 
-  public saveUserData(data: any): void {
-    localStorage.setItem(this.USER_DATA, JSON.stringify(data));
+  public saveUserData(user: User): void {
+    this.user = user;
   }
 
 
@@ -70,16 +75,30 @@ export class LoginService {
               .map(res => res.json())
               .map(res => {
                 this.saveToken(res.access_token);
-                this.router.navigate(["/"]);
+                this.account()
+                  .finally(() => this.router.navigate(["/"]))
+                  .subscribe((acc: User) => this.saveUserData(acc));
                 return res;
               })
               .catch(err => Observable.throw(err.json()));
   }
 
 
+  public account(): Observable<User> {
+
+    const h = new Headers();
+    h.append(this.AUTHORIZATION_HEADER, this.getAccessToken());
+
+    return this.http.get("/auth/api/user/account", {headers: h})
+              .map(res => new User(res.json()))
+              .catch(err => Observable.throw(err.json()));
+  }
+
+
   public logout(): void {
     localStorage.removeItem(this.AUTHORIZATION_HEADER);
-    localStorage.removeItem(this.USER_DATA);
+    localStorage.removeItem("scope");
+    this.user = null;
     this.router.navigate(["/login"]);
   }
 

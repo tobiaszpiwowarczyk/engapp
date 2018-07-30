@@ -1,0 +1,14 @@
+
+@import "../../../../assets/_variables";
+
+.tab-view__item {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: $content-padding 0;
+  display: none;
+
+  &--active {
+    display: block;
+  }
+}

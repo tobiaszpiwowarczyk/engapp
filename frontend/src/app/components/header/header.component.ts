@@ -1,14 +1,13 @@
-import { MenuOpenerComponent } from './menu-opener/menu-opener.component';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, DoCheck, AfterViewInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { LoginService } from '../../services/login/login.service';
 import { User } from '../../services/user/User';
-import { UserService } from '../../services/user/user.service';
+import { MenuOpenerComponent } from './menu-opener/menu-opener.component';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  providers: [LoginService, UserService],
 })
 export class HeaderComponent implements OnInit {
 
@@ -16,23 +15,15 @@ export class HeaderComponent implements OnInit {
 
   user: User;
   opened: boolean = false;
+  subtitleShown: boolean = false;
 
   constructor(
     private ls: LoginService,
-    private us: UserService
-  ) { }
+    private router: Router
+  ) {}
 
   ngOnInit() {
-
-    this.us.account()
-      .subscribe(res => {
-        this.ls.saveUserData(res);
-        this.user = this.us.getUserData();
-      }, err => console.error(err));
-
-    if(this.us.getUserData() != null) {
-      this.user = this.us.getUserData();
-    }
+    this.user = this.ls.getUserData();
   }
 
 
@@ -49,4 +40,11 @@ export class HeaderComponent implements OnInit {
     this.opener.opened = false;
   }
 
+  public account(): void {
+    this.router.navigate(["/account", this.user.username]);
+  }
+
+  public showSubtitle(): void {
+    this.subtitleShown = true;
+  }
 }
