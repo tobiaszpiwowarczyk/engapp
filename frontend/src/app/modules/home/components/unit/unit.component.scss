@@ -18,7 +18,8 @@ $unit-responsive-offset: 20px;
   overflow: hidden;
   background: {
     position: 50%;
-    size: 100%;
+    size: cover;
+    repeat: no-repeat;
   };
   transition: .4s $bezier;
 
@@ -150,9 +151,9 @@ $unit-responsive-offset: 20px;
       position: absolute;
       top: -($unit-option-border-width);
       left: -($unit-option-border-width);
-      width: $unit-option-width + ($unit-option-border-width / 2);
-      height: $unit-option-width + ($unit-option-border-width / 2);
-      border-radius: $unit-option-width + ($unit-option-border-width / 2);
+      width: $unit-option-width;
+      height: $unit-option-width;
+      border-radius: $unit-option-width;
       z-index: -1;
       transform: scale(0);
       transition: .4s $bezier;
@@ -165,18 +166,6 @@ $unit-responsive-offset: 20px;
     &--active & {
       &__label {
         transform: scale(1);
-      }
-    }
-
-    @include tablet {
-      width: $unit-option-width + $unit-responsive-offset;
-      height: $unit-option-width + $unit-responsive-offset;
-      line-height: $unit-option-width + $unit-responsive-offset - $unit-option-border-width;
-      font-size: 19px;
-
-      &__label {
-        width: $unit-option-width + $unit-responsive-offset + ($unit-option-border-width / 2);
-        height: $unit-option-width + $unit-responsive-offset + ($unit-option-border-width / 2);
       }
     }
   }

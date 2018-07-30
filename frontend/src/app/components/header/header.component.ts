@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit {
 
   user: User;
   opened: boolean = false;
+  subtitleShown: boolean = false;
 
   constructor(
     private ls: LoginService,
@@ -43,4 +44,7 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(["/account", this.user.username]);
   }
 
+  public showSubtitle(): void {
+    this.subtitleShown = true;
+  }
 }

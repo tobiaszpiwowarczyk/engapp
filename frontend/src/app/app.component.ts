@@ -1,3 +1,4 @@
+import { ThemeService } from './services/theme/theme.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from './services/login/login.service';
@@ -11,10 +12,14 @@ export class AppComponent implements OnInit {
 
   constructor(
     private ls: LoginService,
-    private router: Router
+    private router: Router,
+    private theme: ThemeService
   ) {}
 
   ngOnInit(): void {
+
+    this.theme.initTheme();
+
     if (!this.ls.isAuthenticated()) {
       if(window.location.pathname !== "/register" && window.location.pathname !== "/login") {
         this.router.navigate(["/login"]);

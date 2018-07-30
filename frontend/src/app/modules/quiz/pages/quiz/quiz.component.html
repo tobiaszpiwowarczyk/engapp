@@ -1,4 +1,4 @@
-<app-header>
+<app-header #header>
   <h3>Rozdział: <span [ngStyle]="{'color': unit?.color}">{{unit?.name}}</span></h3>
 </app-header>
 
@@ -9,7 +9,7 @@
 
     <h4>{{word?.polish}}</h4>
     <form [formGroup]="quizForm">
-      <app-input formControlName="word" [fluid]="true" #wordInput></app-input>
+      <app-input formControlName="word" appInputFluid #wordInput></app-input>
       <button class="button button--fluid" type="submit"
               (click)="check()"
               [ngStyle]="{'background': unit?.color}"

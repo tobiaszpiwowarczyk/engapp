@@ -4,7 +4,9 @@ import "rxjs/add/operator/finally";
 import { LoaderComponent } from '../../../../components/loader/loader.component';
 import { User } from '../../../../services/user/User';
 import { UserService } from '../../../../services/user/user.service';
-import { LoginService } from './../../../../services/login/login.service';
+import { LoginService } from '../../../../services/login/login.service';
+import { ThemeService } from '../../../../services/theme/theme.service';
+import { SwitchComponent } from '../../../../components/switch/switch.component';
 
 
 @Component({
@@ -24,11 +26,13 @@ export class AccountComponent implements OnInit {
   errors: any[] = [];
 
   @ViewChild("accountSettingsLoader") accountSettingsLoader: LoaderComponent;
+  @ViewChild("themeSwitch") themeSwitch: SwitchComponent;
 
   constructor(
     private ls: LoginService,
     private us: UserService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private themeService: ThemeService
   ) { }
 
   ngOnInit() {
@@ -40,6 +44,7 @@ export class AccountComponent implements OnInit {
       lastName: [this.user.lastName],
       email: [this.user.email]
     });
+    this.themeSwitch.value = this.themeService.isDarkTheme();
   }
 
   // todo: fix parallax issue in Chrome
@@ -54,6 +59,10 @@ export class AccountComponent implements OnInit {
       .subscribe((res: User) => {
         this.ls.saveUserData(res);
       }, err => this.errors = err);
+  }
+
+  public switchTheme(dark: boolean): void {
+    this.themeService.switchTheme(dark ? "dark" : "light");
   }
 
   public filterErrors(field: string): any[] {

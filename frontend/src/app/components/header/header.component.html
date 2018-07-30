@@ -3,7 +3,7 @@
     <a class="brand" [routerLink]="['/']" title="Strona główna">
       <h5>EngApp</h5>
     </a>
-    <div class="header__subtitle">
+    <div class="header__subtitle" *ngIf="subtitleShown">
       <ng-content></ng-content>
     </div>
 

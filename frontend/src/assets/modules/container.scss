@@ -24,6 +24,7 @@
 
   &__box {
     padding: $content-padding;
+    margin-bottom: $content-padding;
 
     &__header {
       margin-bottom: $content-padding;
@@ -31,6 +32,10 @@
 
     &__content {
       margin: $content-padding 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
     }
   }
 
