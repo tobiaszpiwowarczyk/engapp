@@ -1,0 +1,20 @@
+
+:host-context(body.dark-theme) {
+  .input {
+    background: $black;
+    color: $white;
+
+    input {
+      color: $white;
+    }
+
+    &--focused {
+      border-color: $white;
+      box-shadow: 0 0 10px rgba($white, 0.4);
+  
+      .input__icon {
+        color: $white !important;
+      }
+    }
+  }
+}

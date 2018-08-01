@@ -1,4 +1,4 @@
-import { InputComponent } from './input.component';
+import { InputComponent } from '../input.component';
 import { Directive } from '@angular/core';
 
 @Directive({

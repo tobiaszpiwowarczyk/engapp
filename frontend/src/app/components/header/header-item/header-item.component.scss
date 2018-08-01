@@ -65,4 +65,9 @@
   @include tablet {
     padding: 20px;
   }
+
+  :host-context(body.dark-theme) & {
+    &::before { background: rgba($white, 0.2); }
+    &::after { background: $white; }
+  }
 }
