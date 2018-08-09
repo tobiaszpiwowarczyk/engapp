@@ -3,6 +3,7 @@
 @import "loader.dark-theme";
 
 $loader-width: 50;
+$loader-width-tiny: 30;
 $loader-stroke-width: 6;
 $loader-animation-time: 1.35s;
 
@@ -39,6 +40,16 @@ $loader-animation-time: 1.35s;
   &--no-fill {
     background: none;
   }
+
+  &--tiny {
+    circle {
+      stroke: {
+        dasharray: ($loader-width-tiny - $loader-stroke-width) * 3.14;
+        dashoffset: ($loader-width-tiny - $loader-stroke-width) * 3.14;
+      };
+      animation: circle-anim-tiny $loader-animation-time ease-in-out infinite;
+    }
+  }
 }
 
 
@@ -51,17 +62,22 @@ $loader-animation-time: 1.35s;
   }
 }
 
-@keyframes circle-anim {
-  0%{
-    stroke-dashoffset: ($loader-width - $loader-stroke-width) * 3.14;
-    transform: rotate(0);
-  }
-  50% {
-    stroke-dashoffset: $loader-width - $loader-stroke-width;
-    transform: rotate(135deg);
-  }
-  100% {
-    stroke-dashoffset: ($loader-width - $loader-stroke-width) * 3.14;
-    transform: rotate(450deg);
+@mixin circleAnim($name, $width) {
+  @keyframes #{$name} {
+    0%{
+      stroke-dashoffset: ($width - $loader-stroke-width) * 3.14;
+      transform: rotate(0);
+    }
+    50% {
+      stroke-dashoffset: $width - $loader-stroke-width;
+      transform: rotate(135deg);
+    }
+    100% {
+      stroke-dashoffset: ($width - $loader-stroke-width) * 3.14;
+      transform: rotate(450deg);
+    }
   }
 }
+
+@include circleAnim("circle-anim", $loader-width);
+@include circleAnim("circle-anim-tiny", $loader-width-tiny);

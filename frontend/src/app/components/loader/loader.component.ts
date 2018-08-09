@@ -7,9 +7,10 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class LoaderComponent implements OnInit {
 
-  @Input() noFill: boolean = false;
+  @Input() visible: boolean = false;
 
-  visible: boolean = false;
+  noFill: boolean = false;
+  tiny: boolean = false;
 
   loaderWidth: number = 50;
   loaderStrokeWidth: number = 6;
