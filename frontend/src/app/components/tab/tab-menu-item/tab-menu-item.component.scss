@@ -32,4 +32,11 @@
       height: 0;
     }
   }
+
+  :host-context(body.dark-theme) & {
+    &--active { background: rgba($white, 0.4); }
+
+    &::before { background: rgba($white, 0.2); }
+    &::after { background: $white; }
+  }
 }

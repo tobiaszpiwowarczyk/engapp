@@ -11,4 +11,9 @@
   display: flex;
   align-items: flex-end;
   justify-content: center;
+
+  :host-context(body.dark-theme) & {
+    background: $black;
+    color: $white;
+  }
 }
