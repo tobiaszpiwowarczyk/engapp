@@ -11,11 +11,7 @@ import java.util.stream.Collectors;
 
 public class ValidationService {
     
-    public static ResponseEntity<List<CustomValidationError>> validate(BindingResult bindingResult, MessageSource messageSource) {
-        return validate(bindingResult, messageSource, "");
-    }
-    
-    public static ResponseEntity<List<CustomValidationError>> validate(BindingResult bindingResult, MessageSource messageSource, String field) {
+    public ResponseEntity<List<CustomValidationError>> validate(BindingResult bindingResult, MessageSource messageSource, String field) {
         List<CustomValidationError> errors = ExceptionHandlerUtils.handleMethodArgumentNotValidException(bindingResult, messageSource).getErrors();
         
         if(!field.equals("")) 

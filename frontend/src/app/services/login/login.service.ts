@@ -3,11 +3,12 @@ import { Headers, Http, URLSearchParams } from "@angular/http";
 import { Router } from '@angular/router';
 import "rxjs/add/observable/throw";
 import "rxjs/add/operator/catch";
-import "rxjs/add/operator/map";
 import "rxjs/add/operator/finally";
+import "rxjs/add/operator/map";
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { Observable } from 'rxjs/Observable';
+import { User } from './../user/User';
 import { Credentials } from './Credentials';
-import { User } from '../user/User';
 
 @Injectable()
 export class LoginService {
@@ -16,6 +17,7 @@ export class LoginService {
   private readonly BEARER_PREFIX: string = "Bearer ";
   private loginHeaders: Headers;
   private user: User;
+  private behaviorUser: BehaviorSubject<User> = new BehaviorSubject<User>(new User());
 
   public readonly AUTHORIZATION_HEADER: string = "Authorization";
 
@@ -48,13 +50,17 @@ export class LoginService {
     localStorage.setItem(this.AUTHORIZATION_HEADER, accessToken);
   }
 
-
-  public getUserData(): User {
+  public getUser(): User {
     return this.user;
+  }
+
+  public getUserData(): Observable<User> {
+    return this.behaviorUser.asObservable();
   }
 
   public saveUserData(user: User): void {
     this.user = user;
+    this.behaviorUser.next(user);
   }
 
 

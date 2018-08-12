@@ -8,6 +8,7 @@ import { TabModule } from '../../components/tab/tab.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { InputModule } from '../../components/input/input.module';
 import { SwitchModule } from '../../components/switch/switch.module';
+import { MessageModule } from '../../components/message/message.module';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { SwitchModule } from '../../components/switch/switch.module';
     HeaderModule,
     TabModule,
     SwitchModule,
+    MessageModule,
     AccountRoutingModule,
     ReactiveFormsModule,
     FormsModule

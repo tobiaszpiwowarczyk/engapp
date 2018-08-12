@@ -1,3 +1,4 @@
+import { MessageComponent } from './../../../../components/message/message.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
@@ -14,10 +15,10 @@ import "rxjs/add/operator/finally";
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
-  hasErrors: boolean = false;
 
   @ViewChild("username") username: InputComponent;
   @ViewChild("loginLoader") loginLoader: LoaderComponent;
+  @ViewChild("loginMessage") loginMessage: MessageComponent;
 
   constructor(
     private fb: FormBuilder,
@@ -41,7 +42,7 @@ export class LoginComponent implements OnInit {
       this.ls.login(this.loginForm.value)
         .finally(() => this.loginLoader.hide())
         .subscribe(() => {}, () => {
-          this.hasErrors = true;
+          this.loginMessage.show();
           this.loginForm.reset();
           this.username.focus();
         });

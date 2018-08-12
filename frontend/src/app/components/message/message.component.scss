@@ -1,21 +1,31 @@
 
 @import "../../../assets/_variables";
 
+$message-height: 60px;
+
 .message {
   position: relative;
   width: 100%;
-  min-height: 50px;
+  min-height: $message-height;
   display: flex;
-  align-items: center;
+  justify-content: space-between;
   color: $black;
   border-radius: $border-radius;
-  padding: 15px 0, {
-    right: 15px;
-  };
+
+
+  &__collumn {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 15px 0, {
+      right: 15px;
+    };
+  }
 
   &__icon {
     position: relative;
-    min-width: 50px;
+    min-width: $message-height;
     text-align: center;
   }
 
@@ -23,6 +33,16 @@
     font-size: 16px;
     font-weight: 900;
     word-wrap: break-word;
+  }
+
+  &__close-btn {
+    position: relative;
+    min-width: $message-height;
+    min-height: 100%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
 
