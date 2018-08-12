@@ -49,7 +49,6 @@
 
         <app-message content="Użytkownik został zaktualizowany pomyślnie" #accountSettingsMessage></app-message>
 
-        <!-- todo: add router preloader -->
         <form [formGroup]="accountForm" (ngSubmit)="update()">
           
           <input type="hidden" formControlName="id" />
