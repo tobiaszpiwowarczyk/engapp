@@ -34,9 +34,10 @@ export class UserService {
             .catch(err => Observable.throw(err.json().errors));
   }
 
+  // todo: catch http error status
   public validateRegister(user: User, field: string = ""): Observable<any> {
     return this.http.post(`/auth/api/user/validate?field=${field}`, JSON.stringify(user), {headers: this.headers})
-            .map(res => new User(res.json()))
+            .map(res => res.json())
             .catch(err => Observable.throw(err.json()));
   }
 
@@ -44,6 +45,13 @@ export class UserService {
     return this.http.put("/auth/api/user", JSON.stringify(user), {headers: this.accountHeaders})
         .map(res => new User(res.json()))
         .catch(err => Observable.throw(err.json().errors));
+  }
+
+  // todo: catch http error status
+  public validateUpdateUser(user: User, field: string = ""): Observable<any> {
+    return this.http.put(`/auth/api/user/validate?field=${field}`, JSON.stringify(user), {headers: this.accountHeaders})
+            .map(res => res.json())
+            .catch(err => Observable.throw(err.json()));
   }
 
 

@@ -19,20 +19,23 @@ public class VerifyDataValidator implements ConstraintValidator<VerifyData, User
     public boolean isValid(UserEditionEntity user, ConstraintValidatorContext context) {
         context.disableDefaultConstraintViolation();
         User userFound = userRepository.findById(user.getId()).get();
+
+        String username = user.getUsername() != null ? user.getUsername() : "";
+        String email = user.getEmail() != null ? user.getEmail() : "";
         
-        if(user.getUsername().equals(userFound.getUsername()) && user.getEmail().equals(userFound.getEmail()))
+        if(username.equals(userFound.getUsername()) && email.equals(userFound.getEmail()))
             return true;
         
-        if(!user.getUsername().equals(userFound.getUsername()) && userRepository.existsBy("username", user.getUsername()))
+        if(!username.equals(userFound.getUsername()) && userRepository.existsBy("username", username))
             context.buildConstraintViolationWithTemplate("{UserExistence.username}")
                 .addPropertyNode("username").addConstraintViolation();
-            
-        if(!user.getEmail().equals(userFound.getEmail()) && userRepository.existsBy("email", user.getEmail()))
+        
+        if(!email.equals(userFound.getEmail()) && userRepository.existsBy("email", email))
             context.buildConstraintViolationWithTemplate("{UserExistence.email}")
                 .addPropertyNode("email").addConstraintViolation();
 
-        return !userRepository.existsBy("username", user.getUsername()) ||
-               !userRepository.existsBy("email", user.getEmail());
+        return !userRepository.existsBy("username", username) ||
+               !userRepository.existsBy("email", email);
 
     }
 }

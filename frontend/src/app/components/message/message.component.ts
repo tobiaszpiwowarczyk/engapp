@@ -20,4 +20,12 @@ export class MessageComponent implements OnInit {
   ngOnInit() {
     this.messageType = MessageTypeFactory.getInstance(this.type);
   }
+
+  public show(): void {
+    this.shown = true;
+  }
+
+  public hide(): void {
+    this.shown = false;
+  }
 }

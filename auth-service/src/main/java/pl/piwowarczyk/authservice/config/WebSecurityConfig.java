@@ -37,8 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers(HttpMethod.POST, "/api/user")
-                .antMatchers("/api/user/validate");
+                .antMatchers(HttpMethod.POST, "/api/user", "/api/user/validate");
     }
 
     @Override

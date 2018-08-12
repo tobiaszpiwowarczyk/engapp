@@ -9,12 +9,24 @@
     }
 
     &--focused {
-      border-color: $white;
-      box-shadow: 0 0 10px rgba($white, 0.4);
+      @include inputFocus($white);
+    }
+
+    &--invalid {
+      @include inputFocus($red);
+    }
   
-      .input__icon {
-        color: $white !important;
+    &--invalid & {
+      &__content {
+        border-bottom: $input-border-width solid $red;
       }
+      &__errors {
+        display: block;
+      }
+    }
+
+    &--valid {
+      @include inputFocus($green);
     }
   }
 }

@@ -23,7 +23,8 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.user = this.ls.getUserData();
+    this.ls.getUserData()
+      .subscribe((user: User) => this.user = user);
   }
 
 

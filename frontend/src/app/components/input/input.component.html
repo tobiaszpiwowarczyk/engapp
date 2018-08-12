@@ -3,7 +3,7 @@
   'input--fluid': fluid,
   'input--disabled': disabled,
   'input--invalid': control?.errors && (control.dirty || control.touched),
-  'input--valid': control?.valid,
+  'input--valid': control?.valid && (control.dirty || control.touched),
   'input--compact': compact
 }">
   <div class="input__content">
@@ -17,15 +17,7 @@
           [disabled]="disabled" />
   </div>
 
-  <!-- todo: create validation message factory -->
-  <div class="input__errors" [ngSwitch]="control?.errors | firstError">
-    <p *ngSwitchCase="'required'">To pole jest wymagane</p>
-    <p *ngSwitchCase="'pattern'">To pole posiada nieprawidłową składnię</p>
-    <p *ngSwitchCase="'nameRegex'">Podana nazwa jest nieprawidłowa</p>
-    <p *ngSwitchCase="'emailRegex'">Adres e-mail jest nieprawidłowy</p>
-    <p *ngSwitchCase="'minlength'">Podana wartość jest za krótka, posiada <b>{{control?.errors?.minlength?.actualLength}}</b> znaków. Musi zawierać conajmniej <b>{{control?.errors?.minlength?.requiredLength}}</b> znaków</p>
-    <p *ngSwitchCase="'strength'">Podane hasło jest za słabe. Musi zawierać cyfry, duże i małe litery a także znaki specjalne</p>
-    <p *ngSwitchCase="'usernameTaken'">Użytkownik o podanej nazwie użytkownika już istnieje</p>
-    <p *ngSwitchCase="'emailTaken'">Już istnieje konto z podanym adresem e-mail</p>
+  <div class="input__errors">
+    <p [innerHTML]="getError(control?.errors | firstError)"></p>
   </div>
 </div>

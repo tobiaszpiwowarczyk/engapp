@@ -31,6 +31,7 @@ public class UserController {
     
     private UserServiceImpl userService;
     private MessageSource messageSource;
+    private ValidationService validationService;
 
     
     
@@ -108,7 +109,6 @@ public class UserController {
      * @param field {@link String} - class field
      * @return {@link ResponseEntity<List<CustomValidationError>>} errors
      */
-    // todo: Fix unauthorized issue
     @PostMapping("validate")
     public ResponseEntity<List<CustomValidationError>> addUserValidation(
             @Validated({
@@ -121,7 +121,7 @@ public class UserController {
             @RequestBody UserRegisterEntity user, 
             BindingResult bindingResult,
             @RequestParam(required = false, defaultValue = "") String field) {
-        return ValidationService.validate(bindingResult, messageSource, field);
+        return validationService.validate(bindingResult, messageSource, field);
     }
 
     
@@ -151,7 +151,6 @@ public class UserController {
      * Method for validating the {@link UserEditionEntity} object
      * 
      * @param user {@link UserEditionEntity}
-     * @param principal {@link Principal} - the authentication principal
      * @param bindingResult {@link BindingResult} - validation errors
      * @param field {@link String} - class field
      * @return {@link ResponseEntity<List<CustomValidationError>>}
@@ -166,10 +165,9 @@ public class UserController {
                     EmailGroupSequence.class
             })
             @RequestBody UserEditionEntity user,
-            @AuthenticationPrincipal Principal principal,
             BindingResult bindingResult,
             @RequestParam(required = false, defaultValue = "") String field
     ) {
-        return ValidationService.validate(bindingResult, messageSource, field);
+        return validationService.validate(bindingResult, messageSource, field);
     }
 }

@@ -5,9 +5,9 @@
     <h1>Zaloguj się</h1>
     <form [formGroup]="loginForm" (ngSubmit)="login()">
       <div class="form__content">
-        <app-message content="Nieprawidłowy login lub hasło" type="warning" *ngIf="hasErrors"></app-message>
+        <app-message content="Nieprawidłowy login lub hasło" type="warning" #loginMessage></app-message>
         <app-input icon="person" placeholder="Nazwa użytkownika..." 
-                   formControlName="username" appInputFluid
+                   formControlName="username" appInputFluid 
                    #username></app-input>
         <app-input type="password" icon="lock" placeholder="Hasło..." 
                    formControlName="password" appInputFluid></app-input>

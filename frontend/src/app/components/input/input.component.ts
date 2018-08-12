@@ -1,3 +1,4 @@
+import { ErrorMessageFactory } from './validator/ErrorMessageFactory';
 import { LoaderComponent } from '../loader/loader.component';
 import { ChangeDetectionStrategy, Component, ElementRef, forwardRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormControl } from '@angular/forms';
@@ -53,6 +54,24 @@ export class InputComponent implements OnInit, ControlValueAccessor {
   public blur(): void {
     this.el.nativeElement.querySelector("input").blur();
     this.focused = false;
+  }
+
+
+  public format(input: any, ...args: string[]): string {
+    return input.replace(/{(\d+)}/g, function(match, number) {
+      return typeof args[number] != 'undefined'
+        ? args[number]
+        : match
+      ;
+    });
+  }
+
+  public getError(type: string): string {
+    return (this.control != null && this.control.errors != null) ? this.format(
+      ErrorMessageFactory.getErrorMessage(type).message,
+      this.control.errors.minlength ? this.control.errors.minlength.actualLength : null,
+      this.control.errors.minlength ? this.control.errors.minlength.requiredLength : null
+    ) : null;
   }
 
 

@@ -47,7 +47,6 @@ export class RegisterComponent implements OnInit {
     });
 
     this.username.focus();
-    console.log(this.registerForm);
   }
 
 
