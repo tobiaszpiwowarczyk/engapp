@@ -1,0 +1,9 @@
+
+@mixin inputFocus($color) {
+  border-color: $color;
+  box-shadow: 0 0 10px rgba($color, 0.4);
+
+  * {
+    color: $color !important;
+  }
+}

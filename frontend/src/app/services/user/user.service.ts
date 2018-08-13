@@ -29,16 +29,29 @@ export class UserService {
 
 
   public register(user: User): Observable<any> {
-    return this.http.post("/auth/api/user", JSON.stringify(user), {headers: this.headers})
+    return this.http.post("/register", JSON.stringify(user), {headers: this.headers})
             .map(res => new User(res.json()))
             .catch(err => Observable.throw(err.json().errors));
   }
 
+  // todo: catch http error status
+  public validateRegister(user: User, field: string = ""): Observable<any> {
+    return this.http.post(`/auth/api/user/validate?field=${field}`, JSON.stringify(user), {headers: this.headers})
+            .map(res => res.json())
+            .catch(err => Observable.throw(err.json()));
+  }
 
   public updateUser(user: User): Observable<User> {
     return this.http.put("/auth/api/user", JSON.stringify(user), {headers: this.accountHeaders})
         .map(res => new User(res.json()))
         .catch(err => Observable.throw(err.json().errors));
+  }
+
+  // todo: catch http error status
+  public validateUpdateUser(user: User, field: string = ""): Observable<any> {
+    return this.http.put(`/auth/api/user/validate?field=${field}`, JSON.stringify(user), {headers: this.accountHeaders})
+            .map(res => res.json())
+            .catch(err => Observable.throw(err.json()));
   }
 
 

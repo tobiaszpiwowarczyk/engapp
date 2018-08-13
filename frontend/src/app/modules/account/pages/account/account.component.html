@@ -47,7 +47,8 @@
         <app-loader #accountSettingsLoader></app-loader>
         <h2 class="container__box__header">Ustawienia konta</h2>
 
-        <!-- todo: add router preloader -->
+        <app-message content="Użytkownik został zaktualizowany pomyślnie" #accountSettingsMessage></app-message>
+
         <form [formGroup]="accountForm" (ngSubmit)="update()">
           
           <input type="hidden" formControlName="id" />
@@ -56,26 +57,26 @@
             <div class="account__option">
               <div class="account__option__label">Nazwa użytkownika</div>
               <div class="account__option__input">
-                <app-input formControlName="username" [errors]="filterErrors('username')" appInputFluid appInputCompact #username></app-input>
+                <app-input formControlName="username" [control]="accountForm?.controls['username']" appInputFluid appInputCompact #username></app-input>
               </div>
             </div>
   
             <div class="account__option">
               <div class="account__option__label">Imię</div>
               <div class="account__option__input">
-                <app-input formControlName="firstName" [errors]="filterErrors('firstName')" appInputFluid appInputCompact></app-input>
+                <app-input formControlName="firstName" [control]="accountForm?.controls['firstName']" appInputFluid appInputCompact></app-input>
               </div>
             </div>
             <div class="account__option">
               <div class="account__option__label">Nazwisko</div>
               <div class="account__option__input">
-                <app-input formControlName="lastName" [errors]="filterErrors('lastName')" appInputFluid appInputCompact></app-input>
+                <app-input formControlName="lastName" [control]="accountForm?.controls['lastName']" appInputFluid appInputCompact></app-input>
               </div>
             </div>
             <div class="account__option">
               <div class="account__option__label">Adres email</div>
               <div class="account__option__input">
-                <app-input formControlName="email" [errors]="filterErrors('email')" appInputFluid appInputCompact></app-input>
+                <app-input formControlName="email" [control]="accountForm?.controls['email']" appInputFluid appInputCompact></app-input>
               </div>
             </div>
           </div>

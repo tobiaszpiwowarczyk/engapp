@@ -1,4 +1,9 @@
-<div class="message message--{{messageType?.name}}">
-  <div class="message__icon material-icons">{{messageType?.icon}}</div>
-  <div class="message__content">{{content}}</div>
+<div class="message message--{{messageType?.name}}" *ngIf="shown">
+  <div class="message__collumn">
+    <div class="message__icon material-icons">{{messageType?.icon}}</div>
+    <div class="message__content">{{content}}</div>
+  </div>
+  <div class="message__close-btn" (click)="hide()">
+    <div class="material-icons">close</div>
+  </div>
 </div>

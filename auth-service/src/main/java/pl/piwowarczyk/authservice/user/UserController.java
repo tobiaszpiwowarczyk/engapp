@@ -1,15 +1,20 @@
 package pl.piwowarczyk.authservice.user;
 
 import lombok.AllArgsConstructor;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.piwowarczyk.authservice.user.domain.UserEditionEntity;
 import pl.piwowarczyk.authservice.user.domain.UserRegisterEntity;
 import pl.piwowarczyk.authservice.user.service.UserServiceImpl;
 import pl.piwowarczyk.authservice.user.validator.UserExistence;
+import pl.piwowarczyk.library.model.CustomValidationError;
+import pl.piwowarczyk.library.util.ValidationService;
 
 import java.security.Principal;
 import java.util.List;
@@ -21,11 +26,12 @@ import static pl.piwowarczyk.authservice.user.validator.order.UserRegisterValida
 @RequestMapping("api/user")
 @AllArgsConstructor
 @Validated(UsernameGroupSequence.class)
-// TODO: 26.07.18 Create function for validating specified fields 
 public class UserController {
     
     
     private UserServiceImpl userService;
+    private MessageSource messageSource;
+    private ValidationService validationService;
 
     
     
@@ -94,6 +100,30 @@ public class UserController {
         return userService.addUser(user);
     }
 
+    /**
+     * 
+     * Method for register validation
+     * 
+     * @param user {@link UserRegisterEntity} - user model, must be valid
+     * @param bindingResult {@link BindingResult} - validation errors holder
+     * @param field {@link String} - class field
+     * @return {@link ResponseEntity<List<CustomValidationError>>} errors
+     */
+    @PostMapping("validate")
+    public ResponseEntity<List<CustomValidationError>> addUserValidation(
+            @Validated({
+                    UsernameGroupSequence.class,
+                    PasswordGroupSequence.class,
+                    FirstNameNotBlankProperty.class,
+                    LastNameGroupSequence.class,
+                    EmailGroupSequence.class
+            })
+            @RequestBody UserRegisterEntity user, 
+            BindingResult bindingResult,
+            @RequestParam(required = false, defaultValue = "") String field) {
+        return validationService.validate(bindingResult, messageSource, field);
+    }
+
     
     
     
@@ -114,5 +144,30 @@ public class UserController {
             @RequestBody UserEditionEntity user,
             @AuthenticationPrincipal Principal principal) {
         return userService.editUser(user, principal);
+    }
+
+    /**
+     * 
+     * Method for validating the {@link UserEditionEntity} object
+     * 
+     * @param user {@link UserEditionEntity}
+     * @param bindingResult {@link BindingResult} - validation errors
+     * @param field {@link String} - class field
+     * @return {@link ResponseEntity<List<CustomValidationError>>}
+     */
+    @PutMapping("validate")
+    public ResponseEntity<List<CustomValidationError>> editUserValidation(
+            @Validated({
+                    IdGroupSequence.class,
+                    UsernameGroupSequence.class,
+                    FirstNameNotBlankProperty.class,
+                    LastNameGroupSequence.class,
+                    EmailGroupSequence.class
+            })
+            @RequestBody UserEditionEntity user,
+            BindingResult bindingResult,
+            @RequestParam(required = false, defaultValue = "") String field
+    ) {
+        return validationService.validate(bindingResult, messageSource, field);
     }
 }

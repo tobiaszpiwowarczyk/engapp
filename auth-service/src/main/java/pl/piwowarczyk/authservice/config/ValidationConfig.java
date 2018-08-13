@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
+import pl.piwowarczyk.library.util.ValidationService;
 
 @Configuration
 public class ValidationConfig {
@@ -32,5 +33,10 @@ public class ValidationConfig {
         return new MethodValidationPostProcessor(){{
             setValidator(factoryBean());
         }};
+    }
+
+    @Bean
+    ValidationService validationService() {
+        return new ValidationService();
     }
 }

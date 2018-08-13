@@ -2,20 +2,22 @@
   'input--focused': focused,
   'input--fluid': fluid,
   'input--disabled': disabled,
-  'input--invalid': errors.length > 0,
+  'input--invalid': control?.errors && (control.dirty || control.touched),
+  'input--valid': control?.valid && (control.dirty || control.touched),
   'input--compact': compact
 }">
   <div class="input__content">
+    <div class="input__loader">
+      <app-loader appLoaderTiny [visible]="control?.pending" #inputLoader></app-loader>
+    </div>
     <div class="input__icon material-icons" *ngIf="icon != null">{{icon}}</div>
-    <input [type]="type" [placeholder]="placeholder" 
+    <input [attr.type]="type" [attr.placeholder]="placeholder" 
           [ngClass]="{'no-icon': icon == null}"
           [ngModel]="value" (ngModelChange)="change($event)"
           [disabled]="disabled" />
   </div>
 
   <div class="input__errors">
-    <ul>
-      <li *ngFor="let err of errors">{{err?.message}}</li>
-    </ul>
+    <p [innerHTML]="getError(control?.errors | firstError)"></p>
   </div>
 </div>

@@ -1,12 +1,16 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import "rxjs/add/operator/finally";
 import { LoaderComponent } from '../../../../components/loader/loader.component';
-import { User } from '../../../../services/user/User';
-import { UserService } from '../../../../services/user/user.service';
+import { SwitchComponent } from '../../../../components/switch/switch.component';
 import { LoginService } from '../../../../services/login/login.service';
 import { ThemeService } from '../../../../services/theme/theme.service';
-import { SwitchComponent } from '../../../../components/switch/switch.component';
+import { User } from '../../../../services/user/User';
+import { UserService } from '../../../../services/user/user.service';
+import { EmailValidator } from '../../../../validator/EmailValidator';
+import { NameValidator } from '../../../../validator/NameValidator';
+import { MessageComponent } from './../../../../components/message/message.component';
+import { UsernameValidator } from './../../../../validator/UsernameValidator';
 
 
 @Component({
@@ -26,6 +30,7 @@ export class AccountComponent implements OnInit {
   errors: any[] = [];
 
   @ViewChild("accountSettingsLoader") accountSettingsLoader: LoaderComponent;
+  @ViewChild("accountSettingsMessage") accountSettingsMessage: MessageComponent;
   @ViewChild("themeSwitch") themeSwitch: SwitchComponent;
 
   constructor(
@@ -36,13 +41,20 @@ export class AccountComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.user = this.ls.getUserData();
+    this.ls.getUserData()
+      .subscribe((user: User) => this.user = user);
     this.accountForm = this.fb.group({
-      id: [this.user.id],
-      username: [this.user.username],
-      firstName: [this.user.firstName],
-      lastName: [this.user.lastName],
-      email: [this.user.email]
+      id: [this.user.id, Validators.required],
+      username: [
+        this.user.username, Validators.compose([Validators.required, Validators.minLength(6)]),
+        UsernameValidator.checkExistence(this.us, this.ls)
+      ],
+      firstName: [this.user.firstName, Validators.compose([Validators.required, NameValidator.validate])],
+      lastName: [this.user.lastName, Validators.compose([Validators.required, NameValidator.validate])],
+      email: [
+        this.user.email, Validators.compose([Validators.required, EmailValidator.validate]),
+        EmailValidator.checkExistence(this.us, this.ls)
+      ]
     });
     this.themeSwitch.value = this.themeService.isDarkTheme();
   }
@@ -58,14 +70,16 @@ export class AccountComponent implements OnInit {
       .finally(() => this.accountSettingsLoader.hide())
       .subscribe((res: User) => {
         this.ls.saveUserData(res);
+        this.accountSettingsMessage.show();
+
+        for(const c in this.accountForm.controls) {
+          this.accountForm.controls[c].markAsPristine();
+        }
+
       }, err => this.errors = err);
   }
 
   public switchTheme(dark: boolean): void {
     this.themeService.switchTheme(dark ? "dark" : "light");
-  }
-
-  public filterErrors(field: string): any[] {
-    return this.errors.filter(x => x.field == field);
   }
 }

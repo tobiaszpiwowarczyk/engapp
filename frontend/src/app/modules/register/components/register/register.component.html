@@ -1,4 +1,3 @@
-<!-- todo: create dynamic input validation -->
 <div class="container container__form container--centerized">
   <div class="form">
     <app-loader #registerLoader></app-loader>
@@ -6,26 +5,26 @@
     <form [formGroup]="registerForm" (ngSubmit)="register()">
       <div class="form__content">
         <app-input icon="person" placeholder="Nazwa użytkownika..." 
-                   formControlName="username" [errors]="filterErrors('username')" 
+                   formControlName="username" [control]="registerForm?.controls['username']"
                    appInputFluid #username></app-input>
 
         <app-input type="password" icon="lock" placeholder="Hasło..." 
-                   formControlName="password" [errors]="filterErrors('password')" 
+                   formControlName="password" [control]="registerForm?.controls['password']"
                    appInputFluid></app-input>
 
         <hr />
 
 
         <app-input icon="label" placeholder="Imię..." 
-                   formControlName="firstName" [errors]="filterErrors('firstName')" 
+                   formControlName="firstName" [control]="registerForm?.controls['firstName']"
                    appInputFluid></app-input>
 
         <app-input icon="label" placeholder="Nazwisko..." 
-                   formControlName="lastName" [errors]="filterErrors('lastName')" 
+                   formControlName="lastName" [control]="registerForm?.controls['lastName']" 
                    appInputFluid></app-input>
 
         <app-input type="email" icon="mail" placeholder="Adres e-mail..." 
-                   formControlName="email" [errors]="filterErrors('email')" 
+                   formControlName="email" [control]="registerForm?.controls['email']"
                    appInputFluid></app-input>
 
       </div>

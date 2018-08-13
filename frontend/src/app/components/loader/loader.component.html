@@ -1,6 +1,7 @@
 <div class="loader"
     [ngClass]="{
-      'loader--no-fill': noFill
+      'loader--no-fill': noFill,
+      'loader--tiny': tiny
     }"
     *ngIf="visible">
   <svg class="loader__spinner" [attr.width]="loaderWidth" [attr.height]="loaderWidth">

@@ -1,0 +1,32 @@
+
+:host-context(body.dark-theme) {
+  .input {
+    background: $black;
+    color: $white;
+
+    input {
+      color: $white;
+    }
+
+    &--focused {
+      @include inputFocus($white);
+    }
+
+    &--invalid {
+      @include inputFocus($red);
+    }
+  
+    &--invalid & {
+      &__content {
+        border-bottom: $input-border-width solid $red;
+      }
+      &__errors {
+        display: block;
+      }
+    }
+
+    &--valid {
+      @include inputFocus($green);
+    }
+  }
+}
