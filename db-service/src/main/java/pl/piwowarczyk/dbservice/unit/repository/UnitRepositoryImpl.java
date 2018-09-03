@@ -42,7 +42,7 @@ public class UnitRepositoryImpl implements UnitRepositoryCustom {
 
         Aggregation aggregation = newAggregation(
                 match(where("_id").is(new ObjectId(id))),
-                UserPermissions.isAdmin() ? project("id", "name", "color", "words", "published")
+                UserPermissions.isAdmin() ? project("id", "name", "color", "words", "image", "published")
                         .and("words").size().as("wordsCount") :
                         project("id", "name", "color")
                                 .and("words").size().as("wordsCount")

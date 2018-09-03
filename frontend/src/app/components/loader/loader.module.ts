@@ -3,10 +3,11 @@ import { NgModule } from '@angular/core';
 import { LoaderComponent } from './loader.component';
 import { CommonModule } from '@angular/common';
 import { LoaderNoFillDirective } from './directives/loader-no-fill.directive';
+import { LoaderVisibleDirective } from './directives/loader-visible.directive';
 
 @NgModule({
   imports: [CommonModule],
-  exports: [LoaderComponent, LoaderTinyDirective, LoaderNoFillDirective],
-  declarations: [LoaderComponent, LoaderTinyDirective, LoaderNoFillDirective],
+  exports: [LoaderComponent, LoaderTinyDirective, LoaderNoFillDirective, LoaderVisibleDirective],
+  declarations: [LoaderComponent, LoaderTinyDirective, LoaderNoFillDirective, LoaderVisibleDirective],
 })
 export class LoaderModule { }

@@ -19,16 +19,21 @@
   cursor: pointer;
   @include hoverLayer(rgba($white, 0.15));
 
-  &:active {
-    background: darken($blue, $lighten-offset);
-  }
+  &:active { background: darken($blue, $lighten-offset);}
 
-  &--fluid {
-    width: 100%;
-  }
+  &:hover { text-decoration: none; }
 
-  &--circular {
-    border-radius: 100%;
+  &--fluid { width: 100%; }
+  &--circular { border-radius: 100%; }
+  &--icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: $input-height;
+  }
+  &--negative {
+    background: $red;
+    &:active { background: darken($red, $lighten-offset);}
   }
 
 

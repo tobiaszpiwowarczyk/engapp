@@ -6,6 +6,7 @@ export class User {
   firstName: string;
   lastName: string;
   email: string;
+  role: string;
   image: string;
 
   constructor(values: Object = {}) {

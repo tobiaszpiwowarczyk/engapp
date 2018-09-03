@@ -1,0 +1,67 @@
+
+@import "../../../../../../../../assets/_variables";
+@import "../../../../../../../../assets/mixins";
+
+@import "units-main.dark-theme.component";
+
+
+.unit {
+  position: relative;
+  width: 100%;
+  height: 100px;
+  display: block;
+  margin: 20px 0;
+  box-shadow: $box-shadow;
+  border-radius: $border-radius;
+  color: $black;
+  overflow: hidden;
+  background: {
+    position: 50%;
+    size: 105%;
+    repeat: no-repeat;
+  }
+  transition: .4s $bezier;
+  border-left: 5px solid;
+
+  &__filter {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: rgba($white, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__link {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    line-height: 100px;
+    padding: 0 20px;
+    color: inherit;
+  }
+
+  &__words-count {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 50px;
+    color: $white;
+    font: {
+      size: 12px;
+      weight: 900;
+    }
+    text-align: center;
+  }
+
+  &:hover {
+    background-size: 110%;
+    text-decoration: none;
+  }
+}

@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { LoginService } from './services/login/login.service';
 import { ThemeService } from './services/theme/theme.service';
 import { UserService } from './services/user/user.service';
+import { ProfleDirective } from './directives/profile/profile.directive';
 
 
 @NgModule({

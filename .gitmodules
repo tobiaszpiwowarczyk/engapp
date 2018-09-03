@@ -1,0 +1,3 @@
+[submodule "engapp-utils"]
+	path = engapp-utils
+	url = https://github.com/tobiaszpiwowarczyk/engapp-utils

@@ -1,0 +1,40 @@
+
+<div class="admin-content"> 
+  <div class="container container__box">
+    <h2 class="container__box__header">Rozdziały</h2>
+    <div class="container__box__loader" *ngIf="loading">
+      <app-loader loaderVisible></app-loader>
+    </div>
+    <div class="container__box__content" *ngIf="!loading">
+      <h3>Opublikowane</h3>
+      <div *ngFor="let unit of units | unitPublished" class="unit"
+        [ngStyle]="{'backgroundImage': 'url('+unit?.image+')', 'borderColor': unit?.color}">
+        <div class="unit__filter">
+          <a [routerLink]="['./', unit?.id]" class="unit__link">
+            <h3>{{unit?.name}}</h3>
+          </a>
+          <div class="unit__words-count"
+               [ngStyle]="{'backgroundColor': unit?.color}">{{unit?.wordsCount}}</div>
+        </div>
+      </div>
+      <!-- <a *ngFor="let unit of units | unitPublished" 
+         [routerLink]="['./', unit?.id]" class="unit"
+         [ngStyle]="{'backgroundImage': 'url('+unit?.image+')', 'borderColor': unit?.color}">
+  
+        <div class="unit__filter">
+          <h3>{{unit?.name}}</h3>
+          <div class="unit__words-count"
+               [ngStyle]="{'backgroundColor': unit?.color}">{{unit?.wordsCount}}</div>
+        </div>
+      </a> -->
+      <h3 *ngIf="(units | unitPublished:false).length > 0">Nieopublikowane</h3>
+      <a *ngFor="let unit of units | unitPublished:false" 
+         [routerLink]="['./', unit?.id]" class="unit"
+         [ngStyle]="{'backgroundImage': 'url('+unit?.image+')', 'borderColor': unit?.color}">
+  
+        <h3>{{unit?.name}}</h3>
+        <div class="unit__words-count" [ngStyle]="{'backgroundColor': unit?.color}">Ilość słówek <b>{{unit?.wordsCount}}</b></div>
+      </a>
+    </div>
+  </div>
+</div>

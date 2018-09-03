@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, DoCheck, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '../../services/login/login.service';
 import { User } from '../../services/user/User';
@@ -8,6 +8,7 @@ import { MenuOpenerComponent } from './menu-opener/menu-opener.component';
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class HeaderComponent implements OnInit {
 
@@ -15,17 +16,14 @@ export class HeaderComponent implements OnInit {
 
   user: User;
   opened: boolean = false;
-  subtitleShown: boolean = false;
+  contentFluid: boolean = false;
 
   constructor(
     private ls: LoginService,
     private router: Router
   ) {}
 
-  ngOnInit() {
-    this.ls.getUserData()
-      .subscribe((user: User) => this.user = user);
-  }
+  ngOnInit() {}
 
 
   public logout(): void {
@@ -45,7 +43,7 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(["/account", this.user.username]);
   }
 
-  public showSubtitle(): void {
-    this.subtitleShown = true;
+  public dashboard(): void {
+    this.router.navigate(["/admin"]);
   }
 }

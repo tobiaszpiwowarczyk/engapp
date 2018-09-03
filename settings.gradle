@@ -3,5 +3,5 @@ rootProject.name = 'engapp'
 include("db-service")
 include("main-server")
 include("auth-service")
-include("library")
 include("gateway-service")
+include("engapp-utils")

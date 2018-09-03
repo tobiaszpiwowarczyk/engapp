@@ -7,7 +7,7 @@ import "rxjs/add/operator/finally";
 import "rxjs/add/operator/map";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { Observable } from 'rxjs/Observable';
-import { User } from './../user/User';
+import { User } from '../user/User';
 import { Credentials } from './Credentials';
 
 @Injectable()
@@ -105,6 +105,7 @@ export class LoginService {
     localStorage.removeItem(this.AUTHORIZATION_HEADER);
     localStorage.removeItem("scope");
     this.user = null;
+    this.behaviorUser = new BehaviorSubject<User>(new User());
     this.router.navigate(["/login"]);
   }
 

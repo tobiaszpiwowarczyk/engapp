@@ -1,0 +1,22 @@
+
+@import "../../../../../../../assets/_variables";
+@import "../../../../../../../assets/mixins";
+
+.user-type {
+  position: relative;
+  padding: 10px 15px;
+  border-radius: $border-radius;
+  font: {
+    size: 12px;
+    weight: 900;
+  };
+  color: $white;
+
+  &--admin {
+    background: $orange;
+  }
+
+  &--user {
+    background: $green;
+  }
+}

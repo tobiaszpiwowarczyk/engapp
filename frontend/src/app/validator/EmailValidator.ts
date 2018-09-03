@@ -1,4 +1,4 @@
-import { LoginService } from './../services/login/login.service';
+import { LoginService } from '../services/login/login.service';
 import { AbstractControl, AsyncValidatorFn, FormControl, ValidationErrors } from '@angular/forms';
 import { UserService } from '../services/user/user.service';
 import { User } from '../services/user/User';

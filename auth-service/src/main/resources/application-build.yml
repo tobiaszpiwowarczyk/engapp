@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: auth-service
+  data:
+    mongodb:
+      uri: ${MONGODB_URI}
+    
+eureka:
+  client:
+    service-url:
+      defaultZone: ${MAIN_SERVER_URL}/eureka

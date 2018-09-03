@@ -1,26 +1,3 @@
-<div class="header">
-  <div class="wrapper">
-    <a class="brand" [routerLink]="['/']" title="Strona główna">
-      <h5>EngApp</h5>
-    </a>
-    <div class="header__subtitle" *ngIf="subtitleShown">
-      <ng-content></ng-content>
-    </div>
-
-    <app-menu-opener (onOpen)="open($event)" #opener></app-menu-opener>
-    
-    <div class="header__menu__shadow" 
-         [ngClass]="{'header__menu__shadow--opened': opened}"
-         (click)="close()"></div>
-    <div class="header__menu" [ngClass]="{
-      'header__menu--opened': opened
-    }">
-      <!-- todo: crete image profile support -->
-      <app-header-item [label]="user?.firstName +' '+ user?.lastName" 
-                       itemType="image" imageSrc="assets/img/default.jpg"
-                       (click)="account()"></app-header-item>
-
-      <app-header-item label="Wyloguj się" imageSrc="power_settings_new" (click)="logout()"></app-header-item>
-    </div>
-  </div>
+<div class="container header">
+  <ng-content></ng-content>
 </div>
