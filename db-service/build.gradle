@@ -17,6 +17,7 @@ apply plugin: 'io.spring.dependency-management'
 
 repositories {
 	mavenCentral()
+	maven { url 'https://jitpack.io' }
 }
 
 
@@ -30,13 +31,17 @@ dependencies {
 	compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
 	compile('org.springframework.cloud:spring-cloud-starter-oauth2')
 	compile('org.projectlombok:lombok')
-	compile project(":library")
+	implementation 'com.github.tobiaszpiwowarczyk:engapp-utils:0.0.5-SNAPSHOT'
 }
 
 dependencyManagement {
 	imports {
 		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
 	}
+}
+
+bootRun {
+	environment "spring.profiles.active", "dev"
 }
 
 jar {

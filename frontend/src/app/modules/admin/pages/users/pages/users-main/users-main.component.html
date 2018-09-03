@@ -1,0 +1,43 @@
+<div class="admin-content">
+  <div class="container container__box">
+    <h2 class="container__box__header">Użytkownicy</h2>
+    <div class="container__box__loader" *ngIf="loading">
+      <app-loader loaderVisible></app-loader>
+    </div>
+    <div class="container__box__content" *ngIf="!loading">
+      <!-- todo: create table sorting support -->
+      <!-- todo: create table filter -->
+      <form [formGroup]="usersSearchForm">
+        <app-input placeholder="Szukaj użytkowników..." formControlName="name" appInputFluid></app-input>
+      </form>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>Adres e-mail</th>
+            <th>Typ użytkownika</th>
+            <th>Opcje</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{user?.firstName}}</td>
+            <td>{{user?.lastName}}</td>
+            <td>{{user?.email}}</td>
+            <td>
+              <app-user-type [type]="user?.role"></app-user-type>
+            </td>
+            <td>
+              <a [routerLink]="['./', user?.username]" class="button button--icon">
+                <div class="material-icons">info</div>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

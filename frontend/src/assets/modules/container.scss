@@ -4,7 +4,7 @@
 .container {
   position: relative;
   background: $white;
-  box-shadow: 0 2px 20px rgba($black, 0.5);
+  box-shadow: $box-shadow;
   border-radius: $border-radius;
   overflow: hidden;
 
@@ -32,6 +32,12 @@
 
     &__content {
       margin: $content-padding 0;
+    }
+
+    &__loader {
+      position: relative;
+      width: 100%;
+      height: 300px;
     }
 
     &:last-child {

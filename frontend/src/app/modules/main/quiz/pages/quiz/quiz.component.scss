@@ -1,0 +1,99 @@
+
+@import "../../../../../../assets/_variables";
+@import "../../../../../../assets/mixins";
+
+.quiz {
+  position: relative;
+  padding-top: $header-height;
+
+  h4 {
+    text-align: center;
+  }
+
+  &__title {
+    position: relative;
+    width: 100%;
+    height: 60px;
+    
+    .wrapper {
+      display: flex;
+      align-items: center;
+
+      @include tablet {
+        justify-content: center;
+        text-align: center;
+      }
+    }
+  }
+
+  &__form {
+    position: relative;
+    background: $white;
+    box-shadow: $box-shadow;
+    padding: 40px;
+    width: $mobile-width;
+    margin: 40px auto;
+
+    form {
+      margin: 30px 0;
+    }
+
+    &--finished {
+      text-align: center;
+
+      h6 {
+        line-height: 22px;
+      }
+    }
+
+    &__finish-message {
+      margin-bottom: 20px;
+    }
+
+    @include mobile {
+      width: 100%;
+    }
+
+    :host-context(body.dark-theme) & {
+      background: $black;
+    }
+  }
+
+  &__validator {
+    position: relative;
+    width: 100%;
+    pointer-events: none;
+    
+    &__message {
+      
+      * {  
+        font-size: 16px;
+      }
+
+      p {
+        text-align: center;
+      }
+
+      &--multiple {
+        margin-top: 14px;
+
+        ul {
+          margin-left: 17px;
+  
+          li {
+            margin: 4px 0;
+            font-weight: 900;
+          }
+        }
+      }
+    }
+
+    &--valid {
+      color: $green;
+    }
+
+    &--invalid {
+      color: $red;
+    }
+  }
+}

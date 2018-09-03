@@ -1,0 +1,28 @@
+
+@import "../../../../../../assets/_variables";
+@import "../../../../../../assets/mixins";
+
+.units {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: minmax(220px, auto);
+  grid-gap: 20px;
+  width: 100%;
+  margin: 40px auto;
+
+  @include tablet {
+    grid-template-columns: 1fr;
+    grid-auto-rows: minmax(270px, auto);
+  }
+
+  @include mobile {
+    grid-auto-rows: minmax(220px, auto);
+  }
+}
+
+@include mobile {
+  h2 {
+    text-align: center;
+  }
+}

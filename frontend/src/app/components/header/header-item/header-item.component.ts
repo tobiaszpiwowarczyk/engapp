@@ -10,6 +10,7 @@ export class HeaderItemComponent implements OnInit {
   @Input() label: string = "";
   @Input() itemType: string = "icon";
   @Input() imageSrc: string = "";
+  @Input() href: any[] = [];
 
   constructor() { }
 

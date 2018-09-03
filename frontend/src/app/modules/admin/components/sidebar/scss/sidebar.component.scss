@@ -1,0 +1,17 @@
+
+@import "../../../../../../assets/_variables";
+@import "../../../../../../assets/mixins";
+
+@import "sidebar-dark.component";
+
+.sidebar {
+  position: fixed;
+  width: $sidebar-width;
+  height: 100%;
+  background: $white;
+  box-shadow: $box-shadow;
+
+  a:hover {
+    text-decoration: none;
+  }
+}

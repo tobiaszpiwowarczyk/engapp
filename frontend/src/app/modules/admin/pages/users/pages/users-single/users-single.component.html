@@ -1,0 +1,47 @@
+<div class="profile">
+  <div class="profile__background" profile>
+    <img src="assets/img/mountain-bg.jpg" alt="Tło użytkownika {{user?.firstName}} {{user?.lastName}}" />
+    <div class="profile__background__filter"></div>
+
+    <div class="profile__data">
+      <div class="user-profile">
+        <div class="user-profile__image">
+          <img src="assets/img/default.jpg" alt="Zdjęcie użytkownika {{user?.firstName}} {{user?.lastName}}">
+        </div>
+        <div class="user__profile__data">
+          <h1 class="profile__header">{{user?.firstName}} {{user?.lastName}}</h1>
+          <app-user-type [type]="user?.role"></app-user-type>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="admin-content">
+  <div class="container container__box">
+    <h2 class="container__box__header">Podstawowe dane użytkownika</h2>
+    <div class="container__box__content">
+      <table class="table">
+        <tbody>
+          <tr>
+            <td><b>Imię</b></td>
+            <td>{{user?.firstName}}</td>
+          </tr>
+          <tr>
+            <td><b>Nazwisko</b></td>
+            <td>{{user?.lastName}}</td>
+          </tr>
+          <tr>
+            <td><b>Adres e-mail</b></td>
+            <td>{{user?.email}}</td>
+          </tr>
+          <tr>
+            <td><b>Nazwa użytkownika</b></td>
+            <td>{{user?.username}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

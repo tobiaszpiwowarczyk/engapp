@@ -11,39 +11,24 @@
   height: $header-height;
   background: $white;
   box-shadow: $box-shadow;
+  border-radius: 0;
   z-index: $header-z-index;
 
   .wrapper {
     display: flex;
-
-    .brand {
-      position: relative;
-      height: 100%;
-      line-height: $header-height;
-      padding: 0 $content-padding;
-      background: $blue;
-      color: $white;
-      text-align: center;
-      z-index: 1;
-      @include hoverLayer(rgba($white, 0.15));
-    }
   }
 
-  &__subtitle {
+  .brand {
     position: relative;
-    padding: 0 20px;
-    display: flex;
-    align-items: center;
-    background: $white;
-
-    @include tablet {
-      position: absolute;
-      top: $header-height;
-      left: 0;
-      width: 100%;
-      height: $header-height;
-      justify-content: center;
-    }
+    height: 100%;
+    line-height: $header-height;
+    padding: 0 $content-padding;
+    background: $blue;
+    display: inline-block;
+    color: $white;
+    text-align: center;
+    z-index: 1;
+    @include hoverLayer(rgba($white, 0.15));
   }
 
   &__menu {
@@ -84,9 +69,6 @@
   }
 
   :host-context(body.dark-theme) & {
-    background: $black;
-    color: $white;
-
     &__subtitle { background: $black; }
     &__menu { background: $black; }
   }
