@@ -24,9 +24,13 @@
         display: block;
       }
     }
-
+  
     &--valid {
       @include inputFocus($green);
+    }
+
+    &--disabled {
+      input { color: $grey; }
     }
   }
 }

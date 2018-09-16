@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { User } from '../../services/user/User';
+import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../services/login/login.service';
-import { MenuOpenerComponent } from '../../components/header/menu-opener/menu-opener.component';
+import { User } from '../../services/user/User';
 
 @Component({
   selector: 'app-main',
@@ -9,10 +8,7 @@ import { MenuOpenerComponent } from '../../components/header/menu-opener/menu-op
 })
 export class MainComponent implements OnInit {
 
-  @ViewChild("opener") opener: MenuOpenerComponent;
-
   user: User;
-  opened: boolean = false;
 
   constructor(
     private ls: LoginService
@@ -25,15 +21,6 @@ export class MainComponent implements OnInit {
 
   public logout(): void {
     this.ls.logout();
-  }
-
-  public open(evt: boolean): void {
-    this.opened = evt;
-  }
-
-  public close(): void {
-    this.opened = false;
-    this.opener.opened = false;
   }
 
 }

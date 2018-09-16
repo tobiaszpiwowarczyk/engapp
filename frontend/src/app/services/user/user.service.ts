@@ -34,7 +34,7 @@ export class UserService {
             .catch(err => Observable.throw(err));
   }
 
-  findByUsername(username: string): Observable<User> {
+  public findByUsername(username: string): Observable<User> {
     return this.http.get("/auth/api/user/" + username, {headers: this.accountHeaders})
       .map(res => new User(res.json()))
       .catch(err => Observable.throw(err));

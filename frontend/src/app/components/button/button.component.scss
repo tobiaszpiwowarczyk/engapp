@@ -1,0 +1,59 @@
+
+@import "../../../assets/_variables";
+@import "../../../assets/mixins";
+
+.button {
+  position: relative;
+  height: $input-height + ($input-border-width * 2);
+  width: $input-height * 2.5;
+  padding: 0;
+  border: none, {
+    radius: $border-radius;
+  };
+  background: $grey;
+  color: $black;
+  font: {
+    size: $input-font-size;
+    weight: 900;
+  }
+  cursor: pointer;
+  
+  &:not(&--disabled) {
+    @include hoverLayer(rgba($white, 0.15));
+  }
+
+  &:not(&--disabled):active { background: darken($grey, $lighten-offset); }
+  &:hover { text-decoration: none; }
+
+  &--fluid { width: 100%; }
+  &--circular {
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+  }
+  &--icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: $input-height + ($input-border-width * 2);
+  }
+  &--primary {
+    background: $blue;
+    color: $white;
+    &:not(.button--disabled):active { background: darken($blue, $lighten-offset); }
+  }
+  &--negative {
+    background: $red;
+    color: $white;
+    &:not(.button--disabled):active { background: darken($red, $lighten-offset); }
+  }
+  &--disabled {
+    cursor: default;
+    opacity: 0.5 !important;
+  }
+
+
+  @include mobile {
+    width: 100%;
+  }
+}

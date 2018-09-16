@@ -1,0 +1,6 @@
+<div class="header__menu__shadow"
+          [ngClass]="{'header__menu__shadow--opened': opened}"
+          (click)="close()"></div>
+<div class="header__menu" [ngClass]="{'header__menu--opened': opened}">
+  <ng-content></ng-content>
+</div>

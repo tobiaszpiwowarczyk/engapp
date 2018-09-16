@@ -25,13 +25,13 @@
 
   &__status {
     position: relative;
-    height: $input-height;
+    height: $input-height + ($input-border-width * 2);
+    line-height: $input-height + ($input-border-width * 2);
     font-size: 14px;
     font-weight: 900;
     padding: 0 20px;
     border-radius: $border-radius;
     text-align: center;
-    line-height: $input-height;
 
     &--published {
       background: $green;

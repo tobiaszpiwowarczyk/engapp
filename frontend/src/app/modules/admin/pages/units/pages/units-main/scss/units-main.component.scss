@@ -42,22 +42,23 @@
     color: inherit;
   }
 
-  &__words-count {
+  app-input-group {
     position: absolute;
     right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 50px;
-    height: 50px;
+  }
+
+  &__words-count {
+    position: relative;
+    width: $input-height + ($input-border-width * 2);
+    height: $input-height + ($input-border-width * 2);
     text-align: center;
-    line-height: 50px;
-    border-radius: 50px;
+    line-height: $input-height + ($input-border-width * 2);
+    border-radius: $border-radius;
     color: $white;
     font: {
       size: 12px;
       weight: 900;
     }
-    text-align: center;
   }
 
   &:hover {

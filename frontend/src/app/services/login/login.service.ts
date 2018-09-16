@@ -28,9 +28,10 @@ export class LoginService {
     private http: Http,
     private router: Router
   ) {
-    this.loginHeaders = new Headers();
-    this.loginHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-    this.loginHeaders.append(this.AUTHORIZATION_HEADER, "Basic ZW5nYXBwLWNsaWVudDplbmdhcHAtc2VjcmV0");
+    this.loginHeaders = new Headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+      [this.AUTHORIZATION_HEADER]: "Basic ZW5nYXBwLWNsaWVudDplbmdhcHAtc2VjcmV0"
+    });
   }
 
 
@@ -82,8 +83,10 @@ export class LoginService {
               .map(res => {
                 this.saveToken(res.access_token);
                 this.account()
-                  .finally(() => this.router.navigate(["/"]))
-                  .subscribe((acc: User) => this.saveUserData(acc));
+                  .subscribe((acc: User) => {
+                    this.saveUserData(acc);
+                    this.router.navigate(["/"]);
+                  });
                 return res;
               })
               .catch(err => Observable.throw(err.json()));
@@ -92,8 +95,9 @@ export class LoginService {
 
   public account(): Observable<User> {
 
-    const h = new Headers();
-    h.append(this.AUTHORIZATION_HEADER, this.getAccessToken());
+    const h = new Headers({
+      [this.AUTHORIZATION_HEADER]: this.getAccessToken()
+    });
 
     return this.http.get("/auth/api/user/account", {headers: h})
               .map(res => new User(res.json()))
@@ -105,7 +109,7 @@ export class LoginService {
     localStorage.removeItem(this.AUTHORIZATION_HEADER);
     localStorage.removeItem("scope");
     this.user = null;
-    this.behaviorUser = new BehaviorSubject<User>(new User());
+    this.behaviorUser = new BehaviorSubject<User>(null);
     this.router.navigate(["/login"]);
   }
 

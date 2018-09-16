@@ -3,10 +3,6 @@
   .sidebar__item {
     color: $white;
 
-    &__icon {
-      background: rgba($white, 0.2);
-    }
-
     &:hover:not(.sidebar__item--active) {
       background: rgba($white, 0.2);
     }

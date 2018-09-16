@@ -1,0 +1,41 @@
+
+@import "../_variables";
+@import "../mixins";
+
+.form-control {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+
+  &:last-child {margin-bottom: 0;}
+
+  &__label,
+  &__container {
+    position: relative;
+  }
+
+  &__label {
+    flex: 1;
+    text-align: right;
+    padding: 0 20px;
+    height: $input-height;
+    line-height: $input-height;
+  }
+
+  &__container {
+    flex: 2;
+    
+    app-switch {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    app-input-group {
+      display: block;
+      margin-bottom: 10px;
+    }
+  }
+}

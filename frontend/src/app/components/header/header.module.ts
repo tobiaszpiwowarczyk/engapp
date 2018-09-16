@@ -4,18 +4,23 @@ import { RouterModule } from '@angular/router';
 import { HeaderItemComponent } from './header-item/header-item.component';
 import { HeaderComponent } from './header.component';
 import { MenuOpenerComponent } from './menu-opener/menu-opener.component';
+import { HeaderMenuComponent } from './header-menu/header-menu.component';
+import { HeaderService } from './services/header.service';
 
 @NgModule({
   imports: [CommonModule, RouterModule],
   exports: [
     HeaderComponent,
     HeaderItemComponent,
-    MenuOpenerComponent
+    MenuOpenerComponent,
+    HeaderMenuComponent
   ],
   declarations: [
     HeaderComponent,
     HeaderItemComponent,
-    MenuOpenerComponent
-  ]
+    MenuOpenerComponent,
+    HeaderMenuComponent
+  ],
+  providers: [HeaderService]
 })
 export class HeaderModule { }

@@ -7,10 +7,12 @@ $message-height: 60px;
   position: relative;
   width: 100%;
   min-height: $message-height;
-  display: flex;
+  display: none;
   justify-content: space-between;
   color: $black;
   border-radius: $border-radius;
+  overflow: hidden;
+  opacity: 1;
 
 
   &__collumn {
@@ -45,6 +47,26 @@ $message-height: 60px;
     justify-content: center;
   }
 
+  &__progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 3px;
+    background: rgba($black, 0.6);
+
+    &__state {
+      position: relative;
+      height: 100%;
+      width: 0;
+      background: $black;
+    }
+  }
+
+  &--shown {
+    display: flex;
+  }
 
   &--success {
     background: $green;
@@ -56,5 +78,13 @@ $message-height: 60px;
 
   &--danger {
     background: $red;
+  }
+
+  &--floating {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: auto;
+    z-index: $loader-z-index;
   }
 }

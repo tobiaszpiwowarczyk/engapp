@@ -84,7 +84,7 @@
 
 
   &--disabled {
-    border-color: lighten($grey, 20%);
+    input { color: $grey; }
   }
 
 

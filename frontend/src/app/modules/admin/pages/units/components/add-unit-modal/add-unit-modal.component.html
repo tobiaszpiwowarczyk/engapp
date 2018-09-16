@@ -1,0 +1,22 @@
+<app-modal title="Nowy rozdział" (onClose)="resetForm()" (onApprove)="addUnit()" #modal>
+  <div modal-content>
+    <form [formGroup]="newUnitForm">
+      <div class="form-control">
+        <div class="form-control__label">Nazwa rozdziału</div>
+        <div class="form-control__container">
+          <app-input formControlName="name" [control]="newUnitForm?.controls['name']" appInputFluid appInputCompact></app-input>
+        </div>
+      </div>
+      <div class="form-control">
+        <div class="form-control__label">Kolor rozdziału</div>
+        <div class="form-control__container">
+          <!-- todo: create color picker -->
+          <app-input-group>
+            <app-input formControlName="color" [control]="newUnitForm?.controls['color']" appInputFluid appInputCompact></app-input>
+            <div class="color-preview" [ngStyle]="{'backgroundColor': newUnitForm?.controls['color'].value}"></div>
+          </app-input-group>
+        </div>
+      </div>
+    </form>
+  </div>
+</app-modal>

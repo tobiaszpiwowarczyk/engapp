@@ -2,9 +2,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Word } from '../../../../main/quiz/services/word/Word';
 
 @Pipe({
-  name: 'unitFilter'
+  name: 'unitFilter',
+  pure: false
 })
-
 export class UnitFilterPipe implements PipeTransform {
   transform(words: Word[], value: string): any {
 
@@ -13,6 +13,6 @@ export class UnitFilterPipe implements PipeTransform {
     }
 
     return words.filter(word => word.polish.toLowerCase().startsWith(value.toLowerCase())
-    || word.english.toString().toLowerCase().startsWith(value.toLowerCase()));
+    || word.english.filter(e => e.toLowerCase().startsWith(value.toLowerCase())).length > 0);
   }
 }

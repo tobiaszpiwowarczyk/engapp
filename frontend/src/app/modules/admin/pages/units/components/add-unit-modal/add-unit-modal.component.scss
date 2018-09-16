@@ -1,0 +1,9 @@
+
+@import "../../../../../../../assets/variables";
+
+.color-preview {
+  position: relative;
+  width: $input-height;
+  height: $input-height + ($input-border-width * 2);
+  border-radius: $border-radius;
+}

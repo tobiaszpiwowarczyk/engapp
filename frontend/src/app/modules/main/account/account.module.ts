@@ -10,6 +10,7 @@ import { TabModule } from '../../../components/tab/tab.module';
 import { ProfileModule } from './../../../directives/profile/profile.module';
 import { AccountRoutingModule } from './account-routing.module';
 import { AccountComponent } from './pages/account/account.component';
+import { ButtonModule } from '../../../components/button/button.module';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { AccountComponent } from './pages/account/account.component';
     TabModule,
     SwitchModule,
     MessageModule,
+    ButtonModule,
     AccountRoutingModule,
     ReactiveFormsModule,
     FormsModule,

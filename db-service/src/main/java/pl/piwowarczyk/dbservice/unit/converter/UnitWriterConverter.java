@@ -15,6 +15,7 @@ public class UnitWriterConverter implements Converter<Unit, Document> {
             put("color", unit.getColor());
             put("published", unit.getPublished());
             put("words", unit.getWords());
+            put("image", unit.getImage());
         }};
     }
 }

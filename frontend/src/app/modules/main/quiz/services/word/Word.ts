@@ -2,7 +2,7 @@
 export class Word {
   wordNumber: number;
   polish: string;
-  english: any;
+  english: string[];
 
   constructor(values: Object = {}) {
     Object.assign(this, values);
