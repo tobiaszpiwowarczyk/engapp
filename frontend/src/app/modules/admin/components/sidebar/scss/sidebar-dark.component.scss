@@ -3,5 +3,9 @@
   .sidebar {
     background: $black;
     color: $white;
+
+    &::before {
+      background: rgba($white, 0.2);
+    }
   }
 }

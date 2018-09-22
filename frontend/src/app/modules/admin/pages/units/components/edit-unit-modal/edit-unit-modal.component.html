@@ -1,0 +1,32 @@
+<app-modal title="Edytuj rozdział" (onClose)="onClose()" (onApprove)="onApprove()" #modal>
+  <div modal-content>
+    <form [formGroup]="editUnitForm">
+      <input type="hidden" formControlName="id" />
+
+      <div class="form-control">
+        <div class="form-control__label">Nazwa rozdziału</div>
+        <div class="form-control__container">
+          <app-input formControlName="name" [control]="editUnitForm?.controls['name']" appInputFluid appInputCompact></app-input>
+        </div>
+      </div>
+
+      <div class="form-control">
+        <div class="form-control__label">Kolor rozdziału</div>
+        <div class="form-control__container">
+          <!-- todo: create color picker -->
+          <app-input-group>
+            <app-input formControlName="color" [control]="editUnitForm?.controls['color']" appInputFluid appInputCompact></app-input>
+            <div class="color-preview" [ngStyle]="{'backgroundColor': editUnitForm?.controls['color'].value}"></div>
+          </app-input-group>
+        </div>
+      </div>
+
+      <div class="form-control">
+        <div class="form-control__label">Opublikowany</div>
+        <div class="form-control__container">
+          <app-switch formControlName="published"></app-switch>
+        </div>
+      </div>
+    </form>
+  </div>
+</app-modal>

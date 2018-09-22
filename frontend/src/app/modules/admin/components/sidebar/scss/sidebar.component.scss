@@ -5,13 +5,46 @@
 @import "sidebar-dark.component";
 
 .sidebar {
-  position: fixed;
-  width: $sidebar-width;
-  height: 100%;
+  position: relative;
+  min-width: $sidebar-item-height;
+  height: calc(100vh - #{$header-height});
+  min-height: 100%;
   background: $white;
-  box-shadow: $box-shadow;
+  z-index: 2;
+  transition: min-width .4s $bezier;
 
-  a:hover {
-    text-decoration: none;
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 60px;
+    background: rgba($black, 0.2);
+  }
+
+  &__content {
+    position: fixed;
+    width: $sidebar-item-height;
+    height: 100%;
+    box-shadow: $box-shadow;
+    overflow: hidden;
+    transition: width .4s $bezier;
+  
+    a:hover {
+      text-decoration: none;
+    }
+  }
+
+  &--expanded {
+    min-width: $sidebar-width;
+  }
+
+  &--expanded & {
+
+    &__content {
+      width: $sidebar-width;
+    }
   }
 }

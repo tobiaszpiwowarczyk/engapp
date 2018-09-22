@@ -1,6 +1,6 @@
-<div class="menu__opener" [ngClass]="{
-  'menu__opener--opened': opened
-}" (click)="open()">
+<div class="menu__opener" 
+     [class.menu__opener--opened]="opened"
+     (click)="open()">
   <div>
     <span></span>
     <span></span>

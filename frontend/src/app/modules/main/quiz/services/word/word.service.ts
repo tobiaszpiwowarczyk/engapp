@@ -18,8 +18,10 @@ export class WordService {
     private http: Http,
     private ls: LoginService
   ) {
-    this.headers = new Headers();
-    this.headers.append(this.ls.AUTHORIZATION_HEADER, this.ls.getAccessToken());
+    this.headers = new Headers({
+      "Content-Type": "application/json",
+      [this.ls.AUTHORIZATION_HEADER]: this.ls.getAccessToken()
+    });
 
     this.options = {
       headers: this.headers
@@ -29,12 +31,25 @@ export class WordService {
   public randomWord(unitId: string, id: number): Observable<Word> {
     return this.http.get(`/db/api/word/${unitId}/${id}`, this.options)
         .map(res => new Word(res.json()))
-        .catch(err => Observable.throw(err))
-        .map(res => {
-          if(res.english.includes("/"))
-            res.english = res.english.split("/");
-          return res;
-        });
+        .catch(err => Observable.throw(err.json()));
   }
 
+
+  public addWord(unitId: string, word: Word): Observable<Word> {
+    return this.http.post(`/db/api/word/${unitId}`, JSON.stringify(word), this.options)
+      .map(res => new Word(res.json()))
+      .catch(err => Observable.throw(err.json()));
+  }
+
+  public editWord(unitId: string, word: Word): Observable<Word> {
+    return this.http.put(`/db/api/word/${unitId}`, JSON.stringify(word), this.options)
+      .map(res => new Word(res.json()))
+      .catch(err => Observable.throw(err.json()));
+  }
+
+  public deleteWord(unitId: string, wordNumber: number): Observable<any> {
+    return this.http.delete(`/db/api/word/${unitId}/${wordNumber}`, this.options)
+    .map(res => res.json())
+    .catch(err => Observable.throw(err.json()));
+  }
 }

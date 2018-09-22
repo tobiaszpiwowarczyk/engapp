@@ -1,9 +1,19 @@
-<div class="message message--{{messageType?.name}}" *ngIf="shown">
+<div class="message message--{{messageType?.name}}"
+     [class.message--shown]="shown"
+     [class.message--floating]="floating"
+     [@messageAnimation]="messageAnimationState"
+     (@messageAnimation.done)="runProgress()">
+     
   <div class="message__collumn">
     <div class="message__icon material-icons">{{messageType?.icon}}</div>
     <div class="message__content">{{content}}</div>
   </div>
   <div class="message__close-btn" (click)="hide()">
     <div class="material-icons">close</div>
+  </div>
+  <div class="message__progress" *ngIf="autoHide">
+    <div class="message__progress__state" 
+         [@messageProgressAnimation]="progressState" 
+         (@messageProgressAnimation.done)="hide()"></div>
   </div>
 </div>

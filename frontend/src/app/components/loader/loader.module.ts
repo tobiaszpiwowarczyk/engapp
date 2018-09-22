@@ -1,3 +1,4 @@
+import { LoaderFullScreenDirective } from './directives/loader-full-screen.directive';
 import { LoaderTinyDirective } from './directives/loader-tiny.directive';
 import { NgModule } from '@angular/core';
 import { LoaderComponent } from './loader.component';
@@ -7,7 +8,9 @@ import { LoaderVisibleDirective } from './directives/loader-visible.directive';
 
 @NgModule({
   imports: [CommonModule],
-  exports: [LoaderComponent, LoaderTinyDirective, LoaderNoFillDirective, LoaderVisibleDirective],
-  declarations: [LoaderComponent, LoaderTinyDirective, LoaderNoFillDirective, LoaderVisibleDirective],
+  exports: [LoaderComponent, LoaderTinyDirective,
+    LoaderNoFillDirective, LoaderVisibleDirective, LoaderFullScreenDirective],
+  declarations: [LoaderComponent, LoaderTinyDirective,
+    LoaderNoFillDirective, LoaderVisibleDirective, LoaderFullScreenDirective],
 })
 export class LoaderModule { }

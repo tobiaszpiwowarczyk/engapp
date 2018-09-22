@@ -40,7 +40,7 @@ $unit-responsive-offset: 20px;
       color: $black;
     }
 
-    .button {
+    app-button {
       position: absolute;
       bottom: 20px;
       right: 20px;
@@ -50,7 +50,18 @@ $unit-responsive-offset: 20px;
       transition: .4s $bezier;
       overflow: hidden;
 
-      &__icon {
+      /deep/ .button {
+        @include tablet {
+          width: $unit-btn-width + $unit-responsive-offset;
+          height: $unit-btn-width + $unit-responsive-offset;
+  
+          &__icon {
+            top: -($unit-btn-width + $unit-responsive-offset);
+          }
+        }
+      }
+
+      .button__icon {
         position: relative;
         top: -$unit-btn-width;
         width: 100%;
@@ -59,6 +70,10 @@ $unit-responsive-offset: 20px;
         align-items: center;
         justify-content: center;
         transition: .4s $bezier;
+
+        @include tablet {
+          top: -($unit-btn-width + $unit-responsive-offset);
+        }
       }
 
       .material-icons {
@@ -77,10 +92,6 @@ $unit-responsive-offset: 20px;
       @include tablet {
         width: $unit-btn-width + $unit-responsive-offset;
         height: $unit-btn-width + $unit-responsive-offset;
-
-        &__icon {
-          top: -($unit-btn-width + $unit-responsive-offset);
-        }
       }
     }
   }

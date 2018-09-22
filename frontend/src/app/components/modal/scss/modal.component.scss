@@ -1,0 +1,102 @@
+
+@import "../../../../assets/_variables";
+@import "modal.dark-theme.component";
+
+// ------------------------------------
+
+$modal-height: 70px;
+$modal-box-transform-start-position: 200px;
+
+// ------------------------------------
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba($black, 0.8);
+  z-index: $modal-z-index;
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  &__box {
+    position: relative;
+    width: 600px;
+    max-height: 80%;
+    transform: translateY($modal-box-transform-start-position);
+    margin: 60px 0;
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__header, &__content, &__footer {
+    position: relative;
+    width: 100%;
+  }
+
+  &__header {
+    min-height: $modal-height;
+    border-bottom: 1px solid $grey;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__title {
+    position: relative;
+    padding: 0 20px;
+  }
+
+  &__closer {
+    position: relative;
+    min-width: $modal-height;
+    height: $modal-height;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__content {
+    min-height: 100px;
+    padding: 20px;
+    overflow-y: auto;
+  }
+
+  &__footer {
+    padding: 20px;
+    border-top: 1px solid $grey;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+
+  
+  &--shown {
+    display: flex;
+  }
+
+  &--shown & {
+    &__box {
+      animation: modalOpen .4s $bezier forwards;
+    }
+  }
+}
+
+
+@keyframes modalOpen {
+  from {
+    transform: translateY($modal-box-transform-start-position) scaleX(0.3) scaleY(0.5);
+    transform-origin: center 170%;
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    transform-origin: center 170%;
+    opacity: 1;
+  }
+}

@@ -8,8 +8,8 @@
       <h3 class="unit__title">{{unit?.name}}</h3>
     </a>
 
-    <button class="button button--circular" 
-            [ngStyle]="{ 'background': unit?.color }"
+    <app-button circular primary
+            [style]="{'background': unit?.color}"
             [ngClass]="{ 'options--shown': optionsShown }"
             (click)="toggleOptions()">
       <div class="button__icon">
@@ -18,7 +18,7 @@
       <div class="button__icon">
         <div class="material-icons">settings</div>
       </div>
-    </button>
+    </app-button>
 
 
     <div class="unit__settings" [ngClass]="{'unit__settings--shown': optionsShown}">

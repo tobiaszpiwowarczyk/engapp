@@ -1,6 +1,4 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { Router } from '@angular/router';
-import { LoginService } from '../../services/login/login.service';
 import { User } from '../../services/user/User';
 import { MenuOpenerComponent } from './menu-opener/menu-opener.component';
 
@@ -18,17 +16,8 @@ export class HeaderComponent implements OnInit {
   opened: boolean = false;
   contentFluid: boolean = false;
 
-  constructor(
-    private ls: LoginService,
-    private router: Router
-  ) {}
-
+  constructor() {}
   ngOnInit() {}
-
-
-  public logout(): void {
-    this.ls.logout();
-  }
 
   public open(evt: boolean): void {
     this.opened = evt;
@@ -37,13 +26,5 @@ export class HeaderComponent implements OnInit {
   public close(): void {
     this.opened = false;
     this.opener.opened = false;
-  }
-
-  public account(): void {
-    this.router.navigate(["/account", this.user.username]);
-  }
-
-  public dashboard(): void {
-    this.router.navigate(["/admin"]);
   }
 }

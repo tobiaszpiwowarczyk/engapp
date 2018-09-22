@@ -7,11 +7,13 @@ import { LoginComponent } from './pages/login/login.component';
 import { LoginRoutingModule } from './login-route.module';
 import { HttpModule } from '@angular/http';
 import { MessageModule } from '../../components/message/message.module';
+import { ButtonModule } from '../../components/button/button.module';
 @NgModule({
   imports: [
     InputModule,
     MessageModule,
     LoaderModule,
+    ButtonModule,
     CommonModule,
     LoginRoutingModule,
     HttpModule,

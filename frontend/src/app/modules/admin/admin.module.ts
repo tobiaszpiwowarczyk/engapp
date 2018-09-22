@@ -1,3 +1,4 @@
+import { SidebarService } from './components/sidebar/services/sidebar.service';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { HeaderModule } from '../../components/header/header.module';
@@ -11,6 +12,6 @@ import { SidebarModule } from './components/sidebar/sidebar.module';
     RouterModule, HeaderModule, SidebarModule],
   exports: [],
   declarations: [AdminComponent],
-  providers: [],
+  providers: [SidebarService]
 })
 export class AdminModule { }

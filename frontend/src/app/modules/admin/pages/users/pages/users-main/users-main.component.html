@@ -31,9 +31,7 @@
               <app-user-type [type]="user?.role"></app-user-type>
             </td>
             <td>
-              <a [routerLink]="['./', user?.username]" class="button button--icon">
-                <div class="material-icons">info</div>
-              </a>
+              <app-button [routerLink]="['./', user?.username]" icon="info" primary></app-button>
             </td>
           </tr>
         </tbody>

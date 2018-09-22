@@ -7,6 +7,7 @@ import "rxjs/add/operator/toPromise";
 import { Observable } from 'rxjs/Observable';
 import { LoginService } from '../login/login.service';
 import { Unit } from './../../modules/main/home/components/unit/Unit';
+import { DropFile } from '../../components/file-input/services/DropFile';
 
 
 @Injectable()
@@ -20,6 +21,7 @@ export class UnitService {
     private ls: LoginService
   ) {
     this.headers = new Headers();
+    this.headers.append("Content-Type", "application/json");
     this.headers.append(this.ls.AUTHORIZATION_HEADER, this.ls.getAccessToken());
 
     this.options = {
@@ -27,26 +29,80 @@ export class UnitService {
     };
   }
 
+  /**
+   * Retrieves all units from database and map it
+   * into array of {@link Unit} objects
+   * @returns {@link Unit[]} if user is administrator
+   * @throws http status "Forbidden" if user is not an administrator
+   */
   public findAll(): Observable<Array<Unit>> {
     return this.http.get("/db/api/unit", this.options)
       .map(res => res.json().map(x => new Unit(x)))
       .catch(err => Observable.throw(err.json()));
   }
 
-  public findById(id: string): Promise<Unit> {
+  /**
+   * Finds unit by 'id'
+   * 
+   * @param id {@link string} - must not be null
+   * @returns {@link Unit} id unit exists
+   * @throws "Forbidden" error if unit not exists
+   */
+  public findById(id: string): Observable<Unit> {
     return this.http.get(`/db/api/unit/${id}`, this.options)
       .map(res => new Unit(res.json()))
-      .catch(err => Observable.throw(err))
-      .map((res: Unit) => {
-        res.words.map(word => {
-          if(word.english.includes("/")) {
-            word.english = word.english.toString().split("/");
-          }
-        });
-        console.log(res);
-        return res;
-      })
-      .toPromise();
+      .catch(err => Observable.throw(err.json().errors));
+  }
+
+  /**
+   * Add unit to database
+   * @param unit {@link Unit} - must be valid
+   * @returns {@link Unit} - the new unit
+   * @throws "Forbidden" error if user is not an administrator
+   */
+  public addUnit(unit: Unit): Observable<Unit> {
+    return this.http.post("/db/api/unit", JSON.stringify(unit), this.options)
+      .map(res => res.json())
+      .catch(err => Observable.throw(err.json()));
+  }
+
+
+  /**
+   * Modify unit, save to database and return it
+   * 
+   * @param unit {@link Unit} - unit, must be valid
+   * @returns {@link Unit} - modified unit
+   */
+  public editUnit(unit: Unit): Observable<Unit> {
+    return this.http.put("/db/api/unit", JSON.stringify(unit), this.options)
+      .map(res => res.json())
+      .catch(err => Observable.throw(err.json()));
+  }
+
+
+  /**
+   * Updates unit image
+   * 
+   * @param unitId {@link string} - the unit id
+   * @param file {@link DropFile} - file with base64 encoded data
+   * @returns {@link Unit} - updated unit
+   */
+  public editUnitImage(unitId: string, file: DropFile): Observable<Unit> {
+    return this.http.put(`/db/api/unit/${unitId}/image`, JSON.stringify(file), this.options)
+      .map(res => res.json())
+      .catch(err => Observable.throw(err.json()));
+  }
+
+
+  /**
+   * Removes unit from database
+   * @param id {@link string} - unit identifier
+   * @returns information about unit deletion
+   */
+  public deleteUnit(id: string): Observable<any> {
+    return this.http.delete(`/db/api/unit/${id}`, this.options)
+      .map(res => res.json())
+      .catch(err => Observable.throw(err.json()));
   }
 
 }

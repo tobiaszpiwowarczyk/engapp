@@ -1,0 +1,24 @@
+<app-modal title="Nowe słówko" (onClose)="onClose()" (onApprove)="onApprove()" #modal>
+  <div modal-content>
+    <form [formGroup]="wordForm">
+      <div class="form-control">
+        <div class="form-control__label">Polskie</div>
+        <div class="form-control__container">
+          <app-input formControlName="polish" placeholder="Wpisz słówko..." appInputFluid appInputCompact></app-input>
+        </div>
+      </div>
+      <div class="form-control">
+        <div class="form-control__label">Angielskie</div>
+        <div class="form-control__container">
+
+          <app-input-group *ngFor="let input of wordForm.get('english').controls; let i = index">
+            <app-input placeholder="Wpisz słówko..." [formControl]="input" appInputFluid appInputCompact></app-input>
+            <app-button *ngIf="i > 0" (click)="removeWord(i)" icon="delete" negative></app-button>
+          </app-input-group>
+
+          <app-button (click)="addWord()" icon="add" primary></app-button>
+        </div>
+      </div>
+    </form>
+  </div>
+</app-modal>

@@ -1,0 +1,14 @@
+<button class="button"
+        [class.button--icon]="icon.length > 0"
+        [class.button--circular]="circular"
+        [class.button--fluid]="fluid"
+        [class.button--negative]="negative"
+        [class.button--primary]="primary"
+        [class.button--disabled]="disabled"
+        [attr.type]="type" [ngStyle]="style"
+        [attr.disabled]="disabled ? 'disabled' : null"
+        [ngClass]="ngClass">
+
+  <div class="material-icons" *ngIf="icon != ''">{{icon}}</div>
+  <ng-content></ng-content>
+</button>

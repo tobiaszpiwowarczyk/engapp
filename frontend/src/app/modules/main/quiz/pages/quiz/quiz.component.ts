@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { InputComponent } from '../../../../../components/input/input.component';
@@ -19,6 +19,8 @@ export class QuizComponent implements OnInit {
 
   @ViewChild("wordInput") wordInput: InputComponent;
   @ViewChild("quizLoader") quizLoader: LoaderComponent;
+
+  wordControl: FormControl = new FormControl("", Validators.required);
 
   unit: Unit;
   word: Word;
@@ -48,10 +50,11 @@ export class QuizComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.quizLoader.show();
     this.route.params.subscribe(r => {
       this.scope = parseInt(localStorage.getItem("scope"), 10);
       this.unitService.findById(r.id)
-        .then(res => {
+        .subscribe(res => {
           this.unit = res;
           this.title.setTitle("EngApp - Rozdział: " + this.unit.name);
           this.renderWord();
@@ -59,7 +62,7 @@ export class QuizComponent implements OnInit {
     });
 
     this.quizForm = this.fb.group({
-      word: ['', Validators.required]
+      word: this.wordControl
     });
 
     window.addEventListener("keydown", (e) => {
@@ -71,28 +74,26 @@ export class QuizComponent implements OnInit {
   }
 
 
+
+
+
+
   public check(): void {
     this.shown = true;
-    this.quizForm.controls.word.disable();
     this.wordInput.blur();
+    this.quizForm.controls.word.disable();
+    this.multipleAnswers = this.word.english.length > 1;
 
-    if(typeof(this.word.english) == "string") {
-      this.valid = this.word.english === this.quizForm.controls.word.value;
-      this.multipleAnswers = false;
+    if(this.multipleAnswers) {
+      this.valid = this.word.english.includes(this.quizForm.controls.word.value);
     }
     else {
-      this.valid = this.word.english.includes(this.quizForm.controls.word.value);
-      this.multipleAnswers = true;
+      this.valid = this.word.english[0] === this.quizForm.controls.word.value;
     }
 
     if(this.valid) {
       if(this.firstStageNonFinnished()) {
         this.points++;
-
-        if(this.multipleAnswers) {
-          this.word.english.splice(this.word.english.indexOf(this.quizForm.controls.word.value), 1);
-        }
-
       } else {
         this.badWords.splice(this.badWords.indexOf(this.word), 1);
       }
@@ -105,6 +106,10 @@ export class QuizComponent implements OnInit {
       this.currentBadWord = 0;
     }
   }
+
+
+
+
 
 
 
@@ -125,7 +130,7 @@ export class QuizComponent implements OnInit {
       }
       else {
         this.word = this.badWords[this.currentBadWord];
-        setTimeout(() => this.wordInput.focus(), 10);
+        this.wordInput.focus();
       }
     }
   }

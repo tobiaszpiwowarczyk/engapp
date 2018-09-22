@@ -1,8 +1,8 @@
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
-import { UserService } from './../../../../../../services/user/user.service';
 import { Component, OnInit } from '@angular/core';
-import { User } from '../../../../../../services/user/User';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
+import { User } from '../../../../../../services/user/User';
+import { UserService } from './../../../../../../services/user/user.service';
 
 @Component({
   selector: 'app-users-main',
@@ -34,10 +34,5 @@ export class UsersMainComponent implements OnInit {
     this.usersSearchForm = this.fb.group({
       name: this.name
     });
-
-    this.name.valueChanges.subscribe((name: string) => {
-      
-    })
   }
-
 }

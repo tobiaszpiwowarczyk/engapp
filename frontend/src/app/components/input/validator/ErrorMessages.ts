@@ -1,4 +1,4 @@
-import { ErrorMessage } from "./ErrorMessage";
+import { ErrorMessage } from './ErrorMessage';
 
 export class ErrorMessages {
   public static readonly REQUIRED: ErrorMessage = new ErrorMessage({type: "required", message: "To pole jest wymagane"});
@@ -21,5 +21,9 @@ export class ErrorMessages {
 
   public static readonly EMAIL_TAKEN: ErrorMessage = new ErrorMessage(
     {type: "emailTaken", message: "Już istnieje konto z podanym adresem e-mail"}
+  );
+
+  public static readonly COLOR: ErrorMessage = new ErrorMessage(
+    {type: "color", message: "Podana wartość koloru jest nieprawidłowa"}
   );
 }

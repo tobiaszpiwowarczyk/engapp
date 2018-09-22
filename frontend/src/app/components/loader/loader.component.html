@@ -1,11 +1,11 @@
 <div class="loader"
     [ngClass]="{
       'loader--no-fill': noFill,
-      'loader--tiny': tiny
+      'loader--tiny': tiny,
+      'loader--full-screen': fullScreen
     }"
     *ngIf="visible">
   <svg class="loader__spinner" [attr.width]="loaderWidth" [attr.height]="loaderWidth">
-    <circle [attr.cx]="loaderWidth / 2" [attr.cy]="loaderWidth / 2" [attr.r]="(loaderWidth / 2) - loaderStrokeWidth / 2" 
-            fill="none" />
+    <circle [attr.cx]="loaderWidth / 2" [attr.cy]="loaderWidth / 2" [attr.r]="(loaderWidth / 2) - loaderStrokeWidth / 2" fill="none" />
   </svg>
 </div>

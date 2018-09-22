@@ -6,64 +6,59 @@
     </div>
   </div>
 
-  <div class="quiz__form" *ngIf="!finished">
+  <div class="quiz__form">
 
     <app-loader #quizLoader></app-loader>
 
-    <h4>{{word?.polish}}</h4>
-    <form [formGroup]="quizForm">
-      <app-input formControlName="word" appInputFluid #wordInput></app-input>
-      <button class="button button--fluid" type="submit"
-              (click)="check()"
-              [ngStyle]="{'background': unit?.color}"
-              *ngIf="!shown">Sprawdź</button>
+    <div class="quiz__form__content" *ngIf="!finished">
+      <h4>{{word?.polish}}</h4>
+      <form [formGroup]="quizForm">
+        <app-input formControlName="word" appInputFluid #wordInput></app-input>
 
-      <button class="button button--fluid" type="submit" 
-              (click)="next()"
-              [ngStyle]="{'background': unit?.color}"
-              *ngIf="shown">Następny</button>
+        <app-button type="submit" (click)="check()" [style]="{'background': unit?.color}" *ngIf="!shown" fluid primary>Sprawdź</app-button>
+        <app-button type="submit" (click)="next()" [style]="{'background': unit?.color}" *ngIf="shown" fluid primary>Następny</app-button>
 
-    </form>
+      </form>
 
 
-    <div class="quiz__validator" *ngIf="shown" [ngClass]="{
-      'quiz__validator--valid': valid,
-      'quiz__validator--invalid': !valid
-    }">
-      <div *ngIf="valid" class="quiz__validator__message">
-        <p>Odpowiedź prawidłowa</p>
+      <div class="quiz__validator" *ngIf="shown" [ngClass]="{
+        'quiz__validator--valid': valid,
+        'quiz__validator--invalid': !valid
+      }">
+        <div *ngIf="valid" class="quiz__validator__message">
+          <p>Odpowiedź prawidłowa</p>
 
-        <div class="quiz__validator__message--multiple" *ngIf="multipleAnswers">
+          <div class="quiz__validator__message--multiple" *ngIf="multipleAnswers">
             Mogłeś również użyć:
             <ul>
-              <li *ngFor="let w of word?.english">{{w}}</li>
+              <li *ngFor="let w of word?.english | wordExcept:wordControl.value">{{w}}</li>
             </ul>
+          </div>
+
         </div>
 
-      </div>
+        <div *ngIf="!valid" class="quiz__validator__message">
+          <p>Odpowiedź nieprawidłowa</p>
+          <p *ngIf="!multipleAnswers">Prawidłowa odpowiedź to: <b>{{word?.english}}</b></p>
 
-      <div *ngIf="!valid" class="quiz__validator__message">
-        <p>Odpowiedź nieprawidłowa</p>
-        <p *ngIf="!multipleAnswers">Prawidłowa odpowiedź to: <b>{{word?.english}}</b></p>
-
-        <div class="quiz__validator__message--multiple" *ngIf="multipleAnswers">
+          <div class="quiz__validator__message--multiple" *ngIf="multipleAnswers">
             Prawidłowe odpowiedzi to:
             <ul>
               <li *ngFor="let w of word?.english">{{w}}</li>
             </ul>
-        </div>
+          </div>
 
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="quiz__form quiz__form--finished" *ngIf="finished">
-    <div class="quiz__form__finish-message">
-      <h2>Koniec</h2>
-      <h5>Uzyskałeś {{points}} punktów na {{scope}} możliwych</h5>
+
+    <div class="quiz__form__content quiz__form--finished" *ngIf="finished">
+      <div class="quiz__form__finish-message">
+        <h2>Koniec</h2>
+        <h5>Uzyskałeś {{points}} punktów na {{scope}} możliwych</h5>
+      </div>
+      <app-button (click)="restart()" [ngStyle]="{'background': unit?.color}" fluid primary>Zacznij od nowa</app-button>
     </div>
-    <button class="button button--fluid" 
-            [ngStyle]="{'background': unit?.color}"
-            (click)="restart()">Zacznij od nowa</button>
   </div>
 </div>

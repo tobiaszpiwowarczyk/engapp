@@ -9,6 +9,7 @@ import { UserTypeModule } from './components/user-type/user-type.module';
 import { LoaderModule } from '../../../../components/loader/loader.module';
 import { InputModule } from '../../../../components/input/input.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ButtonModule } from '../../../../components/button/button.module';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     UserTypeModule,
     LoaderModule,
     InputModule,
+    ButtonModule,
     ReactiveFormsModule
   ],
   declarations: [UsersMainComponent, UsersSingleComponent]
