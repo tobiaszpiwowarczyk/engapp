@@ -9,9 +9,13 @@ import org.springframework.data.mongodb.core.query.Update;
 import pl.piwowarczyk.dbservice.unit.Unit;
 import pl.piwowarczyk.dbservice.unit.domain.UnitEditionEntity;
 import pl.piwowarczyk.dbservice.word.Word;
+import pl.piwowarczyk.dbservice.word.domain.WordCreationEntity;
 import pl.piwowarczyk.library.util.UserPermissions;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
@@ -42,7 +46,7 @@ public class UnitRepositoryImpl implements UnitRepositoryCustom {
 
         Aggregation aggregation = newAggregation(
                 match(where("_id").is(new ObjectId(id))),
-                UserPermissions.isAdmin() ? project("id", "name", "color", "words", "published")
+                UserPermissions.isAdmin() ? project("id", "name", "color", "words", "image", "published")
                         .and("words").size().as("wordsCount") :
                         project("id", "name", "color")
                                 .and("words").size().as("wordsCount")
@@ -60,6 +64,7 @@ public class UnitRepositoryImpl implements UnitRepositoryCustom {
                     if(unit.getName() != null) set("name", unit.getName());
                     if(unit.getColor() != null) set("color", unit.getColor());
                     if(unit.getPublished() != null) set("published", unit.getPublished());
+                    if(unit.getImage() != null) set("image", unit.getImage());
                 }},
                 Unit.class,
                 collectionName
@@ -92,5 +97,66 @@ public class UnitRepositoryImpl implements UnitRepositoryCustom {
     @Override
     public boolean existsBy(String field, Object value) {
         return mongoTemplate.count(new Query().addCriteria(where(field).is(value)), collectionName) == 1;
+    }
+
+    @Override
+    public Word addWord(String unitId, WordCreationEntity word) {
+                
+        long wordCount = (long) (this.findUnitById(unitId).getWords().size() + 1);
+        mongoTemplate.updateFirst(
+                new Query(where("_id").is(new ObjectId(unitId))),
+                new Update() {{
+                    addToSet("words", Word.builder()
+                            .wordNumber(wordCount)
+                            .polish(word.getPolish())
+                            .english(word.getEnglish())
+                            .build());
+                }},
+                Unit.class,
+                collectionName
+        );
+        
+        return this.findWordByWordNumber(unitId, wordCount);
+    }
+
+    @Override
+    public Word editWord(String unitId, Word word) {
+        
+        mongoTemplate.updateFirst(
+                new Query(where("_id").is(new ObjectId(unitId)).and("words.wordNumber").is(word.getWordNumber())),
+                new Update() {{
+                    if(word.getPolish() != null) set("words.$.polish", word.getPolish());
+                    if(word.getEnglish() != null) set("words.$.english", word.getEnglish());
+                }},
+                Unit.class,
+                collectionName
+        );
+        
+        return this.findWordByWordNumber(unitId, word.getWordNumber());
+    }
+
+    @Override
+    public Map<String, String> deleteWord(String unitId, Long wordNumber) {
+        
+        Unit unit = this.findUnitById(unitId);
+        Word word = unit.getWords().stream().filter(w -> w.getWordNumber().equals(wordNumber)).findFirst().orElse(null);
+        unit.getWords().remove(word);
+        
+        for (int i = 1; i < unit.getWords().size(); i++) {
+            if(unit.getWords().get(i).getWordNumber() - unit.getWords().get(i-1).getWordNumber() > 1) {
+                unit.getWords().get(i).setWordNumber(unit.getWords().get(i).getWordNumber() - 1);
+            }
+        }
+        
+        mongoTemplate.updateFirst(
+                new Query(where("_id").is(new ObjectId(unitId))),
+                new Update(){{
+                    set("words", unit.getWords());
+                }},
+                Unit.class,
+                collectionName
+        );
+        
+        return Collections.singletonMap("state", "Slówko zostało pomyślnie usunięte");
     }
 }

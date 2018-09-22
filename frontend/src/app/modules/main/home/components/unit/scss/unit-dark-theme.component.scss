@@ -1,0 +1,10 @@
+
+:host-context(body.dark-theme) {
+  .unit__filter {
+    background: rgba($black, 0.4);
+
+    a {
+      color: $white;
+    }
+  }
+}

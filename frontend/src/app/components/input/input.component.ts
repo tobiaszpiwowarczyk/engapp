@@ -35,7 +35,6 @@ export class InputComponent implements OnInit, ControlValueAccessor {
     this.el.nativeElement.querySelector("input").addEventListener("focus", () => this.focus(), false);
     this.el.nativeElement.querySelector("input").addEventListener("blur", () => this.blur(), false);
     this.inputLoader.loaderWidth = 30;
-    this.inputLoader.show();
   }
 
   propagateChange = (_: any) => {};

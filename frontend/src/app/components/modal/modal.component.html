@@ -1,0 +1,25 @@
+<div class="modal" [ngClass]="{'modal--shown': shown}">
+  <div class="modal__box container">
+    <div class="modal__header">
+      <div class="modal__title">
+        <h3>{{title}}</h3>
+      </div>
+      <div class="modal__closer" (click)="hide()">
+        <div class="material-icons">close</div>
+      </div>
+    </div>
+    <div class="modal__content">
+      <ng-content select="[modal-content]"></ng-content>
+    </div>
+    <div class="modal__footer">
+      <app-input-group *ngIf="footerType == 0">
+        <app-button (click)="approve()" primary [disabled]="preventApprove">OK</app-button>
+        <app-button (click)="hide()">Anuluj</app-button>
+      </app-input-group>
+      <app-input-group *ngIf="footerType == 1">
+        <app-button (click)="approve()" primary [disabled]="preventApprove">Tak</app-button>
+        <app-button (click)="hide()">Nie</app-button>
+      </app-input-group>
+    </div>
+  </div>
+</div>

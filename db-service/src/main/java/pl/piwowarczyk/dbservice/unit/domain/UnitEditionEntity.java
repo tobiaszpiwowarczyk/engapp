@@ -1,5 +1,6 @@
 package pl.piwowarczyk.dbservice.unit.domain;
 
+import lombok.Builder;
 import lombok.Data;
 import pl.piwowarczyk.dbservice.unit.validator.*;
 import pl.piwowarczyk.dbservice.unit.validator.order.UnitCreationEntityValidationOrder.ColorNotBlankProperty;
@@ -13,6 +14,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Data
+@Builder
 @VerifyUnit(groups = VerifyUnitGroup.class)
 public class UnitEditionEntity {
 
@@ -34,4 +36,5 @@ public class UnitEditionEntity {
     @CorrectBoolean(groups = PublishedCorrectProperty.class)
     private Boolean published;
     
+    private String image;
 }

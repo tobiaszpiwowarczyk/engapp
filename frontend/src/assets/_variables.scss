@@ -13,9 +13,13 @@ $box-shadow: 0 2px 10px rgba(0,0,0,.2);
 
 $bezier: cubic-bezier(0,.83,.24,1);
 
+$sidebar-width: 270px;
+$sidebar-item-height: 60px;
+
 // z-index
 $header-z-index: 10;
 $loader-z-index: 11;
+$modal-z-index: 12;
 
 // resolutions
 $laptop-width: 1024px;

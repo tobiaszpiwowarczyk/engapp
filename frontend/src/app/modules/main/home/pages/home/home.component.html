@@ -1,0 +1,13 @@
+<app-loader loaderFullScreen #homeLoader></app-loader>
+
+<div class="content wrapper">
+  <h2>Wybierz rozdział</h2>
+
+  <div class="units" [@listAnimation]="units.length" *ngIf="isUser">
+    <app-unit *ngFor="let unit of units" [unit]="unit"></app-unit>
+  </div>
+
+  <div class="units" [@listAnimation]="units.length" *ngIf="!isUser">
+    <app-unit *ngFor="let unit of units | unitPublished" [unit]="unit"></app-unit>
+  </div>
+</div>

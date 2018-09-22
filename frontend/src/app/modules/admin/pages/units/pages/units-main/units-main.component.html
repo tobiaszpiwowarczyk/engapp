@@ -1,0 +1,61 @@
+<app-loader loaderFullScreen [visible]="loading" #loader></app-loader>
+<div class="admin-content" [hidden]="loading">
+  <div class="container container__box">
+
+    <app-loader #boxLoader></app-loader>
+
+    <div class="container__box__menu">
+      <app-button (click)="openAddUnitModal()" primary>Nowy rozdział</app-button>
+    </div>
+
+    <h2 class="container__box__header">Rozdziały</h2>
+    <div class="container__box__content">
+      <div [@listAnimation]="units.length">
+        <h3>Opublikowane</h3>
+        <div *ngFor="let unit of units | unitPublished:true" class="unit"
+              [ngStyle]="{'backgroundImage': 'url('+unit?.image+')', 'borderColor': unit?.color}">
+  
+          <div class="unit__filter">
+            <a [routerLink]="['./', unit?.id]" class="unit__link">
+              <h3>{{unit?.name}}</h3>
+            </a>
+            <app-input-group>
+              <app-button negative icon="delete" (click)="openInfoModal(unit)"></app-button>
+              <app-button primary icon="settings" [style]="{'backgroundColor': unit?.color}" (click)="openEditModal(unit)"></app-button>
+              <div class="unit__words-count"
+                [ngStyle]="{'backgroundColor': unit?.color}">{{unit?.wordsCount}}</div>
+            </app-input-group>
+          </div>
+        </div>
+    
+        <h3 *ngIf="(units | unitPublished:false).length > 0">Nieopublikowane</h3>
+        <div *ngFor="let unit of units | unitPublished:false" class="unit"
+          [ngStyle]="{'backgroundImage': 'url('+unit?.image+')', 'borderColor': unit?.color}">
+          <div class="unit__filter">
+            <a [routerLink]="['./', unit?.id]" class="unit__link">
+            <h3>{{unit?.name}}</h3>
+            </a>
+            <app-input-group>
+              <app-button negative icon="delete" (click)="openInfoModal(unit)"></app-button>
+              <app-button primary icon="settings" [style]="{'backgroundColor': unit?.color}" (click)="openEditModal(unit)"></app-button>
+              <div class="unit__words-count"
+                [ngStyle]="{'backgroundColor': unit?.color}">{{unit?.wordsCount}}</div>
+            </app-input-group>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-add-unit-modal (onStart)="boxLoader.show()" (onEnd)="addUnit($event)"></app-add-unit-modal>
+<app-edit-unit-modal (onStart)="boxLoader.show()" (onEnd)="editUnit($event)"></app-edit-unit-modal>
+
+<app-modal title="Informacja" modalFooterType="yes-no" (onClose)="resetEdittedUnit()" (onApprove)="deleteUnit()" #approveModal>
+  <div modal-content>
+    Czy na pewno chcesz usunąć ten rozdział?
+  </div>
+</app-modal>
+
+
+<app-message floating autoHide #message></app-message>

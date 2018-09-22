@@ -19,9 +19,12 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.scss"
+        "styles.scss",
+        "../node_modules/jarallax/dist/jarallax.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "../node_modules/jarallax/dist/jarallax.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",

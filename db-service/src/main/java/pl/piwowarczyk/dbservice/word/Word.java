@@ -1,18 +1,21 @@
 package pl.piwowarczyk.dbservice.word;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Word {
     
     private Long wordNumber;
-    
-    @NotBlank(message = "To pole jest wymagane")
     private String polish;
-    
-    @NotBlank(message = "To pole jest wymagane")
-    private String english;
+    private List<String> english;
     
 }

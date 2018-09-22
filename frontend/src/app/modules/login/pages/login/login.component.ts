@@ -1,11 +1,10 @@
-import { MessageComponent } from './../../../../components/message/message.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { InputComponent } from '../../../../components/input/input.component';
 import { LoaderComponent } from '../../../../components/loader/loader.component';
+import { MessageComponent } from '../../../../components/message/message.component';
 import { LoginService } from '../../../../services/login/login.service';
-import "rxjs/add/operator/finally";
 
 
 @Component({
@@ -40,8 +39,8 @@ export class LoginComponent implements OnInit {
     if(this.loginForm.valid) {
       this.loginLoader.show();
       this.ls.login(this.loginForm.value)
-        .finally(() => this.loginLoader.hide())
         .subscribe(() => {}, () => {
+          this.loginLoader.hide();
           this.loginMessage.show();
           this.loginForm.reset();
           this.username.focus();

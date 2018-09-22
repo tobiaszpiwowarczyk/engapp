@@ -1,0 +1,44 @@
+
+@import "../_variables";
+@import "../mixins";
+
+.table {
+	border-collapse: collapse;
+  border-spacing: 0;
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  background: rgba($blue, 0.1);
+  border-radius: $border-radius;
+  overflow: hidden;
+  text-align: left;
+  
+
+  thead tr {
+    color: $blue;
+    border-bottom: 3px solid $blue;
+    background: rgba($blue, 0.1);
+  }
+
+  tbody tr {
+    border-bottom: 1px solid $blue;
+    &:last-child { border: none; }
+  }
+
+  th, td {
+    padding: 20px;
+    max-width: 200px;
+  }
+
+  td {
+    ul {
+      padding-left: 18px;
+    }
+  }
+
+  &__cell {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+}

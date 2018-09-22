@@ -28,6 +28,18 @@ export class UserService {
   }
 
 
+  public findAll(): Observable<User[]> {
+    return this.http.get("/auth/api/user", {headers: this.accountHeaders})
+            .map(res => res.json())
+            .catch(err => Observable.throw(err));
+  }
+
+  public findByUsername(username: string): Observable<User> {
+    return this.http.get("/auth/api/user/" + username, {headers: this.accountHeaders})
+      .map(res => new User(res.json()))
+      .catch(err => Observable.throw(err));
+  }
+
   public register(user: User): Observable<any> {
     return this.http.post("/register", JSON.stringify(user), {headers: this.headers})
             .map(res => new User(res.json()))

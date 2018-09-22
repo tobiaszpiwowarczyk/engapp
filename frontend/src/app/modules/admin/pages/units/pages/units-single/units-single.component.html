@@ -1,0 +1,108 @@
+
+<app-loader loaderFullScreen [visible]="loading" #loader></app-loader>
+
+<div class="admin-content" *ngIf="!loading && errors != null">
+  <div class="container container__box">
+    <h2 class="container__box__header">Błąd</h2>
+    <div class="container__box__content">
+      <h3 *ngFor="let err of errors">{{err.message}}</h3>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!loading && errors == null">
+  <div class="profile" [hidden]="loading">
+    <app-loader #profileLoader></app-loader>
+    <div class="profile__background" profile>
+      <img [src]="sanitizer.bypassSecurityTrustUrl(unit?.image)" [attr.alt]="unit?.name" />
+      <div class="profile__background__filter"></div>
+      <div class="profile__data">
+        <div class="unit__data">
+          <h1 class="profile__header">{{unit?.name}}</h1>
+          <p>Ilość słówek: <b>{{unit?.wordsCount}}</b></p>
+        </div>
+        <div class="unit__options">
+          <app-input-group>
+            <app-button primary icon="edit" (click)="openEditModal()"></app-button>
+            <app-button primary icon="image" (click)="openChangeImageModal()"></app-button>
+            <div class="unit__status" [ngClass]="{
+              'unit__status--published': unit?.published,
+              'unit__status--non-published': !unit?.published
+            }">
+              {{ unit?.published ? "OPUBLIKOWANY" : "NIEOPUBLIKOWANY" }}
+            </div>
+          </app-input-group>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="admin-content" [hidden]="loading">
+    <div class="container container__box">
+  
+      <app-loader #boxLoader></app-loader>
+  
+      <div class="container__box__menu">
+        <app-button (click)="openNewWordModal()" primary>Nowe słówko</app-button>
+      </div>
+  
+      <h2 class="container__box__header">Słówka</h2>
+      
+      <div class="container__box__content" *ngIf="!loading && words.length == 0">
+        <h3 *ngIf="unit?.words.length == 0">Ten rozdział nie posiada żadnych słówek</h3>
+      </div>
+  
+      <div class="container__box__content" *ngIf="!loading && words.length > 0">
+        <form [formGroup]="wordsSearchFormGroup">
+          <app-input formControlName="word" placeholder="Szukaj słowek..." appInputFluid></app-input>
+        </form>
+        <p *ngIf="(unit?.words | unitFilter:searchWord.value).length == 0">Nie znaleziono słowek z wartością <b>{{searchWord.value}}</b></p>
+        <!-- todo: create table sorting support -->
+        <!-- todo: create table filters -->
+        <table class="table" *ngIf="(unit?.words | unitFilter:searchWord.value).length > 0">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Polskie</th>
+              <th>Angielskie</th>
+              <th>Opcje</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let word of unit?.words | unitFilter:searchWord.value; let i = index">
+              <td>{{i+1}}</td>
+              <td [innerHTML]="word?.polish | unitMark:searchWord.value"></td>
+              <td>
+                <span *ngIf="word?.english.length == 1" [innerHTML]="word?.english[0] | unitMark:searchWord.value"></span>
+                <ul *ngIf="word?.english.length > 1">
+                  <li *ngFor="let e of word?.english" [innerHTML]="e | unitMark:searchWord.value"></li>
+                </ul>
+              </td>
+              <td>
+                <app-input-group>
+                  <app-button (click)="edit(word)" icon="edit" primary></app-button>
+                  <app-button (click)="openApproveModal(word?.wordNumber)" icon="delete" negative></app-button>
+                </app-input-group>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+  
+  <app-edit-unit-modal (onStart)="loader.show()" (onEnd)="editUnit($event)"></app-edit-unit-modal>
+  <app-add-word-modal (onStart)="boxLoader.show()" (onEnd)="addWord($event)"></app-add-word-modal>
+  <app-edit-word-modal (onStart)="boxLoader.show()" (onEnd)="editWord($event)"></app-edit-word-modal>
+  <app-change-image-modal (onStart)="profileLoader.show()" (onEnd)="changeImage($event)"></app-change-image-modal>
+  
+  <app-modal title="Informacja" modalFooterType="yes-no" (onApprove)="deleteWord()" #approveModal>
+    <div modal-content>
+      Czy na pewno chcesz usunąć to słowo?
+    </div>
+  </app-modal>
+  
+  
+  <app-message floating autoHide #approveMessage></app-message>
+</div>

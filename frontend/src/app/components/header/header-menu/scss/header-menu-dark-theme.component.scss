@@ -1,0 +1,8 @@
+
+:host-context(body.dark-theme) {
+  .header__menu {
+    @include tablet {
+      background: $black;
+    }
+  }
+}

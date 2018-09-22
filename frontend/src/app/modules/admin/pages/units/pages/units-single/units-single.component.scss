@@ -1,0 +1,44 @@
+
+@import "../../../../../../../assets/_variables";
+@import "../../../../../../../assets/mixins";
+
+.unit {
+  &__data {
+    position: relative;
+
+    p {
+      font-size: 18px;
+    }
+  }
+
+  &__options {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+
+    * {
+      margin-right: 10px;
+
+      &:last-child { margin-right: 0; }
+    }
+  }
+
+  &__status {
+    position: relative;
+    height: $input-height + ($input-border-width * 2);
+    line-height: $input-height + ($input-border-width * 2);
+    font-size: 14px;
+    font-weight: 900;
+    padding: 0 20px;
+    border-radius: $border-radius;
+    text-align: center;
+
+    &--published {
+      background: $green;
+    }
+
+    &--non-published {
+      background: $grey;
+    }
+  }
+}

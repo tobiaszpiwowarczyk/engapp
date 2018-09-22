@@ -1,0 +1,10 @@
+
+:host-context(body.dark-theme) {
+  .sidebar__item {
+    color: $white;
+
+    &:hover:not(.sidebar__item--active) {
+      background: rgba($white, 0.2);
+    }
+  }
+}

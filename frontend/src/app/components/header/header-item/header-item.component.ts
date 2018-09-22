@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit, HostListener } from '@angular/core';
+import { HeaderService } from '../services/header.service';
 
 @Component({
   selector: 'app-header-item',
@@ -10,10 +11,13 @@ export class HeaderItemComponent implements OnInit {
   @Input() label: string = "";
   @Input() itemType: string = "icon";
   @Input() imageSrc: string = "";
+  @Input() href: any[] = [];
 
-  constructor() { }
+  constructor(private hs: HeaderService) {}
+  ngOnInit() {}
 
-  ngOnInit() {
+  @HostListener("click")
+  private closeAfterClick(): void {
+    this.hs.setMenuOpen(false);
   }
-
 }

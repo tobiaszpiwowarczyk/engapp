@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: db-service
+  data:
+    mongodb:
+      uri: ${MONGODB_URI}
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${MAIN_SERVER_URL}/eureka
+      
+security:
+  basic:
+    enabled: false
+  oauth2:
+    client:
+      client-id: engapp-client
+      client-secret: engapp-secret
+      access-token-uri: ${AUTH_SERVICE_URL}/oauth/token
+      user-authorization-uri: ${AUTH_SERVICE_URL}/oauth/authorize
+    resource:
+      user-info-uri: ${AUTH_SERVICE_URL}/api/user/account

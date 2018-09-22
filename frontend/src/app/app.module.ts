@@ -1,3 +1,4 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
@@ -17,7 +18,8 @@ import { UserService } from './services/user/user.service';
     BrowserModule,
     AppRoutingModule,
     RouterModule,
-    HttpModule
+    HttpModule,
+    BrowserAnimationsModule
   ],
   providers: [UserService, LoginService, ThemeService],
   bootstrap: [AppComponent]
