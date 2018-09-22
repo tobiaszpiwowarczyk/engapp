@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 export class ModalData {
   name: string;
-  data: any;
+  data?: any;
 
   constructor(values: Object = {}) {
     Object.assign(this, values);

@@ -1,17 +1,18 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ModalComponent } from '../../../../../../components/modal/modal.component';
 import { ColorValidator } from '../../../../../../validator/ColorValidator';
+import { Modal } from '../Modal';
 import { UnitService } from './../../../../../../services/unit/unit.service';
 import { Unit } from './../../../../../main/home/components/unit/Unit';
-import { ModalComponent } from '../../../../../../components/modal/modal.component';
+import { ModalData, ModalService } from './../../services/modal.service';
 
 @Component({
   selector: 'app-add-unit-modal',
   templateUrl: './add-unit-modal.component.html',
   styleUrls: ['./add-unit-modal.component.scss']
 })
-export class AddUnitModalComponent implements OnInit {
+export class AddUnitModalComponent implements OnInit, Modal {
 
 
   @ViewChild("modal") modal: ModalComponent;
@@ -24,14 +25,13 @@ export class AddUnitModalComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private unitService: UnitService,
-    private route: ActivatedRoute,
-    private router: Router
+    private modalService: ModalService
   ) { }
 
   ngOnInit() {
 
-    this.route.queryParams.subscribe(params => {
-      if (params["addModalOpen"] != undefined) {
+    this.modalService.modalData.subscribe((res: ModalData) => {
+      if(res.name == "addUnitModal") {
         this.modal.show();
       }
     });
@@ -42,15 +42,13 @@ export class AddUnitModalComponent implements OnInit {
     });
   }
 
-  public resetForm(): void {
-    this.newUnitForm.setValue({ name: "Nowy rozdział", color: "#000" });
-    this.router.navigate(["/admin/units"]);
-  }
-
-
-  public addUnit(): void {
+  public onApprove(): void {
     this.onStart.emit(true);
     this.unitService.addUnit(this.newUnitForm.value)
       .subscribe(unit => this.onEnd.emit(unit));
+  }
+  public onClose(): void {
+    this.newUnitForm.setValue({ name: "Nowy rozdział", color: "#000" });
+    this.modalService.resetData();
   }
 }

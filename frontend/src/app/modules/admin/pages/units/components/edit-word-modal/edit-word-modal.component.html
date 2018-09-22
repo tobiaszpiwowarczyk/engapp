@@ -1,4 +1,4 @@
-<app-modal title="Edycja słówka" (onApprove)="editWord()" (onClose)="clearData()" #modal>
+<app-modal title="Edycja słówka" (onClose)="onClose()" (onApprove)="onApprove()" #modal>
   <div modal-content>
     <form [formGroup]="wordForm">
       <input type="hidden" formControlName="wordNumber" />

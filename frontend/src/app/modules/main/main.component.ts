@@ -8,6 +8,7 @@ import { User } from '../../services/user/User';
 })
 export class MainComponent implements OnInit {
 
+  loading: boolean = true;
   user: User;
 
   constructor(
@@ -16,7 +17,10 @@ export class MainComponent implements OnInit {
 
   ngOnInit() {
     this.ls.getUserData()
-      .subscribe((res: User) => this.user = res);
+      .subscribe((res: User) => {
+        this.user = res;
+        this.loading = false;
+      });
   }
 
   public logout(): void {

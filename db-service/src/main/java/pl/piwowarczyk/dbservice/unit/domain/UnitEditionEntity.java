@@ -35,4 +35,6 @@ public class UnitEditionEntity {
     @NotNull(groups = PublishedNotBlankProperty.class)
     @CorrectBoolean(groups = PublishedCorrectProperty.class)
     private Boolean published;
+    
+    private String image;
 }

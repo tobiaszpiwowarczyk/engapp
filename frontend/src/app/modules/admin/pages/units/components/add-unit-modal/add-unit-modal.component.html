@@ -1,4 +1,4 @@
-<app-modal title="Nowy rozdział" (onClose)="resetForm()" (onApprove)="addUnit()" #modal>
+<app-modal title="Nowy rozdział" (onClose)="onClose()" (onApprove)="onApprove()" #modal>
   <div modal-content>
     <form [formGroup]="newUnitForm">
       <div class="form-control">

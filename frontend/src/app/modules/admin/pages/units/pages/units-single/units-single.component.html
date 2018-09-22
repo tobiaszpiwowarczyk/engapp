@@ -12,8 +12,9 @@
 
 <div *ngIf="!loading && errors == null">
   <div class="profile" [hidden]="loading">
+    <app-loader #profileLoader></app-loader>
     <div class="profile__background" profile>
-      <img [attr.src]="unit?.image" [attr.alt]="unit?.name" />
+      <img [src]="sanitizer.bypassSecurityTrustUrl(unit?.image)" [attr.alt]="unit?.name" />
       <div class="profile__background__filter"></div>
       <div class="profile__data">
         <div class="unit__data">
@@ -23,6 +24,7 @@
         <div class="unit__options">
           <app-input-group>
             <app-button primary icon="edit" (click)="openEditModal()"></app-button>
+            <app-button primary icon="image" (click)="openChangeImageModal()"></app-button>
             <div class="unit__status" [ngClass]="{
               'unit__status--published': unit?.published,
               'unit__status--non-published': !unit?.published
@@ -93,6 +95,7 @@
   <app-edit-unit-modal (onStart)="loader.show()" (onEnd)="editUnit($event)"></app-edit-unit-modal>
   <app-add-word-modal (onStart)="boxLoader.show()" (onEnd)="addWord($event)"></app-add-word-modal>
   <app-edit-word-modal (onStart)="boxLoader.show()" (onEnd)="editWord($event)"></app-edit-word-modal>
+  <app-change-image-modal (onStart)="profileLoader.show()" (onEnd)="changeImage($event)"></app-change-image-modal>
   
   <app-modal title="Informacja" modalFooterType="yes-no" (onApprove)="deleteWord()" #approveModal>
     <div modal-content>

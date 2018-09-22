@@ -1,3 +1,4 @@
+import { Modal } from './../Modal';
 import { WordService } from './../../../../../main/quiz/services/word/word.service';
 import { ModalService } from './../../services/modal.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,7 +16,7 @@ import "rxjs/add/operator/finally";
   templateUrl: './edit-word-modal.component.html',
   styleUrls: ['./edit-word-modal.component.scss'],
 })
-export class EditWordModalComponent implements OnInit {
+export class EditWordModalComponent implements OnInit, Modal {
 
   @Output() onStart: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() onEnd: EventEmitter<Word> = new EventEmitter<Word>();
@@ -31,7 +32,6 @@ export class EditWordModalComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router,
     private modalService: ModalService,
     private wordService: WordService
   ) { }
@@ -40,25 +40,7 @@ export class EditWordModalComponent implements OnInit {
 
     this.modalService.mainURL.subscribe(url => this.mainURL = url);
     this.route.params.subscribe(p => this.unitId = p['id']);
-
-    this.route.queryParams.subscribe(params => {
-      if(params["editWordModal"] != undefined) {
-
-        if(window.location.href != window.location.origin + this.mainURL) {
-          this.router.navigate([this.mainURL]);
-        }
-
-        this.modal.show();
-      }
-    });
-
-    this.wordForm = this.fb.group({
-      wordNumber: new FormControl(0, Validators.required),
-      polish: ['', Validators.required],
-      english: this.fb.array([
-        new FormControl("", Validators.required)
-      ])
-    });
+    this.initForm();
 
     this.wordForm.valueChanges.subscribe(() => {
       this.modal.preventApprove = this.wordForm.invalid;
@@ -74,22 +56,33 @@ export class EditWordModalComponent implements OnInit {
           this.wordForm = FormUtils.wordToFormGroup(this.word);
           this.modal.preventApprove = false;
         }
+
+        this.modal.show();
       }
     });
   }
 
-  public addWord = (): void => (<FormArray> this.wordForm.controls['english']).push(new FormControl("", Validators.required));
-  public removeWord = (index: number): void => (<FormArray> this.wordForm.controls['english']).removeAt(index);
-  public clearData(): void {
-    this.wordForm.reset();
-    this.wordForm.setValue({wordNumber: 0, polish: "", english: [""]});
-    this.modalService.resetData();
-  }
-
-  public editWord(): void {
+  onApprove(): void {
     this.onStart.emit(true);
     this.wordService.editWord(this.unitId, this.wordForm.value)
       .finally(() => this.modalService.resetData())
       .subscribe(res => this.onEnd.emit(res));
+  }
+  onClose(): void {
+    this.initForm();
+    this.modalService.resetData();
+  }
+
+  public addWord = (): void => (<FormArray> this.wordForm.controls['english']).push(new FormControl("", Validators.required));
+  public removeWord = (index: number): void => (<FormArray> this.wordForm.controls['english']).removeAt(index);
+
+  private initForm(): void {
+    this.wordForm = this.fb.group({
+      wordNumber: new FormControl(0, Validators.required),
+      polish: ['', Validators.required],
+      english: this.fb.array([
+        new FormControl("", Validators.required)
+      ])
+    });
   }
 }

@@ -5,7 +5,7 @@
     <app-loader #boxLoader></app-loader>
 
     <div class="container__box__menu">
-      <app-button [routerLink]="['/admin/units']" [queryParams]="{addModalOpen: true}" primary>Nowy rozdział</app-button>
+      <app-button (click)="openAddUnitModal()" primary>Nowy rozdział</app-button>
     </div>
 
     <h2 class="container__box__header">Rozdziały</h2>
@@ -48,10 +48,10 @@
   </div>
 </div>
 
-<app-add-unit-modal (onStart)="boxLoader.show()" (onEnd)="addModalEnd($event)"></app-add-unit-modal>
+<app-add-unit-modal (onStart)="boxLoader.show()" (onEnd)="addUnit($event)"></app-add-unit-modal>
 <app-edit-unit-modal (onStart)="boxLoader.show()" (onEnd)="editUnit($event)"></app-edit-unit-modal>
 
-<app-modal title="Informacja" modalFooterType="yes-no" (onClose)="resetEdittedUnit()" (onApprove)="deleteUnit()" #infoModal>
+<app-modal title="Informacja" modalFooterType="yes-no" (onClose)="resetEdittedUnit()" (onApprove)="deleteUnit()" #approveModal>
   <div modal-content>
     Czy na pewno chcesz usunąć ten rozdział?
   </div>

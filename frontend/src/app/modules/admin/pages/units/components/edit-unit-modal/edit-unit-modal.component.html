@@ -1,4 +1,4 @@
-<app-modal title="Edytuj rozdział" (onClose)="resetForm()" (onApprove)="editUnit()" #editUnitModal>
+<app-modal title="Edytuj rozdział" (onClose)="onClose()" (onApprove)="onApprove()" #modal>
   <div modal-content>
     <form [formGroup]="editUnitForm">
       <input type="hidden" formControlName="id" />

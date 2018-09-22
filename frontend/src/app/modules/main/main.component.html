@@ -1,21 +1,25 @@
-<app-header #header>
-  <div class="wrapper">
-    <a class="brand brand--hoverable" [routerLink]="['/']" title="Strona główna">
-      <h5>EngApp</h5>
-    </a>
-    
-    <app-menu-opener></app-menu-opener>
-    
-    <app-header-menu>
-      <!-- todo: crete image profile support -->
-      <app-header-item *ngIf="user" [label]="user?.firstName +' '+ user?.lastName" 
-                        itemType="image" imageSrc="assets/img/default.jpg"
-                        [href]="['/account', user?.username]"></app-header-item>
+<app-loader loaderFullScreen [visible]="loading"></app-loader>
 
-      <app-header-item label="Panel" imageSrc="dashboard" [href]="['/admin']" *ngIf="user?.role == 'ADMIN'"></app-header-item>
-      <app-header-item label="Wyloguj się" imageSrc="power_settings_new" (click)="logout()"></app-header-item>
-    </app-header-menu>
-  </div>
-</app-header>
-
-<router-outlet></router-outlet>
+<div *ngIf="!loading">
+  <app-header #header>
+    <div class="wrapper">
+      <a class="brand brand--hoverable" [routerLink]="['/']" title="Strona główna">
+        <h5>EngApp</h5>
+      </a>
+      
+      <app-menu-opener></app-menu-opener>
+      
+      <app-header-menu>
+        <!-- todo: crete image profile support -->
+        <app-header-item *ngIf="user" [label]="user?.firstName +' '+ user?.lastName" 
+                          itemType="image" imageSrc="assets/img/default.jpg"
+                          [href]="['/account', user?.username]"></app-header-item>
+  
+        <app-header-item label="Panel" imageSrc="dashboard" [href]="['/admin']" *ngIf="user?.role == 'ADMIN'"></app-header-item>
+        <app-header-item label="Wyloguj się" imageSrc="power_settings_new" (click)="logout()"></app-header-item>
+      </app-header-menu>
+    </div>
+  </app-header>
+  
+  <router-outlet></router-outlet>
+</div>

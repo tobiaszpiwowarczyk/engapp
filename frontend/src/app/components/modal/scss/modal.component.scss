@@ -64,10 +64,6 @@ $modal-box-transform-start-position: 200px;
     min-height: 100px;
     padding: 20px;
     overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: center;
   }
 
   &__footer {

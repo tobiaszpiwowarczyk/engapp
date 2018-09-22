@@ -1,6 +1,6 @@
 package pl.piwowarczyk.dbservice.unit.service;
 
-import org.springframework.web.multipart.MultipartFile;
+import pl.piwowarczyk.dbservice.file.domain.DropFile;
 import pl.piwowarczyk.dbservice.unit.Unit;
 import pl.piwowarczyk.dbservice.unit.domain.UnitCreationEntity;
 import pl.piwowarczyk.dbservice.unit.domain.UnitEditionEntity;
@@ -14,6 +14,6 @@ public interface UnitService {
     Unit findById(String id);
     Unit addUnit(UnitCreationEntity unit);
     Unit editUnit(UnitEditionEntity unit);
-    Unit editUnitImage(String unitId, MultipartFile image) throws IOException;
+    Unit editUnitImage(String unitId, DropFile image) throws IOException;
     Map deleteUnit(String id);
 }

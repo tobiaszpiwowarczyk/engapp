@@ -64,6 +64,7 @@ public class UnitRepositoryImpl implements UnitRepositoryCustom {
                     if(unit.getName() != null) set("name", unit.getName());
                     if(unit.getColor() != null) set("color", unit.getColor());
                     if(unit.getPublished() != null) set("published", unit.getPublished());
+                    if(unit.getImage() != null) set("image", unit.getImage());
                 }},
                 Unit.class,
                 collectionName

@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import pl.piwowarczyk.dbservice.file.domain.DropFile;
 import pl.piwowarczyk.dbservice.file.domain.File;
 import pl.piwowarczyk.dbservice.file.utils.FileUtils;
 import pl.piwowarczyk.dbservice.unit.domain.UnitCreationEntity;
@@ -128,14 +129,10 @@ public class UnitController {
      * @return {@link Unit} - unit with updated image
      * @throws {@link IOException}
      */
-    @PutMapping(
-	value = "image",
-        consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
-        produces = MediaType.APPLICATION_JSON_UTF8_VALUE
-    )
+    @PutMapping("{unitId}/image")
     public Unit editUnitImage(
-            @RequestParam String unitId,
-            @RequestParam MultipartFile image
+            @PathVariable String unitId,
+            @RequestBody DropFile image
     ) throws IOException {
         return unitService.editUnitImage(unitId, image);
     }

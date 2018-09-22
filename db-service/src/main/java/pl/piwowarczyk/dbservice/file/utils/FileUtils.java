@@ -3,6 +3,7 @@ package pl.piwowarczyk.dbservice.file.utils;
 import org.springframework.web.multipart.MultipartFile;
 import pl.piwowarczyk.dbservice.file.domain.AbstractFile;
 import pl.piwowarczyk.dbservice.file.domain.Directory;
+import pl.piwowarczyk.dbservice.file.domain.DropFile;
 import pl.piwowarczyk.dbservice.file.domain.File;
 import pl.piwowarczyk.dbservice.file.exception.FileNotFoundException;
 
@@ -10,6 +11,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -55,16 +57,29 @@ public class FileUtils {
      * @throws IOException
      */
     public static File saveFile(MultipartFile file, String folder) throws IOException {
-        
+        return saveFile(new DropFile(file.getOriginalFilename(), file.getContentType(), new String(Base64.getEncoder().encode(file.getBytes()))), folder);
+    }
+
+    /**
+     * Saves file into specific directory
+     *
+     * @param data {@link String} - must be encoded to base64
+     * @param folder {@link String} - target folder
+     * @return {@link File} object
+     * @throws IOException
+     */
+    public static File saveFile(DropFile data, String folder) throws IOException {
         if(!folder.equals("") && !folder.endsWith("/")) folder += "/";
-        
-        FileOutputStream outputStream = new FileOutputStream(new java.io.File(DATA_FOLDER + folder + file.getOriginalFilename()));
-        outputStream.write(file.getBytes());
-        
+        if(data.getData().contains("base64,"))
+            data.setData(data.getData().split("base64,")[1]);
+
+        FileOutputStream outputStream = new FileOutputStream(new java.io.File(DATA_FOLDER + folder + data.getName()));
+        outputStream.write(Base64.getDecoder().decode(data.getData().getBytes()));
+
         return File.builder()
-                .name(file.getName())
+                .name(data.getName())
                 .path(DATA_FOLDER + folder)
-                .fileAddress(DATA_ADDRESS + folder + file.getOriginalFilename())
+                .fileAddress(DATA_ADDRESS + folder + data.getName())
                 .build();
     }
       

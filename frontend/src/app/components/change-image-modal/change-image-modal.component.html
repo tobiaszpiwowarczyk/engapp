@@ -1,0 +1,7 @@
+<app-modal title="Zmień zdjęcie rozdziału" (onApprove)="onApprove()" (onClose)="onClose()" #modal>
+  <div modal-content>
+    <form [formGroup]="imageForm">
+      <app-file-input accept="image/jpeg,image/png" formControlName="image" draggable></app-file-input>
+    </form>
+  </div>
+</app-modal>

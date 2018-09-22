@@ -7,6 +7,7 @@ import "rxjs/add/operator/toPromise";
 import { Observable } from 'rxjs/Observable';
 import { LoginService } from '../login/login.service';
 import { Unit } from './../../modules/main/home/components/unit/Unit';
+import { DropFile } from '../../components/file-input/services/DropFile';
 
 
 @Injectable()
@@ -74,6 +75,20 @@ export class UnitService {
    */
   public editUnit(unit: Unit): Observable<Unit> {
     return this.http.put("/db/api/unit", JSON.stringify(unit), this.options)
+      .map(res => res.json())
+      .catch(err => Observable.throw(err.json()));
+  }
+
+
+  /**
+   * Updates unit image
+   * 
+   * @param unitId {@link string} - the unit id
+   * @param file {@link DropFile} - file with base64 encoded data
+   * @returns {@link Unit} - updated unit
+   */
+  public editUnitImage(unitId: string, file: DropFile): Observable<Unit> {
+    return this.http.put(`/db/api/unit/${unitId}/image`, JSON.stringify(file), this.options)
       .map(res => res.json())
       .catch(err => Observable.throw(err.json()));
   }

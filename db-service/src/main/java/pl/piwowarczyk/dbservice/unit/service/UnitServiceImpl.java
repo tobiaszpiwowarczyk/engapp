@@ -3,6 +3,7 @@ package pl.piwowarczyk.dbservice.unit.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import pl.piwowarczyk.dbservice.file.domain.DropFile;
 import pl.piwowarczyk.dbservice.file.domain.File;
 import pl.piwowarczyk.dbservice.file.service.FileServiceImpl;
 import pl.piwowarczyk.dbservice.file.utils.FileUtils;
@@ -75,7 +76,7 @@ public class UnitServiceImpl implements UnitService {
     }
 
     @Override
-    public Unit editUnitImage(String unitId, MultipartFile image) throws IOException {
+    public Unit editUnitImage(String unitId, DropFile image) throws IOException {
         File file = FileUtils.saveFile(image, "img");
         Unit unit = findById(unitId);
         
@@ -85,6 +86,7 @@ public class UnitServiceImpl implements UnitService {
                         .name(unit.getName())
                         .color(unit.getColor())
                         .published(unit.getPublished())
+                        .image(file.getFileAddress())
                         .build()
         );
     }

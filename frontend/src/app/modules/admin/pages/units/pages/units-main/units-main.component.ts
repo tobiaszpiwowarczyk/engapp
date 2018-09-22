@@ -1,14 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
 import "rxjs/add/operator/finally";
+import { listAnimation } from '../../../../../../animations/animations';
 import { ModalComponent } from '../../../../../../components/modal/modal.component';
 import { LoaderComponent } from './../../../../../../components/loader/loader.component';
 import { MessageComponent } from './../../../../../../components/message/message.component';
 import { UnitService } from './../../../../../../services/unit/unit.service';
 import { Unit } from './../../../../../main/home/components/unit/Unit';
 import { ModalService } from './../../services/modal.service';
-import { listAnimation } from '../../../../../../animations/animations';
 
 
 @Component({
@@ -28,14 +27,13 @@ export class UnitsMainComponent implements OnInit {
 
   @ViewChild("loader") loader: LoaderComponent;
   @ViewChild("boxLoader") boxLoader: LoaderComponent;
-  @ViewChild("infoModal") infoModal: ModalComponent;
+  @ViewChild("approveModal") approveModal: ModalComponent;
   @ViewChild("message") message: MessageComponent;
 
   constructor(
     private unitService: UnitService,
     private modalService: ModalService,
-    private title: Title,
-    private router: Router
+    private title: Title
   ) { }
   ngOnInit() {
     this.unitService.findAll()
@@ -48,7 +46,9 @@ export class UnitsMainComponent implements OnInit {
     this.modalService.setMainUrl("/admin/units");
   }
 
-  public addModalEnd(unit: Unit): void {
+  public openAddUnitModal = (): void => this.modalService.setData({name: "addUnitModal"});
+
+  public addUnit(unit: Unit): void {
     this.units.push(unit);
     this.boxLoader.hide();
     this.message.showWithText("Rozdział został dodany pomyślnie");
@@ -59,7 +59,6 @@ export class UnitsMainComponent implements OnInit {
       name: "editUnitModal",
       data: unit
     });
-    this.router.navigate(["/admin/units"], {queryParams: {editUnitModal: true}});
   }
 
   public editUnit(unit: Unit): void {
@@ -70,7 +69,7 @@ export class UnitsMainComponent implements OnInit {
 
 
   public openInfoModal(unit: Unit): void {
-    this.infoModal.show();
+    this.approveModal.show();
     this.edittedUnit = unit;
   }
 

@@ -1,8 +1,7 @@
-import { WordService } from './../../../../../main/quiz/services/word/word.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
+import { DomSanitizer, Title } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import "rxjs/add/operator/finally";
 import { MessageComponent } from '../../../../../../components/message/message.component';
 import { Unit } from '../../../../../main/home/components/unit/Unit';
@@ -11,6 +10,7 @@ import { LoaderComponent } from './../../../../../../components/loader/loader.co
 import { ModalComponent } from './../../../../../../components/modal/modal.component';
 import { UnitService } from './../../../../../../services/unit/unit.service';
 import { Word } from './../../../../../main/quiz/services/word/Word';
+import { WordService } from './../../../../../main/quiz/services/word/word.service';
 
 
 @Component({
@@ -33,6 +33,7 @@ export class UnitsSingleComponent implements OnInit {
 
   @ViewChild("loader") loader: LoaderComponent;
   @ViewChild("boxLoader") boxLoader: LoaderComponent;
+  @ViewChild("profileLoader") profileLoader: LoaderComponent;
   @ViewChild("approveModal") approveModal: ModalComponent;
   @ViewChild("approveMessage") approveMessage: MessageComponent;
 
@@ -43,7 +44,7 @@ export class UnitsSingleComponent implements OnInit {
     private fb: FormBuilder,
     private ms: ModalService,
     private wordService: WordService,
-    private router: Router
+    public sanitizer: DomSanitizer
   ) { }
   ngOnInit() {
     this.route.params.subscribe(param => {
@@ -68,7 +69,6 @@ export class UnitsSingleComponent implements OnInit {
       name: "editUnitModal",
       data: this.unit
     });
-    this.router.navigate(["/admin/units", this.unit.id], {queryParams: {editUnitModal: true}});
   }
 
   public editUnit(unit: Unit): void {
@@ -82,7 +82,7 @@ export class UnitsSingleComponent implements OnInit {
 
 
   public openNewWordModal(): void {
-    this.router.navigate(["/admin/units", this.unit.id], {queryParams: {addWordModal: true}});
+    this.ms.setData({name: "addWordModal"});
   }
 
   public addWord(word: Word): void {
@@ -101,7 +101,6 @@ export class UnitsSingleComponent implements OnInit {
       name: "editWordModal",
       data: word
     });
-    this.router.navigate(["/admin/units/", this.unit.id], {queryParams: {editWordModal: true}});
   }
 
   public editWord(word: Word): void {
@@ -126,5 +125,17 @@ export class UnitsSingleComponent implements OnInit {
         this.boxLoader.hide();
         this.approveMessage.showWithText(res.state);
       });
+  }
+
+
+
+  public openChangeImageModal(): void {
+    this.ms.setData({name: "changeImageModal"});
+  }
+
+  public changeImage(e: Unit): void {
+    this.unit.image = e.image;
+    this.profileLoader.hide();
+    this.approveMessage.showWithText("Zdjęcie zostało zmienione pomyślnie");
   }
 }
