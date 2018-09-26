@@ -1,0 +1,28 @@
+<div class="container user-statistics"
+     [class.user-statistics--last]="last">
+  <div class="user-statistics__header" [style.color]="data?.unit?.color">
+    <div class="user-statistics__header__item">
+      <div class="user-statistics__header__data">
+        <app-icon name="date_range"></app-icon>
+        <span>{{formatDate(data?.createdAt)}}</span>
+      </div>
+      <div class="user-statistics__header__data">
+        <app-icon name="access_time"></app-icon>
+        <span>{{formatTime(data?.createdAt)}}</span>
+      </div>
+    </div>
+
+    <div class="user-statistics__header__item">
+      {{data?.unit?.name}}
+    </div>
+  </div>
+  <div class="user-statistics__content" [style.border-color]="data?.unit?.color">
+    <h3>Udało ci się zdobyć</h3> 
+    <h2>
+      <span [style.color]="data?.unit?.color">{{data?.score}}</span> 
+      na 
+      <span [style.color]="data?.unit?.color">{{data?.total}}</span>
+    </h2> 
+    <h3>punktów</h3>
+  </div>
+</div>

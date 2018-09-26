@@ -17,6 +17,7 @@
 <div class="account">
   <app-tab-menu name="user">
     <app-tab-menu-item id="data" text="Dane" appMenuActive></app-tab-menu-item>
+    <app-tab-menu-item id="statistics" text="Statystyki"></app-tab-menu-item>
     <app-tab-menu-item id="accountSettings" text="Ustawienia"></app-tab-menu-item>
   </app-tab-menu>
   <app-tab-view>
@@ -25,6 +26,10 @@
         <h2 class="container__box__header">Dane użytkownika</h2>
         <p>Nazywasz się {{user?.firstName}} {{user?.lastName}}</p>
       </div>
+    </app-tab-view-item>
+    <app-tab-view-item for="statistics">
+      <app-user-statistics *ngFor="let stats of userStatistics; let last=last" 
+                           [data]="stats" [last]="last"></app-user-statistics>
     </app-tab-view-item>
     <app-tab-view-item for="accountSettings">
 
