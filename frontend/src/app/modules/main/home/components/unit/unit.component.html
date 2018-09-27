@@ -1,8 +1,5 @@
 
-<div class="unit"
-  [ngStyle]="{
-    'backgroundImage': 'url('+unit?.image+')'
-  }">
+<div class="unit" [style.backgroundImage]="'url('+unit?.image+')'" @listItemAnimation>
   <div class="unit__filter">
     <a [routerLink]="['/quiz', unit?.id]" (click)="saveScope()" [attr.title]="unit?.name">
       <h3 class="unit__title">{{unit?.name}}</h3>

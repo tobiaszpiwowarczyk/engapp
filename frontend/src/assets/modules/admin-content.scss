@@ -1,4 +1,11 @@
 
+$admin-content-padding: 40px;
+
 .admin-content {
-  padding: 40px;
+  padding: $admin-content-padding;
+
+  &__header {
+    position: relative;
+    margin-bottom: $admin-content-padding / 2;
+  }
 }

@@ -1,0 +1,10 @@
+<!-- <app-loader loaderFullScreen [visible]="loading"></app-loader> -->
+
+<div class="admin-content">
+  <h1 class="admin-content__header">Statystyki</h1>
+  <div class="user-statistics" [@listAnimation]="userStatistics.length">
+    <app-user-statistics *ngFor="let s of userStatistics; let last=last"
+              [data]="s" [last]="last" forAdmin></app-user-statistics>
+  </div>  
+
+</div>

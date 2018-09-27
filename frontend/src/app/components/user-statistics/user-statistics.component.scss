@@ -29,7 +29,13 @@
         font-size: 36px;
       }
 
-      span {
+      img {
+        position: relative;
+        width: 36px;
+        border-radius: 36px;
+      }
+
+      .data-text {
         margin-left: 5px;
       }
     }

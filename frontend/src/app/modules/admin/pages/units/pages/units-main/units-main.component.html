@@ -13,7 +13,9 @@
       <div [@listAnimation]="units.length">
         <h3>Opublikowane</h3>
         <div *ngFor="let unit of units | unitPublished:true" class="unit"
-              [ngStyle]="{'backgroundImage': 'url('+unit?.image+')', 'borderColor': unit?.color}">
+              [style.backgroundImage]="'url('+unit?.image+')'"
+              [style.borderColor]="unit?.color"
+              @listItemAnimation>
   
           <div class="unit__filter">
             <a [routerLink]="['./', unit?.id]" class="unit__link">
@@ -30,7 +32,10 @@
     
         <h3 *ngIf="(units | unitPublished:false).length > 0">Nieopublikowane</h3>
         <div *ngFor="let unit of units | unitPublished:false" class="unit"
-          [ngStyle]="{'backgroundImage': 'url('+unit?.image+')', 'borderColor': unit?.color}">
+                  [style.backgroundImage]="'url('+unit?.image+')'"
+                  [style.borderColor]="unit?.color"
+                  @listItemAnimation>
+                  
           <div class="unit__filter">
             <a [routerLink]="['./', unit?.id]" class="unit__link">
             <h3>{{unit?.name}}</h3>

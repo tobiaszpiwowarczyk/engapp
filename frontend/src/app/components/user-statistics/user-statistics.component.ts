@@ -1,15 +1,20 @@
+import { trigger, transition, style, animate } from '@angular/animations';
 import { Component, OnInit, Input } from '@angular/core';
 import { UserStatistics } from '../../services/user-statistics/UserStatistics';
+import { listItemAnimation } from '../../animations/animations';
 
 @Component({
   selector: 'app-user-statistics',
   templateUrl: './user-statistics.component.html',
-  styleUrls: ['./user-statistics.component.scss']
+  styleUrls: ['./user-statistics.component.scss'],
+  animations: [listItemAnimation]
 })
 export class UserStatisticsComponent implements OnInit {
 
   @Input() data: UserStatistics;
   @Input() last: boolean = false;
+
+  forAdmin: boolean = false;
 
   constructor() { }
   ngOnInit() {}
