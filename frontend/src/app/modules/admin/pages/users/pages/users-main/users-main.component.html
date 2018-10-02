@@ -1,15 +1,12 @@
-<div class="admin-content">
+
+<app-loader [visible]="loading"></app-loader>
+
+<div class="admin-content" [hidden]="loading">
   <div class="container container__box">
     <h2 class="container__box__header">Użytkownicy</h2>
-    <div class="container__box__loader" *ngIf="loading">
-      <app-loader loaderVisible></app-loader>
-    </div>
-    <div class="container__box__content" *ngIf="!loading">
+    <div class="container__box__content">
       <!-- todo: create table sorting support -->
       <!-- todo: create table filter -->
-      <form [formGroup]="usersSearchForm">
-        <app-input placeholder="Szukaj użytkowników..." formControlName="name" appInputFluid></app-input>
-      </form>
       <table class="table">
         <thead>
           <tr>

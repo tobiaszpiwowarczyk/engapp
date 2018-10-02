@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import "rxjs/add/operator/finally";
 import { LoaderComponent } from '../../../../../components/loader/loader.component';
 import { MessageComponent } from '../../../../../components/message/message.component';
@@ -11,8 +12,8 @@ import { UserService } from '../../../../../services/user/user.service';
 import { EmailValidator } from '../../../../../validator/EmailValidator';
 import { NameValidator } from '../../../../../validator/NameValidator';
 import { UsernameValidator } from '../../../../../validator/UsernameValidator';
-import {jarallax} from "jarallax";
-import { Title } from '@angular/platform-browser';
+import { UserStatisticsService } from '../../../../../services/user-statistics/user-statistics.service';
+import { UserStatistics } from '../../../../../services/user-statistics/UserStatistics';
 
 
 @Component({
@@ -23,7 +24,9 @@ import { Title } from '@angular/platform-browser';
 export class AccountComponent implements OnInit {
 
   user: User;
+  userStatistics: UserStatistics[] = [];
   backgroundPosition: string = "50% 0";
+  loading: boolean = true;
 
   accountForm: FormGroup;
   errors: any[] = [];
@@ -37,8 +40,8 @@ export class AccountComponent implements OnInit {
     private us: UserService,
     private fb: FormBuilder,
     private themeService: ThemeService,
-    private el: ElementRef,
-    private title: Title
+    private title: Title,
+    private uss: UserStatisticsService
   ) { }
 
   ngOnInit() {
@@ -47,6 +50,10 @@ export class AccountComponent implements OnInit {
         this.user = user;
         this.title.setTitle(`${user.firstName} ${user.lastName} - EngApp`);
       });
+
+    this.uss.findUserStats()
+      .subscribe(res => this.userStatistics = res, null, () => this.loading = false);
+
     this.accountForm = this.fb.group({
       id: [this.user.id, Validators.required],
       username: [

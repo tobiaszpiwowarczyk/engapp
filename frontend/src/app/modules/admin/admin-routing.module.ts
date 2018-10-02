@@ -6,7 +6,8 @@ const routes: Routes = [
   { path: '', component: AdminComponent, children: [
     { path: '', loadChildren: "./pages/dashboard/dashboard.module#DashboardModule" },
     { path: 'users', loadChildren: "./pages/users/users.module#UsersModule" },
-    { path: 'units', loadChildren: "./pages/units/units.module#UnitsModule" }
+    { path: 'units', loadChildren: "./pages/units/units.module#UnitsModule" },
+    { path: 'statistics', loadChildren: "./pages/statistics/statistics.module#StatisticsModule" }
   ] },
 ];
 

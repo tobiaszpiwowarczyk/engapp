@@ -11,6 +11,8 @@ import { ProfileModule } from './../../../directives/profile/profile.module';
 import { AccountRoutingModule } from './account-routing.module';
 import { AccountComponent } from './pages/account/account.component';
 import { ButtonModule } from '../../../components/button/button.module';
+import { UserStatisticsService } from '../../../services/user-statistics/user-statistics.service';
+import { UserStatisticsModule } from '../../../components/user-statistics/user-statistics.module';
 
 @NgModule({
   imports: [
@@ -25,8 +27,10 @@ import { ButtonModule } from '../../../components/button/button.module';
     AccountRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    ProfileModule
+    ProfileModule,
+    UserStatisticsModule
   ],
-  declarations: [AccountComponent]
+  declarations: [AccountComponent],
+  providers: [UserStatisticsService]
 })
 export class AccountModule { }

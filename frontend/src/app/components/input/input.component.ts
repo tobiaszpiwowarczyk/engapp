@@ -46,7 +46,7 @@ export class InputComponent implements OnInit, ControlValueAccessor {
   }
 
   public focus(): void {
-    this.el.nativeElement.querySelector("input").focus();
+    setTimeout(() => this.el.nativeElement.querySelector("input").focus(), 1);
     this.focused = true;
   }
 

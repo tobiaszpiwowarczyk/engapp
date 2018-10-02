@@ -1,13 +1,13 @@
 buildscript {
-	ext {
-		springBootVersion = '2.0.3.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-	}
+    ext {
+        springBootVersion = '2.0.3.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
 }
 
 apply plugin: 'java'
@@ -16,39 +16,49 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 repositories {
-	mavenCentral()
-	maven { url 'https://jitpack.io' }
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
 }
 
 
 ext {
-	springCloudVersion = 'Finchley.RELEASE'
+    springCloudVersion = 'Finchley.RELEASE'
 }
 
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-data-mongodb')
-	compile('org.springframework.boot:spring-boot-starter-web')
-	compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
-	compile('org.springframework.cloud:spring-cloud-starter-oauth2')
-	compile('org.projectlombok:lombok')
-	implementation 'com.github.tobiaszpiwowarczyk:engapp-utils:0.0.5-SNAPSHOT'
+    compile('org.springframework.boot:spring-boot-starter-data-mongodb')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
+    compile('org.springframework.cloud:spring-cloud-starter-oauth2')
+    compile('org.projectlombok:lombok')
+    compile("org.springframework.boot:spring-boot-starter-websocket")
+    compile("org.springframework.security:spring-security-messaging")
+    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.9.6'
+    implementation 'com.github.tobiaszpiwowarczyk:engapp-utils:0.0.5-SNAPSHOT'
 }
 
 dependencyManagement {
-	imports {
-		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
-	}
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
 }
 
-bootRun {
-	environment "spring.profiles.active", "dev"
+task bootRunDev(dependsOn: bootRun) {
+    group = 'Application'
+    gradle.taskGraph.whenReady { graph ->
+        if (graph.hasTask(bootRunDev)) {
+            bootRun {
+                args = ["--spring.profiles.active=dev"]
+            }
+        }
+    }
 }
 
 jar {
-	manifest {
-		attributes(
-				'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
-				'Main-Class': 'pl.piwowarczyk.dbservice.DbServiceApplication'
-		)
-	}
+    manifest {
+        attributes(
+                'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
+                'Main-Class': 'pl.piwowarczyk.dbservice.DbServiceApplication'
+        )
+    }
 }

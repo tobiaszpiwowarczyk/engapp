@@ -30,7 +30,7 @@ export class LoginService {
   ) {
     this.loginHeaders = new Headers({
       "Content-Type": "application/x-www-form-urlencoded",
-      [this.AUTHORIZATION_HEADER]: "Basic ZW5nYXBwLWNsaWVudDplbmdhcHAtc2VjcmV0"
+      [this.AUTHORIZATION_HEADER]: "Basic " + btoa("engapp-client:engapp-secret")
     });
   }
 
