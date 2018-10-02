@@ -1,11 +1,11 @@
-import { LoginService } from './../../../../../services/login/login.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import "rxjs/add/operator/map";
-import { Unit } from '../../components/unit/Unit';
-import { UnitService } from '../../../../../services/unit/unit.service';
-import { LoaderComponent } from '../../../../../components/loader/loader.component';
 import { listAnimation } from '../../../../../animations/animations';
+import { LoaderComponent } from '../../../../../components/loader/loader.component';
+import { UnitService } from '../../../../../services/unit/unit.service';
+import { Unit } from '../../components/unit/Unit';
+import { LoginService } from './../../../../../services/login/login.service';
 
 @Component({
   selector: 'app-home',
@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
 
   isUser: boolean = false;
   units: Array<Unit> = [];
+  loading: boolean = true;
 
   constructor(
     private loginService: LoginService,
@@ -30,16 +31,12 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.title.setTitle("EngApp - Strona główna");
-    this.homeLoader.show();
 
     this.loginService.getUserData()
       .subscribe(user => this.isUser = user.role == "USER");
 
     this.unitService.findAll()
-      .subscribe(res => {
-        this.units = res;
-        this.homeLoader.hide();
-      });
+      .subscribe(res => this.units = res, null, () => this.loading = false);
   }
 
 }

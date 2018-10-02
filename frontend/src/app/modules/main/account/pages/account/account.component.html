@@ -1,95 +1,100 @@
-<div class="profile">
-  <div class="profile__background jarallax" profile>
-    <img src="assets/img/mountain-bg.jpg" alt="profile background">
-    <div class="profile__background__filter"></div>
-  </div>
-  <div class="profile__avatar container">
-    <div class="profile__image">
-      <img src="assets/img/default.jpg" [attr.alt]="user?.firstName +' '+ user?.lastName">
-    </div>
-    <div class="profile__data">
-      <h3>{{user?.firstName}} {{user?.lastName}}</h3>
-    </div>
-  </div>
-</div>
+<app-loader [visible]="loading"></app-loader>
 
-<div class="account">
-  <app-tab-menu name="user">
-    <app-tab-menu-item id="data" text="Dane" appMenuActive></app-tab-menu-item>
-    <app-tab-menu-item id="statistics" text="Statystyki"></app-tab-menu-item>
-    <app-tab-menu-item id="accountSettings" text="Ustawienia"></app-tab-menu-item>
-  </app-tab-menu>
-  <app-tab-view>
-    <app-tab-view-item for="data">
-      <div class="container container__box">
-        <h2 class="container__box__header">Dane użytkownika</h2>
-        <p>Nazywasz się {{user?.firstName}} {{user?.lastName}}</p>
+<div [hidden]="loading">
+  <div class="profile">
+    <div class="profile__background jarallax" profile>
+      <img src="assets/img/mountain-bg.jpg" alt="profile background">
+      <div class="profile__background__filter"></div>
+    </div>
+    <div class="profile__avatar container">
+      <div class="profile__image">
+        <img src="assets/img/default.jpg" [attr.alt]="user?.firstName +' '+ user?.lastName">
       </div>
-    </app-tab-view-item>
-    <app-tab-view-item for="statistics">
-      <app-user-statistics *ngFor="let stats of userStatistics; let last=last" 
-                           [data]="stats" [last]="last"></app-user-statistics>
-    </app-tab-view-item>
-    <app-tab-view-item for="accountSettings">
-
-      <div class="container container__box">
-        <h2 class="container__box__header">Ustawienia ogólne</h2>
-
-        <div class="container__box__content">
-          <div class="account__option">
-            <div class="account__option__label">Ciemny motyw</div>
-            <div class="account__option__input">
-              <app-switch (onchange)="switchTheme($event)" #themeSwitch></app-switch>
+      <div class="profile__data">
+        <h3>{{user?.firstName}} {{user?.lastName}}</h3>
+      </div>
+    </div>
+  </div>
+  
+  <div class="account">
+    <app-tab-menu name="user">
+      <app-tab-menu-item id="data" text="Dane" appMenuActive></app-tab-menu-item>
+      <app-tab-menu-item id="statistics" text="Statystyki"></app-tab-menu-item>
+      <app-tab-menu-item id="accountSettings" text="Ustawienia"></app-tab-menu-item>
+    </app-tab-menu>
+    <app-tab-view>
+      <app-tab-view-item for="data">
+        <div class="container container__box">
+          <h2 class="container__box__header">Dane użytkownika</h2>
+          <p>Nazywasz się {{user?.firstName}} {{user?.lastName}}</p>
+        </div>
+      </app-tab-view-item>
+      <app-tab-view-item for="statistics">
+        <h3 [style.textAlign]="'center'" *ngIf="userStatistics.length == 0">W tej chwili nie posiadasz żadnych statystyk</h3>
+        <app-user-statistics *ngFor="let stats of userStatistics; let last=last" 
+                             [data]="stats" [last]="last"></app-user-statistics>
+      </app-tab-view-item>
+      <app-tab-view-item for="accountSettings">
+  
+        <div class="container container__box">
+          <h2 class="container__box__header">Ustawienia ogólne</h2>
+  
+          <div class="container__box__content">
+            <div class="account__option">
+              <div class="account__option__label">Ciemny motyw</div>
+              <div class="account__option__input">
+                <app-switch (onchange)="switchTheme($event)" #themeSwitch></app-switch>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="container container__box">
-        <app-loader #accountSettingsLoader></app-loader>
-        <h2 class="container__box__header">Ustawienia konta</h2>
-
-        <app-message content="Użytkownik został zaktualizowany pomyślnie" #accountSettingsMessage></app-message>
-
-        <form [formGroup]="accountForm" (ngSubmit)="update()">
-          
-          <input type="hidden" formControlName="id" />
-
-          <div class="container__box__content">
-            <div class="account__option">
-              <div class="account__option__label">Nazwa użytkownika</div>
-              <div class="account__option__input">
-                <app-input formControlName="username" [control]="accountForm?.controls['username']" appInputFluid appInputCompact #username></app-input>
+  
+        <div class="container container__box">
+          <app-loader #accountSettingsLoader></app-loader>
+          <h2 class="container__box__header">Ustawienia konta</h2>
+  
+          <app-message content="Użytkownik został zaktualizowany pomyślnie" #accountSettingsMessage></app-message>
+  
+          <form [formGroup]="accountForm" (ngSubmit)="update()">
+            
+            <input type="hidden" formControlName="id" />
+  
+            <div class="container__box__content">
+              <div class="account__option">
+                <div class="account__option__label">Nazwa użytkownika</div>
+                <div class="account__option__input">
+                  <app-input formControlName="username" [control]="accountForm?.controls['username']" appInputFluid appInputCompact #username></app-input>
+                </div>
+              </div>
+    
+              <div class="account__option">
+                <div class="account__option__label">Imię</div>
+                <div class="account__option__input">
+                  <app-input formControlName="firstName" [control]="accountForm?.controls['firstName']" appInputFluid appInputCompact></app-input>
+                </div>
+              </div>
+              <div class="account__option">
+                <div class="account__option__label">Nazwisko</div>
+                <div class="account__option__input">
+                  <app-input formControlName="lastName" [control]="accountForm?.controls['lastName']" appInputFluid appInputCompact></app-input>
+                </div>
+              </div>
+              <div class="account__option">
+                <div class="account__option__label">Adres email</div>
+                <div class="account__option__input">
+                  <app-input formControlName="email" [control]="accountForm?.controls['email']" appInputFluid appInputCompact></app-input>
+                </div>
               </div>
             </div>
   
             <div class="account__option">
-              <div class="account__option__label">Imię</div>
-              <div class="account__option__input">
-                <app-input formControlName="firstName" [control]="accountForm?.controls['firstName']" appInputFluid appInputCompact></app-input>
-              </div>
+              <div class="account__option__label"></div>
+              <app-button type="submit" primary>Zapisz dane</app-button>
             </div>
-            <div class="account__option">
-              <div class="account__option__label">Nazwisko</div>
-              <div class="account__option__input">
-                <app-input formControlName="lastName" [control]="accountForm?.controls['lastName']" appInputFluid appInputCompact></app-input>
-              </div>
-            </div>
-            <div class="account__option">
-              <div class="account__option__label">Adres email</div>
-              <div class="account__option__input">
-                <app-input formControlName="email" [control]="accountForm?.controls['email']" appInputFluid appInputCompact></app-input>
-              </div>
-            </div>
-          </div>
-
-          <div class="account__option">
-            <div class="account__option__label"></div>
-            <app-button type="submit" primary>Zapisz dane</app-button>
-          </div>
-        </form>
-      </div>
-
-    </app-tab-view-item>
-  </app-tab-view>
+          </form>
+        </div>
+  
+      </app-tab-view-item>
+    </app-tab-view>
+  </div>
 </div>

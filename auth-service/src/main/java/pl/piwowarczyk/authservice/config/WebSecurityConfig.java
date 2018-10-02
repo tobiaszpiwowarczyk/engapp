@@ -12,6 +12,8 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import pl.piwowarczyk.authservice.config.security.CorsFilter;
 import pl.piwowarczyk.authservice.config.security.CustomAccessDeniedHandler;
 import pl.piwowarczyk.authservice.crypto.CustomPasswordEncoder;
 import pl.piwowarczyk.authservice.service.CustomUserDetailsService;
@@ -25,6 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private CustomUserDetailsService customUserDetailsService;
     private CustomPasswordEncoder customPasswordEncoder;
     private CustomAccessDeniedHandler customAccessDeniedHandler;
+    private CorsFilter corsFilter;
 
     @Override
     @Bean
@@ -49,7 +52,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().exceptionHandling().accessDeniedHandler(customAccessDeniedHandler)
-                .and().httpBasic();
+                .and().httpBasic()
+                .and().addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override

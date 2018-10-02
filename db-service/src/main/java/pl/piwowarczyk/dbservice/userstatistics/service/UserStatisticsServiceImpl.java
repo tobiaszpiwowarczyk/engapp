@@ -22,7 +22,7 @@ public class UserStatisticsServiceImpl implements UserStatisticsService {
 
     @Override
     public List<UserStatistics> findAll() {
-        return userStatisticsRepository.findAll();
+        return userStatisticsRepository.findAllStats();
     }
 
     @Override

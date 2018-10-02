@@ -1,3 +1,4 @@
+import { UnitScopeService } from './../../../services/unit-scope.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
@@ -48,13 +49,14 @@ export class QuizComponent implements OnInit {
     private title: Title,
     private fb: FormBuilder,
     private wordService: WordService,
-    private uss: UserStatisticsService
+    private uss: UserStatisticsService,
+    private unitss: UnitScopeService
   ) { }
 
   ngOnInit() {
     this.quizLoader.show();
+    this.unitss.scope.subscribe(res => this.scope = res);
     this.route.params.subscribe(r => {
-      this.scope = parseInt(localStorage.getItem("scope"), 10);
       this.unitService.findById(r.id)
         .subscribe(res => {
           this.unit = res;
@@ -133,7 +135,7 @@ export class QuizComponent implements OnInit {
           score: this.points,
           total: this.scope,
           unitId: this.unit.id
-        }).subscribe();
+        });
       }
       else {
         this.word = this.badWords[this.currentBadWord];

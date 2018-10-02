@@ -24,8 +24,9 @@ import { UserStatistics } from '../../../../../services/user-statistics/UserStat
 export class AccountComponent implements OnInit {
 
   user: User;
-  userStatistics: UserStatistics[];
+  userStatistics: UserStatistics[] = [];
   backgroundPosition: string = "50% 0";
+  loading: boolean = true;
 
   accountForm: FormGroup;
   errors: any[] = [];
@@ -51,7 +52,7 @@ export class AccountComponent implements OnInit {
       });
 
     this.uss.findUserStats()
-      .subscribe(res => this.userStatistics = res);
+      .subscribe(res => this.userStatistics = res, null, () => this.loading = false);
 
     this.accountForm = this.fb.group({
       id: [this.user.id, Validators.required],

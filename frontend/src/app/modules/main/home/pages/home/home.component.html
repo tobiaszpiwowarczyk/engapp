@@ -1,6 +1,6 @@
-<app-loader loaderFullScreen #homeLoader></app-loader>
+<app-loader [visible]="loading"></app-loader>
 
-<div class="content wrapper">
+<div class="content wrapper" [hidden]="loading">
   <h2>Wybierz rozdział</h2>
 
   <div class="units" [@listAnimation]="units.length" *ngIf="isUser">

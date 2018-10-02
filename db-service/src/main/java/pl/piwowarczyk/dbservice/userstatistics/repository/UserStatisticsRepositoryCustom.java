@@ -6,5 +6,6 @@ import pl.piwowarczyk.dbservice.userstatistics.domain.UserStatisticsInsertionEnt
 import java.util.List;
 
 public interface UserStatisticsRepositoryCustom {
+    List<UserStatistics> findAllStats();
     List<UserStatistics> findAllByUsername(String username);
 }

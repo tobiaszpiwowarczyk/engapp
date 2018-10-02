@@ -1,6 +1,8 @@
 package pl.piwowarczyk.dbservice.userstatistics;
 
 import lombok.AllArgsConstructor;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pl.piwowarczyk.dbservice.userstatistics.domain.UserStatisticsInsertionEntity;
@@ -28,8 +30,10 @@ public class UserStatisticsController {
     }
     
     
-    @PostMapping
+    @MessageMapping("/add-user-statistics")
+    @SendTo("/topic/user-statistics")
     public UserStatistics addUserStatistics(@RequestBody UserStatisticsInsertionEntity userStatistics) {
+	System.out.println(userStatistics);
         return userStatisticsService.addUserStatistics(userStatistics);
     }
 }
