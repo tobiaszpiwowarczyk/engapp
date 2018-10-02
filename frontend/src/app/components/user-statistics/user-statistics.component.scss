@@ -1,0 +1,56 @@
+@import "../../../assets/_variables";
+
+.user-statistics {
+  position: relative;
+  margin-bottom: 40px;
+
+  &__header {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+
+    &__item {
+      position: relative;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      color: inherit;
+    }
+
+    &__data {
+      position: relative;
+      display: flex;
+      align-items: center;
+      margin-right: 15px;
+
+      /deep/ .material-icons {
+        font-size: 36px;
+      }
+
+      img {
+        position: relative;
+        width: 36px;
+        border-radius: 36px;
+      }
+
+      .data-text {
+        margin-left: 5px;
+      }
+    }
+  }
+
+  &__content {
+    position: relative;
+    width: 100%;
+    padding: 40px 0;
+    border-top: 1px solid;
+    text-align: center;
+  }
+
+  &--last {
+    margin-bottom: 0;
+  }
+}

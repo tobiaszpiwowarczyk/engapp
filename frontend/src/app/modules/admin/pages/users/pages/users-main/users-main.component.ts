@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { User } from '../../../../../../services/user/User';
 import { UserService } from './../../../../../../services/user/user.service';
@@ -15,9 +15,6 @@ export class UsersMainComponent implements OnInit {
 
   loading: boolean = true;
 
-  usersSearchForm: FormGroup;
-  name: FormControl = new FormControl("");
-
   constructor(
     private us: UserService,
     private title: Title,
@@ -30,9 +27,5 @@ export class UsersMainComponent implements OnInit {
         this.title.setTitle("Użytkownicy - EngApp Panel");
         this.loading = false;
       });
-
-    this.usersSearchForm = this.fb.group({
-      name: this.name
-    });
   }
 }

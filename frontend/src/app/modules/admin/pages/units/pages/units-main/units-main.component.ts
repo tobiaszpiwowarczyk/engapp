@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import "rxjs/add/operator/finally";
-import { listAnimation } from '../../../../../../animations/animations';
+import { listAnimation, listItemAnimation } from '../../../../../../animations/animations';
 import { ModalComponent } from '../../../../../../components/modal/modal.component';
 import { LoaderComponent } from './../../../../../../components/loader/loader.component';
 import { MessageComponent } from './../../../../../../components/message/message.component';
@@ -14,7 +14,7 @@ import { ModalService } from './../../services/modal.service';
   selector: 'app-units-main',
   templateUrl: './units-main.component.html',
   styleUrls: ['./scss/units-main.component.scss'],
-  animations: [listAnimation]
+  animations: [listAnimation, listItemAnimation]
 })
 export class UnitsMainComponent implements OnInit {
 
@@ -25,7 +25,6 @@ export class UnitsMainComponent implements OnInit {
 
   addModalShown: boolean = false;
 
-  @ViewChild("loader") loader: LoaderComponent;
   @ViewChild("boxLoader") boxLoader: LoaderComponent;
   @ViewChild("approveModal") approveModal: ModalComponent;
   @ViewChild("message") message: MessageComponent;

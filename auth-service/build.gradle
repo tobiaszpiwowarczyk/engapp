@@ -41,5 +41,13 @@ dependencyManagement {
 	}
 }
 
-
-bootRun.systemProperties = System.properties
+task bootRunDev(dependsOn: bootRun) {
+	group = 'Application'
+	gradle.taskGraph.whenReady { graph -> 
+		if(graph.hasTask(bootRunDev)) {
+			bootRun {
+				args = ["--spring.profiles.active=dev"]
+			}
+		}
+	}
+}

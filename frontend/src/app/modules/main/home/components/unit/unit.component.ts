@@ -1,10 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Unit } from './Unit';
+import { listItemAnimation } from '../../../../../animations/animations';
+import { UnitScopeService } from '../../../services/unit-scope.service';
 
 @Component({
   selector: 'app-unit',
   templateUrl: './unit.component.html',
-  styleUrls: ['./scss/unit.component.scss']
+  styleUrls: ['./scss/unit.component.scss'],
+  animations: [listItemAnimation]
 })
 export class UnitComponent implements OnInit {
 
@@ -14,8 +17,10 @@ export class UnitComponent implements OnInit {
   selected: number = 20;
   optionsShown: boolean = false;
 
-  constructor() {}
-  ngOnInit() {}
+  constructor(private uss: UnitScopeService) {}
+  ngOnInit() {
+    this.uss.setScope(this.selected);
+  }
 
   public toggleOptions(): void {
     this.optionsShown = !this.optionsShown;
@@ -23,9 +28,6 @@ export class UnitComponent implements OnInit {
 
   public selectOption(option: number): void {
     this.selected = option;
-  }
-
-  public saveScope(): void {
-    localStorage.setItem("scope", this.selected.toString());
+    this.uss.setScope(option);
   }
 }

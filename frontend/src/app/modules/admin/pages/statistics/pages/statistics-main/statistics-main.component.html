@@ -1,0 +1,13 @@
+<app-loader [visible]="loading"></app-loader>
+
+<div class="admin-content" [hidden]="loading">
+  <h1 class="admin-content__header">Statystyki</h1>
+
+  <h3 *ngIf="!loading && userStatistics.length == 0">W tej chwili nie ma żadnych statystyk</h3>
+
+  <div class="user-statistics" [@listAnimation]="userStatistics.length">
+    <app-user-statistics *ngFor="let s of userStatistics; let last=last"
+              [data]="s" [last]="last" forAdmin></app-user-statistics>
+  </div>  
+
+</div>

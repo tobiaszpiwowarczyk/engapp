@@ -12,6 +12,7 @@ import { Title } from '@angular/platform-browser';
 export class UsersSingleComponent implements OnInit {
 
   user: User;
+  loading: boolean = true;
 
   constructor(
     private us: UserService,
@@ -24,7 +25,8 @@ export class UsersSingleComponent implements OnInit {
         .subscribe((user: User) => {
           this.user = user;
           this.title.setTitle(`${user.firstName} ${user.lastName} - EngApp Panel`);
-        }, err => console.error(err));
+        }, err => console.error(err),
+        () => this.loading = false);
     });
   }
 

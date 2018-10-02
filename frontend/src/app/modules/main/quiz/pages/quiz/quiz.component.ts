@@ -1,3 +1,4 @@
+import { UnitScopeService } from './../../../services/unit-scope.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
@@ -8,12 +9,13 @@ import { UnitService } from '../../../../../services/unit/unit.service';
 import { Unit } from '../../../home/components/unit/Unit';
 import { Word } from '../../services/word/Word';
 import { WordService } from '../../services/word/word.service';
+import { UserStatisticsService } from '../../../../../services/user-statistics/user-statistics.service';
 
 @Component({
   selector: 'app-quiz',
   templateUrl: './quiz.component.html',
   styleUrls: ['./quiz.component.scss'],
-  providers: [UnitService, WordService]
+  providers: [UnitService, WordService, UserStatisticsService]
 })
 export class QuizComponent implements OnInit {
 
@@ -46,13 +48,15 @@ export class QuizComponent implements OnInit {
     private route: ActivatedRoute,
     private title: Title,
     private fb: FormBuilder,
-    private wordService: WordService
+    private wordService: WordService,
+    private uss: UserStatisticsService,
+    private unitss: UnitScopeService
   ) { }
 
   ngOnInit() {
     this.quizLoader.show();
+    this.unitss.scope.subscribe(res => this.scope = res);
     this.route.params.subscribe(r => {
-      this.scope = parseInt(localStorage.getItem("scope"), 10);
       this.unitService.findById(r.id)
         .subscribe(res => {
           this.unit = res;
@@ -81,7 +85,7 @@ export class QuizComponent implements OnInit {
   public check(): void {
     this.shown = true;
     this.wordInput.blur();
-    this.quizForm.controls.word.disable();
+    this.wordControl.disable();
     this.multipleAnswers = this.word.english.length > 1;
 
     if(this.multipleAnswers) {
@@ -118,7 +122,7 @@ export class QuizComponent implements OnInit {
     this.valid = false;
     this.currentWord++;
     this.quizForm.reset();
-    this.quizForm.controls.word.enable();
+    this.wordControl.enable();
 
     if(this.firstStageNonFinnished()) {
       this.renderWord();
@@ -127,6 +131,11 @@ export class QuizComponent implements OnInit {
 
       if(this.badWords.length == 0) {
         this.finished = true;
+        this.uss.addUserStatistcs({
+          score: this.points,
+          total: this.scope,
+          unitId: this.unit.id
+        });
       }
       else {
         this.word = this.badWords[this.currentBadWord];
