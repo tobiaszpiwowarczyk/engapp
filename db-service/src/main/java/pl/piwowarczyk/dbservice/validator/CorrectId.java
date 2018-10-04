@@ -9,8 +9,9 @@ import java.lang.annotation.Target;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.PARAMETER;
+import static java.lang.annotation.ElementType.TYPE_USE;
 
-@Target({FIELD, PARAMETER})
+@Target({FIELD, PARAMETER, TYPE_USE})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = CorrectIdValidator.class)
 public @interface CorrectId {
