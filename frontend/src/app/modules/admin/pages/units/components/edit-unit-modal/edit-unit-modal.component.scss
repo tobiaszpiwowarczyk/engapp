@@ -1,4 +1,3 @@
-
 @import "../../../../../../../assets/variables";
 
 .color-preview {
@@ -6,4 +5,5 @@
   width: $input-height;
   height: $input-height + ($input-border-width * 2);
   border-radius: $border-radius;
+  border: 1px solid $grey;
 }

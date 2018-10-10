@@ -1,15 +1,15 @@
-import { UnitScopeService } from './../../../services/unit-scope.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { InputComponent } from '../../../../../components/input/input.component';
 import { LoaderComponent } from '../../../../../components/loader/loader.component';
 import { UnitService } from '../../../../../services/unit/unit.service';
-import { Unit } from '../../../home/components/unit/Unit';
-import { Word } from '../../services/word/Word';
-import { WordService } from '../../services/word/word.service';
 import { UserStatisticsService } from '../../../../../services/user-statistics/user-statistics.service';
+import { Word } from '../../../../../services/word/Word';
+import { WordService } from '../../../../../services/word/word.service';
+import { Unit } from '../../../home/components/unit/Unit';
+import { UnitScopeService } from './../../../services/unit-scope.service';
 
 @Component({
   selector: 'app-quiz',

@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Word } from '../../../../main/quiz/services/word/Word';
+import { Word } from '../../../../../services/word/Word';
 
 @Pipe({
   name: 'unitFilter',

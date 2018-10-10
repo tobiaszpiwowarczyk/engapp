@@ -11,7 +11,7 @@
       
       <app-header-menu>
         <!-- todo: crete image profile support -->
-        <app-header-item *ngIf="user" [label]="user?.firstName +' '+ user?.lastName" 
+        <app-header-item *ngIf="user != null" [label]="user?.firstName +' '+ user?.lastName" 
                           itemType="image" imageSrc="assets/img/default.jpg"
                           [href]="['/account', user?.username]"></app-header-item>
   

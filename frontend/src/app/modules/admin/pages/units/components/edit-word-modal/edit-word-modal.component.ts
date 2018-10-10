@@ -1,15 +1,15 @@
-import { Modal } from './../Modal';
-import { WordService } from './../../../../../main/quiz/services/word/word.service';
-import { ModalService } from './../../services/modal.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
-import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
-import { Word } from '../../../../../main/quiz/services/word/Word';
-import { ModalComponent } from '../../../../../../components/modal/modal.component';
-import { FormUtils } from '../../../../../../util/FormUtils';
-import { ModalData } from '../../services/modal.service';
-
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import "rxjs/add/operator/finally";
+import { ModalComponent } from '../../../../../../components/modal/modal.component';
+import { Word } from '../../../../../../services/word/Word';
+import { WordService } from '../../../../../../services/word/word.service';
+import { ModalData } from '../../services/modal.service';
+import { ModalService } from './../../services/modal.service';
+import { PolishValidator } from './../../validator/PolishValidator';
+import { Modal } from './../Modal';
+
 
 @Component({
   selector: 'app-edit-word-modal',
@@ -42,10 +42,6 @@ export class EditWordModalComponent implements OnInit, Modal {
     this.route.params.subscribe(p => this.unitId = p['id']);
     this.initForm();
 
-    this.wordForm.valueChanges.subscribe(() => {
-      this.modal.preventApprove = this.wordForm.invalid;
-    });
-
     this.modalService.modalData.subscribe((modalData: ModalData) => {
 
       if(modalData != undefined && modalData.name == "editWordModal") {
@@ -53,8 +49,23 @@ export class EditWordModalComponent implements OnInit, Modal {
 
         if(modalData.data != undefined || JSON.stringify(modalData.data) == "{}") {
 
-          this.wordForm = FormUtils.wordToFormGroup(this.word);
+          modalData.data.english.forEach(() => this.addWord());
+          this.wordForm.setValue({
+            unitId: modalData.data.unitId,
+            wordNumber: modalData.data.wordNumber,
+            polish: modalData.data.polish,
+            english: modalData.data.english
+          });
+
+          this.wordForm.controls['polish'].setAsyncValidators(
+            PolishValidator.validatePolishEditing(this.wordService, this.unitId, this.word.wordNumber)
+          );
+
           this.modal.preventApprove = false;
+
+          this.wordForm.valueChanges.subscribe(() => {
+            this.modal.preventApprove = this.wordForm.invalid;
+          });
         }
 
         this.modal.show();
@@ -73,16 +84,15 @@ export class EditWordModalComponent implements OnInit, Modal {
     this.modalService.resetData();
   }
 
-  public addWord = (): void => (<FormArray> this.wordForm.controls['english']).push(new FormControl("", Validators.required));
-  public removeWord = (index: number): void => (<FormArray> this.wordForm.controls['english']).removeAt(index);
+  public addWord = (): void => (<FormArray>this.wordForm.controls['english']).push(new FormControl("", Validators.required));
+  public removeWord = (index: number): void => (<FormArray>this.wordForm.controls['english']).removeAt(index);
 
   private initForm(): void {
     this.wordForm = this.fb.group({
-      wordNumber: new FormControl(0, Validators.required),
+      unitId: [this.unitId, Validators.required],
+      wordNumber: [0, Validators.required],
       polish: ['', Validators.required],
-      english: this.fb.array([
-        new FormControl("", Validators.required)
-      ])
+      english: this.fb.array([])
     });
   }
 }

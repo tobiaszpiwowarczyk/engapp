@@ -1,12 +1,13 @@
+import { PolishValidator } from './../../validator/PolishValidator';
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import "rxjs/add/operator/finally";
 import { ModalComponent } from '../../../../../../components/modal/modal.component';
 import { Modal } from '../Modal';
-import { Word } from './../../../../../main/quiz/services/word/Word';
-import { WordService } from './../../../../../main/quiz/services/word/word.service';
 import { ModalData, ModalService } from './../../services/modal.service';
+import { Word } from '../../../../../../services/word/Word';
+import { WordService } from '../../../../../../services/word/word.service';
 
 
 @Component({
@@ -30,7 +31,7 @@ export class AddWordModalComponent implements OnInit, Modal {
     private route: ActivatedRoute,
     private ms: ModalService,
     private ws: WordService
-  ) {}
+  ) { }
 
   ngOnInit() {
 
@@ -43,13 +44,8 @@ export class AddWordModalComponent implements OnInit, Modal {
       }
     });
 
-    this.wordForm = this.fb.group({
-      polish: ["", Validators.required],
-      english: this.fb.array([
-        new FormControl('', Validators.required)
-      ])
-    });
-    this.modal.preventApprove = true;
+    this.initForm();
+    this.modal.preventApprove = this.wordForm.invalid;
 
     this.wordForm.valueChanges.subscribe(() => {
       this.modal.preventApprove = this.wordForm.invalid;
@@ -58,21 +54,25 @@ export class AddWordModalComponent implements OnInit, Modal {
 
   onApprove(): void {
     this.onStart.emit(true);
-    this.ws.addWord(this.unitId, this.wordForm.value)
+    this.ws.addWord(this.wordForm.value)
       .finally(() => this.ms.resetData())
       .subscribe(res => this.onEnd.emit(res));
   }
   onClose(): void {
+    this.initForm();
+    this.ms.resetData();
+  }
+
+  public addWord = (): void => (<FormArray>this.wordForm.controls['english']).push(new FormControl("", Validators.required));
+  public removeWord = (index: number): void => (<FormArray>this.wordForm.controls['english']).removeAt(index);
+
+  private initForm(): void {
     this.wordForm = this.fb.group({
-      polish: ["", Validators.required],
+      unitId: [this.unitId, Validators.required],
+      polish: ["", Validators.required, PolishValidator.checkExistence(this.ws, this.unitId)],
       english: this.fb.array([
         new FormControl('', Validators.required)
       ])
     });
-    this.ms.resetData();
   }
-
-  public addWord = (): void => (<FormArray> this.wordForm.controls['english']).push(new FormControl("", Validators.required));
-  public removeWord = (index: number): void => (<FormArray> this.wordForm.controls['english']).removeAt(index);
-
 }

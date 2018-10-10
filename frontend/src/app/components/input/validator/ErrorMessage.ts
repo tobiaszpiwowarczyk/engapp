@@ -1,9 +1,5 @@
 
-export class ErrorMessage {
+export interface ErrorMessage {
   type: string;
   message: string;
-
-  constructor(values: Object = {}) {
-    Object.assign(this, values);
-  }
 }
