@@ -21,7 +21,7 @@ public class ErrorReportServiceImpl implements ErrorReportService {
     
     @Override
     public List<ErrorReport> findAll() {
-        return errorReportRepository.findAll();
+        return errorReportRepository.findAllErrorReports();
     }
 
     @Override
@@ -33,6 +33,7 @@ public class ErrorReportServiceImpl implements ErrorReportService {
     public ErrorReport addReport(ErrorReportInsertionEntity errorReport) {
         return errorReportRepository.save(
                 ErrorReport.builder()
+                        .subject(errorReport.getSubject())
                         .message(errorReport.getMessage())
                         .username(SecurityContextHolder.getContext().getAuthentication().getName())
                         .build()
@@ -40,8 +41,9 @@ public class ErrorReportServiceImpl implements ErrorReportService {
     }
 
     @Override
-    public void markReportAsRead(ErrorReportMarkAsReadEntity markAsReadEntity) {
+    public Map<String, Boolean> markReportAsRead(ErrorReportMarkAsReadEntity markAsReadEntity) {
         errorReportRepository.markReportAsRead(markAsReadEntity);
+        return Collections.singletonMap("state", markAsReadEntity.getRead());
     }
 
     @Override

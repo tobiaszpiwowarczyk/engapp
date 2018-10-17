@@ -24,10 +24,10 @@ export class SwitchComponent implements OnInit, ControlValueAccessor {
 
   @Output() onchange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  constructor() {}
-  ngOnInit() {}
+  constructor() { }
+  ngOnInit() { }
 
-  private propagateChange = (_:any) => {};
+  private propagateChange = (_: any) => { };
 
   writeValue(obj: boolean): void {
     this.value = obj;
@@ -35,7 +35,7 @@ export class SwitchComponent implements OnInit, ControlValueAccessor {
   registerOnChange(fn: any): void {
     this.propagateChange = fn;
   }
-  registerOnTouched(fn: any): void {}
+  registerOnTouched(): void { }
   setDisabledState?(isDisabled: boolean): void {
     this.disabled = isDisabled;
   }

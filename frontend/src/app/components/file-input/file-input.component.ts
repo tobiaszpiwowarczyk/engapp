@@ -11,7 +11,7 @@ import { imageAnimation } from './util/image-animation';
   templateUrl: './file-input.component.html',
   styleUrls: ['./file-input.component.scss'],
   providers: [
-    {provide: NG_VALUE_ACCESSOR, useExisting: FileInputComponent, multi: true}
+    { provide: NG_VALUE_ACCESSOR, useExisting: FileInputComponent, multi: true }
   ],
   animations: [imageAnimation]
 })
@@ -28,7 +28,7 @@ export class FileInputComponent implements OnInit, ControlValueAccessor {
   dragover: boolean = false;
   dropZoneState: DropZoneState;
 
-  constructor(private fis: FileInputService) {}
+  constructor(private fis: FileInputService) { }
   ngOnInit() {
     this.fis.setAccept(this.accept);
     this.fis.dragover.subscribe(res => this.dragover = res);
@@ -36,7 +36,7 @@ export class FileInputComponent implements OnInit, ControlValueAccessor {
   }
 
 
-  onChange = (_: any) => {};
+  onChange = (_: any) => { };
 
 
   writeValue(obj: any): void {
@@ -48,8 +48,8 @@ export class FileInputComponent implements OnInit, ControlValueAccessor {
   registerOnChange(fn: any): void {
     this.onChange = fn;
   }
-  registerOnTouched(fn: any): void {}
-  setDisabledState?(isDisabled: boolean): void {}
+  registerOnTouched(): void { }
+  setDisabledState?(): void { }
 
 
   public getData(e: DropFile): void {

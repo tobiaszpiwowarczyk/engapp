@@ -1,4 +1,4 @@
-import { AfterContentInit, Directive, ElementRef, Input } from '@angular/core';
+import { AfterContentInit, Directive, ElementRef } from '@angular/core';
 import { jarallax } from 'jarallax';
 
 @Directive({ selector: '[profile]' })
@@ -6,7 +6,7 @@ export class ProfleDirective implements AfterContentInit {
 
   constructor(
     private el: ElementRef
-  ) {}
+  ) { }
 
   ngAfterContentInit(): void {
     const profile = this.el.nativeElement;

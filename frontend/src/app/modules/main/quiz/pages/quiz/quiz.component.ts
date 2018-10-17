@@ -9,6 +9,7 @@ import { UserStatisticsService } from '../../../../../services/user-statistics/u
 import { Word } from '../../../../../services/word/Word';
 import { WordService } from '../../../../../services/word/word.service';
 import { Unit } from '../../../home/components/unit/Unit';
+import { SocketService } from './../../../../../services/socket/socket.service';
 import { UnitScopeService } from './../../../services/unit-scope.service';
 
 @Component({
@@ -49,13 +50,13 @@ export class QuizComponent implements OnInit {
     private title: Title,
     private fb: FormBuilder,
     private wordService: WordService,
-    private uss: UserStatisticsService,
-    private unitss: UnitScopeService
+    private unitss: UnitScopeService,
+    private socket: SocketService
   ) { }
 
   ngOnInit() {
     this.quizLoader.show();
-    this.unitss.scope.subscribe(res => this.scope = res);
+    this.unitss.scope.subscribe(res => { this.scope = res; console.log(res); });
     this.route.params.subscribe(r => {
       this.unitService.findById(r.id)
         .subscribe(res => {
@@ -131,7 +132,8 @@ export class QuizComponent implements OnInit {
 
       if(this.badWords.length == 0) {
         this.finished = true;
-        this.uss.addUserStatistcs({
+
+        this.socket.sendData("/app/add-user-statistics", {
           score: this.points,
           total: this.scope,
           unitId: this.unit.id

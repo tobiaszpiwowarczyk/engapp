@@ -17,7 +17,6 @@ public class ErrorReportMarkAsReadEntity {
     @NotEmpty
     private List<@CorrectId String> reportIds;
     
-    @NotEmpty
     @CorrectBoolean
     private Boolean read;
     

@@ -1,11 +1,11 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Modal } from '../../modules/admin/pages/units/components/Modal';
-import { ModalService, ModalData } from '../../modules/admin/pages/units/services/modal.service';
-import { ModalComponent } from '../modal/modal.component';
-import { UnitService } from '../../services/unit/unit.service';
+import { ModalData, ModalService } from '../../modules/admin/pages/units/services/modal.service';
 import { Unit } from '../../modules/main/home/components/unit/Unit';
+import { UnitService } from '../../services/unit/unit.service';
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-change-image-modal',
@@ -28,7 +28,7 @@ export class ChangeImageModalComponent implements OnInit, Modal {
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private us: UnitService
-  ) {}
+  ) { }
 
   ngOnInit() {
 

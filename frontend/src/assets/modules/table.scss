@@ -1,9 +1,8 @@
-
 @import "../_variables";
 @import "../mixins";
 
 .table {
-	border-collapse: collapse;
+  border-collapse: collapse;
   border-spacing: 0;
   position: relative;
   width: 100%;
@@ -12,7 +11,7 @@
   border-radius: $border-radius;
   overflow: hidden;
   text-align: left;
-  
+
 
   thead tr {
     color: $blue;
@@ -22,10 +21,29 @@
 
   tbody tr {
     border-bottom: 1px solid $blue;
-    &:last-child { border: none; }
+
+    &:last-child {
+      border: none;
+    }
+
+    &:hover {
+      background: rgba($black, 0.1);
+    }
+
+    &.selected {
+      font-weight: 900;
+      background: rgba($blue, 0.2);
+    }
+
+    body.dark-theme & {
+      &:not(.selected):hover {
+        background: rgba($white, 0.1) !important;
+      }
+    }
   }
 
-  th, td {
+  th,
+  td {
     padding: 20px;
     max-width: 200px;
   }

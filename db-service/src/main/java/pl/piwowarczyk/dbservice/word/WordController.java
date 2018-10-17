@@ -45,7 +45,7 @@ public class WordController {
      * @return persisted {@link Word} object
      */
     @GetMapping("{unitId}/{id}")
-    public Word findById(String unitId, @PathVariable Long id) {
+    public Word findById(@PathVariable String unitId, @PathVariable Long id) {
         return wordService.findWordByWordNumber(unitId, id);
     }
 

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { User } from '../../../../../../services/user/User';
 import { UserService } from './../../../../../../services/user/user.service';
@@ -17,9 +16,8 @@ export class UsersMainComponent implements OnInit {
 
   constructor(
     private us: UserService,
-    private title: Title,
-    private fb: FormBuilder
-  ) {}
+    private title: Title
+  ) { }
   ngOnInit() {
     this.us.findAll()
       .subscribe((res: User[]) => {

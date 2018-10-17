@@ -1,19 +1,19 @@
 <div class="container user-statistics" [class.user-statistics--last]="last" @listItemAnimation>
   <div class="user-statistics__header" [style.color]="data?.unit?.color">
     <div class="user-statistics__header__item">
-      <a class="user-statistics__header__data" [routerLink]="['/admin/users', data?.username]" [style.color]="data?.unit?.color"
+      <a class="container__item" [routerLink]="['/admin/users', data?.username]" [style.color]="data?.unit?.color"
         *ngIf="forAdmin">
 
-        <img src="assets/img/default.jpg" [attr.alt]="'Zdjęcię użytkownika ' + data?.username">
+        <img src="assets/img/default.jpg" class="user-avatar" [attr.alt]="'Zdjęcię użytkownika ' + data?.username">
         <span class="data-text">{{data?.username}}</span>
       </a>
-      <div class="user-statistics__header__data">
+      <div class="container__item">
         <app-icon name="date_range"></app-icon>
-        <span class="data-text">{{formatDate(data?.createdAt)}}</span>
+        <span class="data-text">{{data?.createdAt | date: "yyyy-MM-dd"}}</span>
       </div>
-      <div class="user-statistics__header__data">
+      <div class="container__item">
         <app-icon name="access_time"></app-icon>
-        <span class="data-text">{{formatTime(data?.createdAt)}}</span>
+        <span class="data-text">{{data?.createdAt | date: "hh:mm:ss"}}</span>
       </div>
     </div>
 

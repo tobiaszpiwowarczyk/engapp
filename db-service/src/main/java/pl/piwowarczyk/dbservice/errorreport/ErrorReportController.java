@@ -47,8 +47,9 @@ public class ErrorReportController {
     
     
     @PutMapping("mark-as-read")
-    public void markReportAsRead(@Valid @RequestBody ErrorReportMarkAsReadEntity markAsReadEntity) {
-        errorReportService.markReportAsRead(markAsReadEntity);
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    public Map<String, Boolean> markReportAsRead(@Valid @RequestBody ErrorReportMarkAsReadEntity markAsReadEntity) {
+        return errorReportService.markReportAsRead(markAsReadEntity);
     }
     
     

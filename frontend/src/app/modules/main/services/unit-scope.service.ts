@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class UnitScopeService {
 
-  scope: BehaviorSubject<number> = new BehaviorSubject<number>(20);
+  scope: BehaviorSubject<number> = new BehaviorSubject<number>(1);
 
   constructor() { }
 

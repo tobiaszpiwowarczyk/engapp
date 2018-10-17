@@ -13,9 +13,8 @@
   <app-menu-opener></app-menu-opener>
 
   <app-header-menu>
-    <app-header-item *ngIf="user" [label]="user?.firstName +' '+ user?.lastName" 
-                    itemType="image" imageSrc="assets/img/default.jpg"
-                    [href]="['/account', user?.username]"></app-header-item>
+    <app-header-item *ngIf="user" [label]="user?.firstName +' '+ user?.lastName" itemType="image" imageSrc="assets/img/default.jpg"
+      [href]="['/account', user?.username]"></app-header-item>
     <app-header-item label="Powrót" imageSrc="exit_to_app" [href]="['/']"></app-header-item>
     <app-header-item label="Wyloguj się" imageSrc="power_settings_new" (click)="logout()"></app-header-item>
   </app-header-menu>
@@ -28,8 +27,9 @@
     <app-sidebar-item [href]="['./users']" icon="supervisor_account" text="Użytkownicy"></app-sidebar-item>
     <app-sidebar-item [href]="['./units']" icon="view_list" text="Rozdziały"></app-sidebar-item>
     <app-sidebar-item [href]="['./statistics']" icon="insert_chart" text="Statystyki"></app-sidebar-item>
+    <app-sidebar-item [href]="['./error-reports']" icon="warning" text="Zgłoszone błędy"></app-sidebar-item>
   </app-sidebar>
-  
+
   <div class="admin__main">
     <router-outlet></router-outlet>
   </div>

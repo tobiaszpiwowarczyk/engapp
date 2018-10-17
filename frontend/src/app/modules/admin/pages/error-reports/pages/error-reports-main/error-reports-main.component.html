@@ -1,0 +1,42 @@
+<app-loader [visible]="loading"></app-loader>
+
+<div class="admin-content" [hidden]="loading">
+  <div class="container container__box">
+    <h2 class="container__box__header">Zgłoszone błędy</h2>
+    <div class="container__box__content">
+      <h3 [style.textAlign]="'center'" *ngIf="errorReports.length == 0">W tej chwili nie posiadasz
+        żadnych zgłoszeń</h3>
+      <table class="table" *ngIf="errorReports.length > 0">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Użytkownik</th>
+            <th>Temat</th>
+            <th>Utworzono</th>
+            <th>Opcje</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let error of errorReports; let i = index" [class.selected]="error?.read">
+            <td>{{i+1}}</td>
+            <td>
+              <a [routerLink]="['/admin/users', error?.username]" class="user-profile">
+                <img src="assets/img/default.jpg" class="user-avatar" alt="Zdjęcie użytkownika {{error?.username}}">
+                <span>{{error?.username}}</span>
+              </a>
+            </td>
+            <td>{{error?.subject}}</td>
+            <td>{{error?.createdAt}}</td>
+            <td>
+              <app-input-group>
+                <app-button [routerLink]="['./', error?.id]" icon="info" primary></app-button>
+                <app-button *ngIf="error?.read" icon="markunread" (click)="markAsRead(error?.id)" primary></app-button>
+                <app-button (click)="deleteReport(error?.id)" icon="delete" negative></app-button>
+              </app-input-group>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -75,7 +75,12 @@ export class EditWordModalComponent implements OnInit, Modal {
 
   onApprove(): void {
     this.onStart.emit(true);
-    this.wordService.editWord(this.unitId, this.wordForm.value)
+    this.wordService.editWord({
+      unitId: this.unitId,
+      wordNumber: this.wordForm.value.wordNumber,
+      polish: this.wordForm.value.polish,
+      english: this.wordForm.value.english
+    })
       .finally(() => this.modalService.resetData())
       .subscribe(res => this.onEnd.emit(res));
   }
