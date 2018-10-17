@@ -7,6 +7,7 @@ This is simple application for english word learning
 - Java with Spring Boot:
   - Spring Cloud Eureka,
   - Spring Cloud Gateway
+  - Spring Security with OAuth2
 - Angular4
 
 
