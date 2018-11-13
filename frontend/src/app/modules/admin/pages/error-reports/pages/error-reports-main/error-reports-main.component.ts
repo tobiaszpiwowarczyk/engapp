@@ -1,24 +1,30 @@
-import { ErrorReport } from './../../../../../../services/error-report/ErrorReport';
-import { ErrorReportService } from './../../../../../../services/error-report/error-report.service';
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { Component, OnInit } from '@angular/core';
+import "rxjs/add/operator/filter";
+import "rxjs/add/operator/first";
+import { SocketService } from '../../../../../../services/socket/socket.service';
+import { ErrorReportService } from './../../../../../../services/error-report/error-report.service';
+import { ErrorReport } from './../../../../../../services/error-report/ErrorReport';
+
 
 @Component({
   selector: 'app-error-reports-main',
   templateUrl: './error-reports-main.component.html'
 })
-export class ErrorReportsMainComponent implements OnInit {
+export class ErrorReportsMainComponent implements OnInit, OnDestroy {
 
   errorReports: ErrorReport[] = [];
   loading: boolean = true;
 
   constructor(
     private errs: ErrorReportService,
-    private title: Title
+    private title: Title,
+    private socket: SocketService,
+    private ngZone: NgZone
   ) { }
 
   ngOnInit() {
-    this.errs.findAll()
+    this.errs.errorReports
       .subscribe(res => {
         this.errorReports = res;
         this.loading = false;
@@ -26,11 +32,20 @@ export class ErrorReportsMainComponent implements OnInit {
       });
   }
 
+  ngOnDestroy() {
+    this.socket.disconnect();
+  }
+
+
 
   public markAsRead(id: any): void {
     if(id.constructor.name == "String") id = [id];
     this.errs.markAsRead(id)
-      .subscribe(() => this.errorReports[this.errorReports.map(x => x.id).indexOf(id)].read = true);
+      .subscribe(() => {
+        id.forEach(x => {
+          this.ngZone.run(() => this.errs.errorReports.getValue()[this.errorReports.map(y => y.id).indexOf(x)].read = true);
+        });
+      });
   }
 
 

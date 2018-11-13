@@ -10,6 +10,7 @@ import { QuizComponent } from './pages/quiz/quiz.component';
 import { QuizMultipleWordExceptPipe } from './pipes/quiz-multiple-word-except.pipe';
 import { QuizRoutingModule } from './quiz-routing.module';
 import { StompService } from 'ng2-stomp-service';
+import { QuizKeydownEnterDirective } from './directives/quiz-keydown-enter.directive';
 
 @NgModule({
   imports: [
@@ -21,7 +22,11 @@ import { StompService } from 'ng2-stomp-service';
     QuizRoutingModule,
     ReactiveFormsModule
   ],
-  declarations: [QuizComponent, QuizMultipleWordExceptPipe],
+  declarations: [
+    QuizComponent,
+    QuizMultipleWordExceptPipe,
+    QuizKeydownEnterDirective
+  ],
   providers: [SocketService, StompService]
 })
 export class QuizModule { }

@@ -1,9 +1,9 @@
 
-import {trigger, transition, query, style, stagger, animate, animateChild} from "@angular/animations";
+import { trigger, transition, query, style, stagger, animate, animateChild } from "@angular/animations";
 
 export const listAnimation = trigger("listAnimation", [
   transition("* => *", [
-    query("@listItemAnimation", stagger(100, animateChild()), {optional: true})
+    query("@listItemAnimation", stagger(100, animateChild()), { optional: true })
   ])
 ]);
 

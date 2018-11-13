@@ -1,17 +1,20 @@
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Injectable } from '@angular/core';
-import { Http, RequestOptionsArgs, Headers } from '@angular/http';
+import { Headers, Http, RequestOptionsArgs } from '@angular/http';
+import "rxjs/add/observable/throw";
+import "rxjs/add/operator/catch";
+import "rxjs/add/operator/map";
+import { Observable } from 'rxjs/Observable';
 import { LoginService } from '../login/login.service';
 import { ErrorReport } from './ErrorReport';
 
-import "rxjs/add/operator/map";
-import "rxjs/add/operator/catch";
-import "rxjs/add/observable/throw";
-import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class ErrorReportService {
 
   private options: RequestOptionsArgs;
+
+  public errorReports: BehaviorSubject<ErrorReport[]> = new BehaviorSubject<ErrorReport[]>([]);
 
   constructor(
     private http: Http,
@@ -43,6 +46,14 @@ export class ErrorReportService {
 
   public markAsRead(id: string[]): Observable<any> {
     return this.http.put("/db/api/error-reports/mark-as-read", JSON.stringify({ reportIds: id, read: true }), this.options)
+      .map(res => res.json())
+      .catch(err => Observable.throw(err.json()));
+  }
+
+
+  public addErrorReport(report: ErrorReport): Observable<any> {
+    report.message = report.message.replace(/(?:\r\n|\r|\n)/g, "<br />");
+    return this.http.post("/db/api/error-reports", JSON.stringify(report), this.options)
       .map(res => res.json())
       .catch(err => Observable.throw(err.json()));
   }

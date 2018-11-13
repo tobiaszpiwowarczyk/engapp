@@ -19,7 +19,7 @@ export class UnitComponent implements OnInit {
 
   constructor(private uss: UnitScopeService) { }
   ngOnInit() {
-    // this.uss.setScope(this.selected);
+    this.uss.setScope(this.selected);
   }
 
   public toggleOptions(): void {

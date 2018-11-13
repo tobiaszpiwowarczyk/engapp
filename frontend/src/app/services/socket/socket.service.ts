@@ -4,6 +4,8 @@ import { StompService } from 'ng2-stomp-service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
+import "rxjs/add/operator/filter";
+
 @Injectable()
 export class SocketService {
 
@@ -19,7 +21,7 @@ export class SocketService {
   private onConnect: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private data: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-
+  public connection: Promise<any> = null;
 
   constructor(
     private stomp: StompService,
@@ -37,7 +39,11 @@ export class SocketService {
 
 
   public listenData(destination: string): Observable<any> {
-    this.stomp.startConnect().then(() => this.stomp.subscribe(destination, (res) => this.data.next(res)));
+    if(this.connection == null) {
+      this.connection = this.stomp.startConnect();
+    }
+
+    this.connection.then(() => this.stomp.subscribe(destination, (res) => this.data.next(res)));
 
     return this.data.filter(res => res != null);
   }
@@ -46,5 +52,5 @@ export class SocketService {
     this.stomp.startConnect().then(() => this.stomp.send(desination, data));
   }
 
-  public disconnect = () => this.stomp.disconnect();
+  public disconnect = () => this.connection = null;
 }

@@ -5,10 +5,17 @@ import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main.component';
 import { CommonModule } from '@angular/common';
 import { LoaderModule } from '../../components/loader/loader.module';
+import { ErrorReportWidgetModule } from '../../components/error-report-widget/error-report-widget.module';
 
 
 @NgModule({
-  imports: [MainRoutingModule, HeaderModule, CommonModule, LoaderModule],
+  imports: [
+    MainRoutingModule,
+    HeaderModule,
+    CommonModule,
+    LoaderModule,
+    ErrorReportWidgetModule
+  ],
   declarations: [MainComponent],
   providers: [UnitScopeService]
 })

@@ -26,6 +26,7 @@ public class ErrorReportController {
     @GetMapping
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public List<ErrorReport> findAll() {
+        simpMessagingTemplate.convertAndSend("/topic/count-error-reports", errorReportService.findAll().stream().filter(x -> !x.getRead()).count());
         return errorReportService.findAll();
     }
     
@@ -42,6 +43,7 @@ public class ErrorReportController {
     public Map<String, String> addReport(@Valid @RequestBody ErrorReportInsertionEntity errorReport) {
         ErrorReport errorReport1 = errorReportService.addReport(errorReport);
         simpMessagingTemplate.convertAndSend("/topic/error-reports", errorReport1);
+        simpMessagingTemplate.convertAndSend("/topic/count-error-reports", errorReportService.findAll().stream().filter(x -> !x.getRead()).count());
         return Collections.singletonMap("state", "Błąd został wysłany pomyślnie");
     }
     
@@ -49,13 +51,19 @@ public class ErrorReportController {
     @PutMapping("mark-as-read")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public Map<String, Boolean> markReportAsRead(@Valid @RequestBody ErrorReportMarkAsReadEntity markAsReadEntity) {
-        return errorReportService.markReportAsRead(markAsReadEntity);
+	Map<String, Boolean> result = errorReportService.markReportAsRead(markAsReadEntity);	
+
+        simpMessagingTemplate.convertAndSend("/topic/count-error-reports", errorReportService.findAll().stream().filter(x -> !x.getRead()).count());
+        return result;
     }
     
     
     @DeleteMapping("{id}")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public Map<String, String> removeReport(@PathVariable String id) {
-        return errorReportService.removeReport(id);
+	Map<String, String> result = errorReportService.removeReport(id);
+
+        simpMessagingTemplate.convertAndSend("/topic/count-error-reports", errorReportService.findAll().stream().filter(x -> !x.getRead()).count());
+        return result;
     } 
 }

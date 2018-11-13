@@ -1,4 +1,4 @@
-<div class="quiz">
+<div class="quiz" [keydown-enter]="this">
 
   <div class="quiz__title container">
     <div class="wrapper">
@@ -15,8 +15,10 @@
       <form [formGroup]="quizForm">
         <app-input formControlName="word" appInputFluid #wordInput></app-input>
 
-        <app-button type="submit" (click)="check()" [style]="{'background': unit?.color}" *ngIf="!shown" fluid primary>Sprawdź</app-button>
-        <app-button type="submit" (click)="next()" [style]="{'background': unit?.color}" *ngIf="shown" fluid primary>Następny</app-button>
+        <app-button type="submit" (click)="check()" [style]="{'background': unit?.color, 'color': '#fff'}" *ngIf="!shown"
+          fluid>Sprawdź</app-button>
+        <app-button type="submit" (click)="next()" [style]="{'background': unit?.color, 'color': '#fff'}" *ngIf="shown"
+          fluid>Następny</app-button>
 
       </form>
 
@@ -58,7 +60,7 @@
         <h2>Koniec</h2>
         <h5>Uzyskałeś {{points}} punktów na {{scope}} możliwych</h5>
       </div>
-      <app-button (click)="restart()" [ngStyle]="{'background': unit?.color}" fluid primary>Zacznij od nowa</app-button>
+      <app-button (click)="restart()" [style]="{'background': unit?.color, 'color': '#fff'}" fluid>Zacznij od nowa</app-button>
     </div>
   </div>
 </div>

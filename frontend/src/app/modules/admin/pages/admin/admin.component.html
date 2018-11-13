@@ -27,7 +27,7 @@
     <app-sidebar-item [href]="['./users']" icon="supervisor_account" text="Użytkownicy"></app-sidebar-item>
     <app-sidebar-item [href]="['./units']" icon="view_list" text="Rozdziały"></app-sidebar-item>
     <app-sidebar-item [href]="['./statistics']" icon="insert_chart" text="Statystyki"></app-sidebar-item>
-    <app-sidebar-item [href]="['./error-reports']" icon="warning" text="Zgłoszone błędy"></app-sidebar-item>
+    <app-sidebar-item [href]="['./error-reports']" icon="warning" text="Zgłoszone błędy" badge [badgeValue]="unreadErrors"></app-sidebar-item>
   </app-sidebar>
 
   <div class="admin__main">

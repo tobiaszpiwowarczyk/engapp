@@ -56,7 +56,7 @@ export class QuizComponent implements OnInit {
 
   ngOnInit() {
     this.quizLoader.show();
-    this.unitss.scope.subscribe(res => { this.scope = res; console.log(res); });
+    this.unitss.scope.subscribe(res => this.scope = res);
     this.route.params.subscribe(r => {
       this.unitService.findById(r.id)
         .subscribe(res => {
@@ -69,13 +69,6 @@ export class QuizComponent implements OnInit {
     this.quizForm = this.fb.group({
       word: this.wordControl
     });
-
-    window.addEventListener("keydown", (e) => {
-      const code = e.keyCode || e.which;
-      if(code == 13) {
-        if(this.shown) this.next();
-      }
-    }, false);
   }
 
 

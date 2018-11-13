@@ -1,12 +1,9 @@
-
-@import "../../../assets/_variables";
-
-$message-height: 60px;
+@import "../../../assets/variables";
 
 .message {
   position: relative;
   width: 100%;
-  min-height: $message-height;
+  min-height: $input-height + ($input-border-width * 2);
   display: none;
   justify-content: space-between;
   color: $black;
@@ -20,14 +17,14 @@ $message-height: 60px;
     width: 100%;
     display: flex;
     align-items: center;
-    padding: 15px 0, {
-      right: 15px;
-    };
+
+    padding: 15px 0;
+    padding-right: 15px;
   }
 
   &__icon {
     position: relative;
-    min-width: $message-height;
+    min-width: $input-height + ($input-border-width * 2);
     text-align: center;
   }
 
@@ -39,7 +36,7 @@ $message-height: 60px;
 
   &__close-btn {
     position: relative;
-    min-width: $message-height;
+    min-width: $input-height + ($input-border-width * 2);
     min-height: 100%;
     cursor: pointer;
     display: flex;

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewRef } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import "rxjs/add/operator/filter";
 import { listAnimation } from '../../../../../../animations/animations';
@@ -37,7 +37,7 @@ export class StatisticsMainComponent implements OnInit {
     this.socket.listenData("/topic/user-statistics")
       .subscribe(res => {
         this.userStatistics.unshift(res);
-        this.cdf.detectChanges();
+        if(!(<ViewRef>this.cdf).destroyed) this.cdf.detectChanges();
       });
   }
 }

@@ -19,7 +19,6 @@ export class InputComponent implements OnInit, ControlValueAccessor {
   @Input() placeholder: string = "";
   @Input() disabled: boolean = false;
   @Input() value: string = "";
-  @Input() errors: any[] = [];
   @Input() control: FormControl;
 
   fluid: boolean = false;

@@ -17,7 +17,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let error of errorReports; let i = index" [class.selected]="error?.read">
+          <tr *ngFor="let error of errorReports; let i = index" [class.selected]="!error?.read">
             <td>{{i+1}}</td>
             <td>
               <a [routerLink]="['/admin/users', error?.username]" class="user-profile">
@@ -30,7 +30,7 @@
             <td>
               <app-input-group>
                 <app-button [routerLink]="['./', error?.id]" icon="info" primary></app-button>
-                <app-button *ngIf="error?.read" icon="markunread" (click)="markAsRead(error?.id)" primary></app-button>
+                <app-button *ngIf="!error?.read" icon="markunread" (click)="markAsRead(error?.id)" primary></app-button>
                 <app-button (click)="deleteReport(error?.id)" icon="delete" negative></app-button>
               </app-input-group>
             </td>
