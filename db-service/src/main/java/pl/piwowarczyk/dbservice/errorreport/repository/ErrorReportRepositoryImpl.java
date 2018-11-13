@@ -2,6 +2,7 @@ package pl.piwowarczyk.dbservice.errorreport.repository;
 
 import lombok.AllArgsConstructor;
 import org.bson.types.ObjectId;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
 
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.project;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.sort;
 import static org.springframework.data.mongodb.core.aggregation.ConditionalOperators.IfNull.ifNull;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 
@@ -27,7 +29,13 @@ public class ErrorReportRepositoryImpl implements ErrorReportRepositoryCustom {
         return mongoOperations.aggregate(
                 newAggregation(
                         project("id", "username", "createdAt", "read")
-                        .and(ifNull("subject").then("Brak tematu")).as("subject")
+                                .and(ifNull("subject").then("Brak tematu")).as("subject"),
+                        sort(
+                                Sort.by(
+                                        new Sort.Order(Sort.Direction.ASC, "read"),
+                                        new Sort.Order(Sort.Direction.DESC, "createdAt")
+                                )
+                        )
                 ),
                 COLLECTION_NAME, ErrorReport.class).getMappedResults();
     }
