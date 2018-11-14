@@ -35,6 +35,11 @@ export class LoginService {
   }
 
 
+  public validateToken(): Observable<boolean> {
+    return this.http.get("/auth/oauth/check_token?token=" + this.getAccessToken().replace("Bearer ", ""))
+      .map(() => true)
+      .catch(() => Observable.throw(false));
+  }
 
 
   public isAuthenticated(): boolean {
@@ -45,7 +50,7 @@ export class LoginService {
 
 
   public saveToken(accessToken: string): void {
-    if (!accessToken.includes(this.BEARER_PREFIX))
+    if(!accessToken.includes(this.BEARER_PREFIX))
       accessToken = this.BEARER_PREFIX + accessToken;
 
     localStorage.setItem(this.AUTHORIZATION_HEADER, accessToken);
@@ -78,18 +83,18 @@ export class LoginService {
     body.append("password", credentials.password);
     body.append("grant_type", "password");
 
-    return this.http.post("http://localhost:8003/login", body, {headers: this.loginHeaders})
-              .map(res => res.json())
-              .map(res => {
-                this.saveToken(res.access_token);
-                this.account()
-                  .subscribe((acc: User) => {
-                    this.saveUserData(acc);
-                    this.router.navigate(["/"]);
-                  });
-                return res;
-              })
-              .catch(err => Observable.throw(err.json()));
+    return this.http.post("http://localhost:8003/login", body, { headers: this.loginHeaders })
+      .map(res => res.json())
+      .map(res => {
+        this.saveToken(res.access_token);
+        this.account()
+          .subscribe((acc: User) => {
+            this.saveUserData(acc);
+            this.router.navigate(["/"]);
+          });
+        return res;
+      })
+      .catch(err => Observable.throw(err.json()));
   }
 
 
@@ -99,9 +104,9 @@ export class LoginService {
       [this.AUTHORIZATION_HEADER]: this.getAccessToken()
     });
 
-    return this.http.get("/auth/api/user/account", {headers: h})
-              .map(res => new User(res.json()))
-              .catch(err => Observable.throw(err.json()));
+    return this.http.get("/auth/api/user/account", { headers: h })
+      .map(res => new User(res.json()))
+      .catch(err => Observable.throw(err.json()));
   }
 
 

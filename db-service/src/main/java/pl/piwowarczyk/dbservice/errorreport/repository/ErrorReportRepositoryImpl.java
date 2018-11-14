@@ -31,10 +31,7 @@ public class ErrorReportRepositoryImpl implements ErrorReportRepositoryCustom {
                         project("id", "username", "createdAt", "read")
                                 .and(ifNull("subject").then("Brak tematu")).as("subject"),
                         sort(
-                                Sort.by(
-                                        new Sort.Order(Sort.Direction.ASC, "read"),
-                                        new Sort.Order(Sort.Direction.DESC, "createdAt")
-                                )
+                                Sort.by(new Sort.Order(Sort.Direction.DESC, "createdAt"))
                         )
                 ),
                 COLLECTION_NAME, ErrorReport.class).getMappedResults();

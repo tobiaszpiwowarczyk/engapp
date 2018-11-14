@@ -1,7 +1,6 @@
-import { ThemeService } from './services/theme/theme.service';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { LoginService } from './services/login/login.service';
+import { ThemeService } from './services/theme/theme.service';
 import { User } from './services/user/User';
 
 @Component({
@@ -12,26 +11,19 @@ export class AppComponent implements OnInit {
 
   constructor(
     private ls: LoginService,
-    private router: Router,
     private theme: ThemeService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
 
     this.theme.initTheme();
 
-    if (!this.ls.isAuthenticated()) {
-      if(window.location.pathname !== "/register" && window.location.pathname !== "/login") {
-        this.router.navigate(["/login"]);
-      }
+    if(this.ls.isAuthenticated()) {
+      this.ls.validateToken()
+        .subscribe(() => this.ls.account()
+          .subscribe((res: User) => this.ls.saveUserData(res)), () => this.ls.logout());
     }
-    else {
-      this.ls.account()
-        .subscribe((res: User) => this.ls.saveUserData(res), err => {
-          if(err.error == "invalid_token")
-            this.ls.logout();
-        });
-    }
+    else this.ls.logout();
   }
 
 }
