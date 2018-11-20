@@ -11,6 +11,6 @@ public interface ErrorReportService {
     List<ErrorReport> findAll();
     ErrorReport findById(String id);
     ErrorReport addReport(ErrorReportInsertionEntity errorReport);
-    void markReportAsRead(ErrorReportMarkAsReadEntity markAsReadEntity);
+    Map<String, Boolean> markReportAsRead(ErrorReportMarkAsReadEntity markAsReadEntity);
     Map<String, String> removeReport(String id);
 }

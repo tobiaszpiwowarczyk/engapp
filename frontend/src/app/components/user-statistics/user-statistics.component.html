@@ -1,27 +1,26 @@
-<div class="container user-statistics"
-     [class.user-statistics--last]="last" @listItemAnimation>
+<div class="container user-statistics" [class.user-statistics--last]="last" @listItemAnimation>
   <div class="user-statistics__header" [style.color]="data?.unit?.color">
     <div class="user-statistics__header__item">
-      <a class="user-statistics__header__data"
-         [routerLink]="['/admin/users', data?.username]"
-         [style.color]="data?.unit?.color" *ngIf="forAdmin">
+      <a class="container__item" [routerLink]="['/admin/users', data?.username]" [style.color]="data?.unit?.color"
+        *ngIf="forAdmin">
 
-        <img src="assets/img/default.jpg" [attr.alt]="'Zdjęcię użytkownika ' + data?.username">
+        <img src="assets/img/default.jpg" class="user-avatar" [attr.alt]="'Zdjęcię użytkownika ' + data?.username">
         <span class="data-text">{{data?.username}}</span>
       </a>
-      <div class="user-statistics__header__data">
+      <div class="container__item">
         <app-icon name="date_range"></app-icon>
-        <span class="data-text">{{formatDate(data?.createdAt)}}</span>
+        <span class="data-text">{{data?.createdAt | date: "yyyy-MM-dd"}}</span>
       </div>
-      <div class="user-statistics__header__data">
+      <div class="container__item">
         <app-icon name="access_time"></app-icon>
-        <span class="data-text">{{formatTime(data?.createdAt)}}</span>
+        <span class="data-text">{{data?.createdAt | date: "hh:mm:ss"}}</span>
       </div>
     </div>
 
-    <a class="user-statistics__header__item" [routerLink]="['/admin/units', data?.unit?.id]">
+    <a class="user-statistics__header__item" [routerLink]="['/admin/units', data?.unit?.id]" *ngIf="forAdmin">
       {{data?.unit?.name}}
     </a>
+    <div class="user-statistics__header__item" *ngIf="!forAdmin">{{data?.unit?.name}}</div>
   </div>
   <div class="user-statistics__content" [style.border-color]="data?.unit?.color" *ngIf="forAdmin">
     <h3>Użytkownik {{data.username}} ukończył zadanie i uzyskał</h3>
@@ -33,12 +32,12 @@
     <h3>punktów</h3>
   </div>
   <div class="user-statistics__content" [style.border-color]="data?.unit?.color" *ngIf="!forAdmin">
-    <h3>Udało ci się zdobyć</h3> 
+    <h3>Udało ci się zdobyć</h3>
     <h2>
-      <span [style.color]="data?.unit?.color">{{data?.score}}</span> 
-      na 
+      <span [style.color]="data?.unit?.color">{{data?.score}}</span>
+      na
       <span [style.color]="data?.unit?.color">{{data?.total}}</span>
-    </h2> 
+    </h2>
     <h3>punktów</h3>
   </div>
 </div>

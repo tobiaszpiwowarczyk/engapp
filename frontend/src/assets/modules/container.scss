@@ -34,6 +34,16 @@
 
     &__header {
       margin-bottom: $content-padding;
+      display: flex;
+      align-items: center;
+
+      * {
+        margin-right: 20px;
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
     }
 
     &__content {
@@ -51,6 +61,21 @@
     }
   }
 
+  &__item {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    margin-right: 15px;
+
+    /deep/ .material-icons {
+      font-size: 36px;
+    }
+
+    .data-text {
+      margin-left: 5px;
+    }
+  }
+
   &--centerized {
     position: absolute;
     top: 50%;
@@ -61,7 +86,7 @@
       position: relative;
       top: 0;
       left: 0;
-      transform: translate(0,0);
+      transform: translate(0, 0);
     }
   }
 

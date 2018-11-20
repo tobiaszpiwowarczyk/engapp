@@ -6,6 +6,7 @@ import { Modal } from '../Modal';
 import { UnitService } from './../../../../../../services/unit/unit.service';
 import { Unit } from './../../../../../main/home/components/unit/Unit';
 import { ModalData, ModalService } from './../../services/modal.service';
+import { UnitValidator } from '../../../../../../validator/UnitValidator';
 
 @Component({
   selector: 'app-add-unit-modal',
@@ -33,12 +34,21 @@ export class AddUnitModalComponent implements OnInit, Modal {
     this.modalService.modalData.subscribe((res: ModalData) => {
       if(res.name == "addUnitModal") {
         this.modal.show();
+
+        this.modal.preventApprove = this.newUnitForm.invalid;
+        this.newUnitForm.valueChanges.subscribe(() => {
+          this.modal.preventApprove = this.newUnitForm.invalid;
+        });
+
       }
     });
 
     this.newUnitForm = this.fb.group({
-      name: ['Nowy rozdział', Validators.required],
-      color: ['#000', Validators.compose([Validators.required, ColorValidator.validate])]
+      name: ['',
+        Validators.compose([Validators.required, UnitValidator.validateName]),
+        UnitValidator.validateAddition(this.unitService)
+      ],
+      color: ['', Validators.compose([Validators.required, ColorValidator.validate])]
     });
   }
 
@@ -48,7 +58,7 @@ export class AddUnitModalComponent implements OnInit, Modal {
       .subscribe(unit => this.onEnd.emit(unit));
   }
   public onClose(): void {
-    this.newUnitForm.setValue({ name: "Nowy rozdział", color: "#000" });
+    this.newUnitForm.reset();
     this.modalService.resetData();
   }
 }

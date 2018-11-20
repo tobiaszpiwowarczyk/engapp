@@ -8,7 +8,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormControl } from '@angular/f
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.scss'],
   providers: [
-    {provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => InputComponent), multi: true}
+    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => InputComponent), multi: true }
   ],
   changeDetection: ChangeDetectionStrategy.Default
 })
@@ -19,7 +19,6 @@ export class InputComponent implements OnInit, ControlValueAccessor {
   @Input() placeholder: string = "";
   @Input() disabled: boolean = false;
   @Input() value: string = "";
-  @Input() errors: any[] = [];
   @Input() control: FormControl;
 
   fluid: boolean = false;
@@ -30,14 +29,14 @@ export class InputComponent implements OnInit, ControlValueAccessor {
 
   constructor(
     private el: ElementRef
-  ) {}
+  ) { }
   ngOnInit() {
     this.el.nativeElement.querySelector("input").addEventListener("focus", () => this.focus(), false);
     this.el.nativeElement.querySelector("input").addEventListener("blur", () => this.blur(), false);
     this.inputLoader.loaderWidth = 30;
   }
 
-  propagateChange = (_: any) => {};
+  propagateChange = (_: any) => { };
 
 
   public change(value: string): void {
@@ -57,11 +56,11 @@ export class InputComponent implements OnInit, ControlValueAccessor {
 
 
   public format(input: any, ...args: string[]): string {
-    return input.replace(/{(\d+)}/g, function(match, number) {
+    return input.replace(/{(\d+)}/g, function (match, number) {
       return typeof args[number] != 'undefined'
         ? args[number]
         : match
-      ;
+        ;
     });
   }
 
@@ -80,7 +79,7 @@ export class InputComponent implements OnInit, ControlValueAccessor {
   registerOnChange(fn: any): void {
     this.propagateChange = fn;
   }
-  registerOnTouched(fn: any): void {}
+  registerOnTouched(): void { }
   setDisabledState?(isDisabled: boolean): void {
     this.disabled = isDisabled;
   }

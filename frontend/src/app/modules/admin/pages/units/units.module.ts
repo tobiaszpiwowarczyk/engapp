@@ -5,7 +5,6 @@ import { RouterModule } from '@angular/router';
 import { ProfileModule } from '../../../../directives/profile/profile.module';
 import { UnitPublishedModule } from '../../../../pipes/unit-filter/unit-filter.module';
 import { UnitService } from '../../../../services/unit/unit.service';
-import { WordService } from '../../../main/quiz/services/word/word.service';
 import { ButtonModule } from './../../../../components/button/button.module';
 import { ChangeImageModalModule } from './../../../../components/change-image-modal/change-image-modal.module';
 import { InputGroupModule } from './../../../../components/input-group/input-group.module';
@@ -24,6 +23,7 @@ import { UnitFilterPipe } from './pipes/unit-filter.pipe';
 import { UnitMarkPipe } from './pipes/unit-mark.pipe';
 import { ModalService } from './services/modal.service';
 import { UnitsRoutingModule } from './units-routing.module';
+import { WordService } from '../../../../services/word/word.service';
 
 @NgModule({
   imports: [

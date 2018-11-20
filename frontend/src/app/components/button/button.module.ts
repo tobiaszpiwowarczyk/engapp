@@ -7,6 +7,7 @@ import { ButtonFluidDirective } from './directives/button-fluid.directive';
 import { ButtonIconDirective } from './directives/button-icon.directive';
 import { ButtonNegativeDirective } from './directives/button-negative.directive';
 import { ButtonDisabledDirective } from './directives/button-disabled.directive';
+import { ButtonPositiveDirective } from './directives/button-positive.directive';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { ButtonDisabledDirective } from './directives/button-disabled.directive'
     ButtonCircularDirective,
     ButtonNegativeDirective,
     ButtonPrimaryDirective,
-    ButtonDisabledDirective
+    ButtonDisabledDirective,
+    ButtonPositiveDirective
   ],
   exports: [
     ButtonComponent,
@@ -28,7 +30,8 @@ import { ButtonDisabledDirective } from './directives/button-disabled.directive'
     ButtonCircularDirective,
     ButtonNegativeDirective,
     ButtonPrimaryDirective,
-    ButtonDisabledDirective
+    ButtonDisabledDirective,
+    ButtonPositiveDirective
   ]
 })
 export class ButtonModule { }

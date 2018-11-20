@@ -31,7 +31,7 @@ dependencies {
 	compile('org.springframework.cloud:spring-cloud-starter-oauth2')
 	compile('org.springframework.boot:spring-boot-starter-data-mongodb')
 	compile('org.projectlombok:lombok')
-	implementation 'com.github.tobiaszpiwowarczyk:engapp-utils:0.0.5-SNAPSHOT'
+	compile project(":engapp-utils")
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 

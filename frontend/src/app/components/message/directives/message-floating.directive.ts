@@ -1,9 +1,9 @@
 import { Directive } from '@angular/core';
-import { MessageComponent } from '../message.component';
+import { MessageContainerComponent } from '../message-container/message-container.component';
 
-@Directive({ selector: 'app-message[floating]' })
+@Directive({ selector: 'app-message-container[floating]' })
 export class MessageFloatingDirective {
-  constructor(private component: MessageComponent) {
-    this.component.floating = true;
+  constructor(private c: MessageContainerComponent) {
+    this.c.floating = true;
   }
 }

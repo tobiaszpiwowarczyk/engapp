@@ -1,9 +1,11 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { listAnimation } from '../../../../../../animations/animations';
-import { UserStatistics } from '../../../../../../services/user-statistics/UserStatistics';
-import { UserStatisticsService } from './../../../../../../services/user-statistics/user-statistics.service';
-
+import { ChangeDetectorRef, Component, OnInit, ViewRef } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import "rxjs/add/operator/filter";
+import { listAnimation } from '../../../../../../animations/animations';
+import { SocketService } from '../../../../../../services/socket/socket.service';
+import { UserStatisticsService } from './../../../../../../services/user-statistics/user-statistics.service';
+import { UserStatistics } from './../../../../../../services/user-statistics/UserStatistics';
+
 
 @Component({
   selector: 'app-statistics-main',
@@ -19,22 +21,23 @@ export class StatisticsMainComponent implements OnInit {
 
   constructor(
     private uss: UserStatisticsService,
-    private cdf: ChangeDetectorRef
-  ) {}
+    private cdf: ChangeDetectorRef,
+    private title: Title,
+    private socket: SocketService
+  ) { }
 
   ngOnInit() {
     this.uss.findAll()
       .subscribe(res => {
         this.userStatistics = res;
         this.loading = false;
+        this.title.setTitle("Statystyki - EngApp Panel");
       });
 
-    this.uss.onUserStatisticsAdd
-      .filter(res => res != null)
+    this.socket.listenData("/topic/user-statistics")
       .subscribe(res => {
         this.userStatistics.unshift(res);
-        this.cdf.detectChanges();
+        if(!(<ViewRef>this.cdf).destroyed) this.cdf.detectChanges();
       });
   }
-
 }

@@ -2,9 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import "rxjs/add/operator/finally";
 import { listAnimation, listItemAnimation } from '../../../../../../animations/animations';
+import { MessageContainerComponent } from '../../../../../../components/message/message-container/message-container.component';
 import { ModalComponent } from '../../../../../../components/modal/modal.component';
 import { LoaderComponent } from './../../../../../../components/loader/loader.component';
-import { MessageComponent } from './../../../../../../components/message/message.component';
 import { UnitService } from './../../../../../../services/unit/unit.service';
 import { Unit } from './../../../../../main/home/components/unit/Unit';
 import { ModalService } from './../../services/modal.service';
@@ -27,7 +27,7 @@ export class UnitsMainComponent implements OnInit {
 
   @ViewChild("boxLoader") boxLoader: LoaderComponent;
   @ViewChild("approveModal") approveModal: ModalComponent;
-  @ViewChild("message") message: MessageComponent;
+  @ViewChild("message") message: MessageContainerComponent;
 
   constructor(
     private unitService: UnitService,
@@ -36,21 +36,20 @@ export class UnitsMainComponent implements OnInit {
   ) { }
   ngOnInit() {
     this.unitService.findAll()
-      .finally(() => this.loading = false)
       .subscribe((res: Unit[]) => {
         this.units = res;
         this.title.setTitle("Rozdziały - EngApp Panel");
-      });
+      }, null, () => this.loading = false);
 
     this.modalService.setMainUrl("/admin/units");
   }
 
-  public openAddUnitModal = (): void => this.modalService.setData({name: "addUnitModal"});
+  public openAddUnitModal = (): void => this.modalService.setData({ name: "addUnitModal" });
 
   public addUnit(unit: Unit): void {
     this.units.push(unit);
     this.boxLoader.hide();
-    this.message.showWithText("Rozdział został dodany pomyślnie");
+    this.message.show("Rozdział został dodany pomyślnie");
   }
 
   public openEditModal(unit: Unit): void {
@@ -63,7 +62,7 @@ export class UnitsMainComponent implements OnInit {
   public editUnit(unit: Unit): void {
     this.units[this.units.map(u => u.id).indexOf(unit.id)] = unit;
     this.boxLoader.hide();
-    this.message.showWithText("Rozdział został zaktualizowany pomyślnie");
+    this.message.show("Rozdział został zaktualizowany pomyślnie");
   }
 
 
@@ -75,13 +74,11 @@ export class UnitsMainComponent implements OnInit {
   public deleteUnit(): void {
     this.boxLoader.show();
     this.unitService.deleteUnit(this.edittedUnit.id)
-      .finally(() => this.boxLoader.hide())
       .subscribe(res => {
         this.units.splice(this.units.indexOf(this.edittedUnit), 1);
-        this.message.content = res.state;
-        this.message.show();
+        this.message.show(res.state);
         this.resetEdittedUnit();
-      });
+      }, null, () => this.boxLoader.hide());
   }
 
   public resetEdittedUnit(): void {

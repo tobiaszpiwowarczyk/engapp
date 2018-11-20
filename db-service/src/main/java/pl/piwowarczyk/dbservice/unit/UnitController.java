@@ -145,7 +145,7 @@ public class UnitController {
      * @return {@link Unit} - unit with updated image
      * @throws {@link IOException}
      */
-    @PutMapping("{id}/image")
+    @PutMapping("{unitId}/image")
     public Unit editUnitImage(
             @PathVariable String unitId,
             @RequestBody DropFile image

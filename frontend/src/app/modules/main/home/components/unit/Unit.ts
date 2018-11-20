@@ -1,4 +1,4 @@
-import { Word } from "../../../quiz/services/word/Word";
+import { Word } from "../../../../../services/word/Word";
 
 export class Unit {
   id: string;

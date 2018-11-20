@@ -1,12 +1,14 @@
 <div class="file-input">
   <input type="hidden" [(ngModel)]="value" />
 
-  <input type="file" [attr.id]="id" [attr.accept]="accept" (change)="parseFile($event)" #file/>
+  <input type="file" [attr.id]="id" [attr.accept]="accept" (change)="parseFile($event)" #file />
 
   <app-button primary (click)="file.click()">
     <label *ngIf="fileName == null; else fileNameVal">
-      <app-icon name="folder"></app-icon>
-      <span>Wybierz plik</span>
+      <app-input-group>
+        <app-icon name="folder"></app-icon>
+        <span>Wybierz plik</span>
+      </app-input-group>
     </label>
     <span #fileNameVal>{{fileName}}</span>
   </app-button>
@@ -19,13 +21,9 @@
     <div class="file-input__separator-line"></div>
   </div>
 
-  <div class="file-input__drag-field" 
-       [class.file-input__drag-field--dragover]="dropZoneState.isDragover"
-       [class.file-input__drag-field--invalid]="dropZoneState.isInvalid"
-       [class.file-input__drag-field--valid]="dropZoneState.isValid"
-       appDropZone
-       (onDrop)="getData($event)"
-       *ngIf="draggable">
+  <div class="file-input__drag-field" [class.file-input__drag-field--dragover]="dropZoneState.isDragover"
+    [class.file-input__drag-field--invalid]="dropZoneState.isInvalid" [class.file-input__drag-field--valid]="dropZoneState.isValid"
+    appDropZone (onDrop)="getData($event)" *ngIf="draggable">
 
     <h5>{{dropZoneState.message}}</h5>
 

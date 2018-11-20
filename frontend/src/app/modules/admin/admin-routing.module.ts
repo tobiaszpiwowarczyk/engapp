@@ -3,12 +3,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './pages/admin/admin.component';
 
 const routes: Routes = [
-  { path: '', component: AdminComponent, children: [
-    { path: '', loadChildren: "./pages/dashboard/dashboard.module#DashboardModule" },
-    { path: 'users', loadChildren: "./pages/users/users.module#UsersModule" },
-    { path: 'units', loadChildren: "./pages/units/units.module#UnitsModule" },
-    { path: 'statistics', loadChildren: "./pages/statistics/statistics.module#StatisticsModule" }
-  ] },
+  {
+    path: '', component: AdminComponent, children: [
+      { path: '', loadChildren: "./pages/dashboard/dashboard.module#DashboardModule" },
+      { path: 'users', loadChildren: "./pages/users/users.module#UsersModule" },
+      { path: 'units', loadChildren: "./pages/units/units.module#UnitsModule" },
+      { path: 'statistics', loadChildren: "./pages/statistics/statistics.module#StatisticsModule" },
+      { path: 'error-reports', loadChildren: "./pages/error-reports/error-reports.module#ErrorReportsModule" }
+    ]
+  },
 ];
 
 @NgModule({

@@ -12,5 +12,8 @@ import javax.validation.constraints.NotBlank;
 public class ErrorReportInsertionEntity {
     
     @NotBlank
+    private String subject;
+    
+    @NotBlank
     private String message;
 }

@@ -11,10 +11,8 @@
       <app-loader appLoaderTiny [visible]="control?.pending" #inputLoader></app-loader>
     </div>
     <div class="input__icon material-icons" *ngIf="icon != null">{{icon}}</div>
-    <input [attr.type]="type" [attr.placeholder]="placeholder" 
-          [ngClass]="{'no-icon': icon == null}"
-          [ngModel]="value" (ngModelChange)="change($event)"
-          [disabled]="disabled" />
+    <input [attr.type]="type" [attr.placeholder]="placeholder" [ngClass]="{'no-icon': icon == null}" [ngModel]="value"
+      (ngModelChange)="change($event)" [disabled]="disabled" />
   </div>
 
   <div class="input__errors">

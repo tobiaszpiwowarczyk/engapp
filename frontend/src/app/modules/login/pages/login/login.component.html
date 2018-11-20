@@ -5,14 +5,11 @@
     <h1>Zaloguj się</h1>
     <form [formGroup]="loginForm" (ngSubmit)="login()">
       <div class="form__content">
-        <app-message content="Nieprawidłowy login lub hasło" type="warning" #loginMessage></app-message>
-        <app-input icon="person" placeholder="Nazwa użytkownika..." 
-                   formControlName="username" appInputFluid 
-                   #username></app-input>
-        <app-input type="password" icon="lock" placeholder="Hasło..." 
-                   formControlName="password" appInputFluid></app-input>
+        <app-message-container #loginMessage></app-message-container>
+        <app-input icon="person" placeholder="Nazwa użytkownika..." formControlName="username" appInputFluid #username></app-input>
+        <app-input type="password" icon="lock" placeholder="Hasło..." formControlName="password" appInputFluid></app-input>
       </div>
-  
+
       <app-button type="submit" primary fluid>Zaloguj się</app-button>
     </form>
 
@@ -24,7 +21,7 @@
   <div class="banner">
     <div class="banner__inner">
       <h1 class="banner__title">EngApp</h1>
-    <p class="banner__description">I nauka angielskiego staje się przyjemniejsza!</p>
+      <p class="banner__description">I nauka angielskiego staje się przyjemniejsza!</p>
     </div>
   </div>
 </div>

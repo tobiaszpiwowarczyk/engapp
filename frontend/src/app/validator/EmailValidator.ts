@@ -21,14 +21,12 @@ export class EmailValidator {
 
 
   public static checkExistence(s: UserService, ls: LoginService): AsyncValidatorFn {
-    return (c: FormControl) => {
-      return new Promise(resolve => {
-        setTimeout(() => {
-          const user: User = ls.getUser();
-          s.validateUpdateUser(new User({id: user.id, username: user.username, email: c.value}), "email")
-            .subscribe(() => resolve(null), () => c.setErrors({emailTaken: true}));
-        }, 500);
-      });
-    };
+    return (c: FormControl) => new Promise(resolve => {
+      setTimeout(() => {
+        const user: User = ls.getUser();
+        s.validateUpdateUser(new User({id: user.id, username: user.username, email: c.value}), "email")
+          .subscribe(() => resolve(null), () => c.setErrors({emailTaken: true}));
+      }, 500);
+    });
   }
 }

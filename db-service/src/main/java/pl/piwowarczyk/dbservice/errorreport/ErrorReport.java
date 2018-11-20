@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,10 +18,14 @@ public class ErrorReport {
     
     @Id
     private String id;
+    private String subject;
     private String message;
     private String username;
     
     @Builder.Default
     private Boolean read = false;
+    
+    @Builder.Default
+    private LocalDateTime createdAt = LocalDateTime.now();
     
 }

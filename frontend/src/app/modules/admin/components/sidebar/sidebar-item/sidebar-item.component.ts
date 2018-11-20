@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Badge } from './directives/sidebar-item-badge.directive';
 
 @Component({
   selector: 'app-sidebar-item',
@@ -12,8 +13,9 @@ export class SidebarItemComponent implements OnInit {
   @Input() href: any[] = [];
 
   routerExact: boolean = false;
+  badge: Badge;
 
-  constructor() {}
-  ngOnInit() {}
+  constructor() { }
+  ngOnInit() { }
 
 }
