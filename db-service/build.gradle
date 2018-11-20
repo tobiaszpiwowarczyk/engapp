@@ -17,7 +17,6 @@ apply plugin: 'io.spring.dependency-management'
 
 repositories {
     mavenCentral()
-    maven { url 'https://jitpack.io' }
 }
 
 
@@ -34,7 +33,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-websocket")
     compile("org.springframework.security:spring-security-messaging")
     compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.9.6'
-    implementation 'com.github.tobiaszpiwowarczyk:engapp-utils:0.0.5-SNAPSHOT'
+    compile project(":engapp-utils")
 }
 
 dependencyManagement {

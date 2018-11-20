@@ -20,7 +20,7 @@ export class LoginService {
   private behaviorUser: BehaviorSubject<User> = new BehaviorSubject<User>(new User());
 
   public readonly AUTHORIZATION_HEADER: string = "Authorization";
-
+  public tokenValid: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
 
 
@@ -67,6 +67,7 @@ export class LoginService {
   public saveUserData(user: User): void {
     this.user = user;
     this.behaviorUser.next(user);
+    this.tokenValid.next(true);
   }
 
 
@@ -115,6 +116,7 @@ export class LoginService {
     localStorage.removeItem("scope");
     this.user = null;
     this.behaviorUser = new BehaviorSubject<User>(null);
+    this.tokenValid.next(false);
     this.router.navigate(["/login"]);
   }
 

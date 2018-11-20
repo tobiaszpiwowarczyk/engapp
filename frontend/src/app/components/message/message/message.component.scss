@@ -1,15 +1,14 @@
-@import "../../../assets/variables";
+@import "../../../../assets/_variables";
 
 .message {
   position: relative;
   width: 100%;
-  min-height: $input-height + ($input-border-width * 2);
-  display: none;
+  // height: $input-height + ($input-border-width * 2);
+  display: flex;
   justify-content: space-between;
   color: $black;
   border-radius: $border-radius;
   overflow: hidden;
-  opacity: 1;
 
 
   &__collumn {
@@ -61,10 +60,6 @@
     }
   }
 
-  &--shown {
-    display: flex;
-  }
-
   &--success {
     background: $green;
   }
@@ -75,13 +70,5 @@
 
   &--danger {
     background: $red;
-  }
-
-  &--floating {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: auto;
-    z-index: $loader-z-index;
   }
 }

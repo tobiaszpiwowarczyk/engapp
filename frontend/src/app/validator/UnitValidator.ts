@@ -13,7 +13,7 @@ export class UnitValidator {
    *          otherwise returns object with unitRegex property
    */
   public static validateName(c: AbstractControl): ValidationErrors {
-    const nameRegex: RegExp = /^[A-Z][a-z\ą\ę\ć\ż\ź\ń\ł\ó\ś]*\s?[a-z\ą\ę\ć\ż\ź\ń\ł\ó\ś]*$/g;
+    const nameRegex: RegExp = /^[A-Z\Ć\Ś\Ż\Ź\Ł\Ó][a-z\ą\ę\ć\ż\ź\ń\ł\ó\ś]+(\s?[a-z\ą\ę\ć\ż\ź\ń\ł\ó\ś])*$/g;
     return nameRegex.test(c.value) ? null : { unitRegex: true };
   }
 
@@ -28,10 +28,7 @@ export class UnitValidator {
     return (c: AbstractControl) => new Promise(res => {
       setTimeout(() => {
         us.addUnitValidation(new Unit({ name: c.value }), "name")
-          .subscribe(() => res(null), (err) => {
-            console.log(err);
-            c.setErrors({ unitTaken: true });
-          });
+          .subscribe(() => res(null), () => c.setErrors({ unitTaken: true }));
       }, 500);
     });
   }
@@ -45,7 +42,6 @@ export class UnitValidator {
    * @returns {@link AsyncValidatorFn} - validation result
    */
   public static validateEdition(us: UnitService, unitId: string): AsyncValidatorFn {
-    console.log(unitId);
     return (c: AbstractControl) => new Promise(res => {
       setTimeout(() => {
         us.editUnitValidation(new Unit({ id: unitId, name: c.value }), "name")

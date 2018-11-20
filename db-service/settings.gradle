@@ -1,4 +1,4 @@
 rootProject.name = 'db-service'
 
-include ":library"
-project(":library").projectDir = new File("../library/")
+include ":engapp-utils"
+project(":engapp-utils").projectDir = new File("../engapp-utils/")

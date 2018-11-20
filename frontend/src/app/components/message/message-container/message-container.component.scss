@@ -1,0 +1,26 @@
+@import "../../../../assets/_variables";
+
+.message-container {
+  position: relative;
+
+  &--floating {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+  }
+
+  app-message {
+    position: relative;
+    display: block;
+    margin: 10px 0;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+}

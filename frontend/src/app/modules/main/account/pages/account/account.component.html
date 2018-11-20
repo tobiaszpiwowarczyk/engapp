@@ -15,7 +15,7 @@
       </div>
     </div>
   </div>
-  
+
   <div class="account">
     <app-tab-menu name="user">
       <app-tab-menu-item id="data" text="Dane" appMenuActive></app-tab-menu-item>
@@ -30,15 +30,15 @@
         </div>
       </app-tab-view-item>
       <app-tab-view-item for="statistics">
-        <h3 [style.textAlign]="'center'" *ngIf="userStatistics.length == 0">W tej chwili nie posiadasz żadnych statystyk</h3>
-        <app-user-statistics *ngFor="let stats of userStatistics; let last=last" 
-                             [data]="stats" [last]="last"></app-user-statistics>
+        <h3 [style.textAlign]="'center'" *ngIf="userStatistics.length == 0">W tej chwili nie posiadasz żadnych
+          statystyk</h3>
+        <app-user-statistics *ngFor="let stats of userStatistics; let last=last" [data]="stats" [last]="last"></app-user-statistics>
       </app-tab-view-item>
       <app-tab-view-item for="accountSettings">
-  
+
         <div class="container container__box">
           <h2 class="container__box__header">Ustawienia ogólne</h2>
-  
+
           <div class="container__box__content">
             <div class="account__option">
               <div class="account__option__label">Ciemny motyw</div>
@@ -48,52 +48,56 @@
             </div>
           </div>
         </div>
-  
+
         <div class="container container__box">
           <app-loader #accountSettingsLoader></app-loader>
           <h2 class="container__box__header">Ustawienia konta</h2>
-  
-          <app-message content="Użytkownik został zaktualizowany pomyślnie" #accountSettingsMessage></app-message>
-  
+
+          <app-message-container hideable #accountSettingsMessage></app-message-container>
+
           <form [formGroup]="accountForm" (ngSubmit)="update()">
-            
+
             <input type="hidden" formControlName="id" />
-  
+
             <div class="container__box__content">
               <div class="account__option">
                 <div class="account__option__label">Nazwa użytkownika</div>
                 <div class="account__option__input">
-                  <app-input formControlName="username" [control]="accountForm?.controls['username']" appInputFluid appInputCompact #username></app-input>
+                  <app-input formControlName="username" [control]="accountForm?.controls['username']" appInputFluid
+                    appInputCompact #username></app-input>
                 </div>
               </div>
-    
+
               <div class="account__option">
                 <div class="account__option__label">Imię</div>
                 <div class="account__option__input">
-                  <app-input formControlName="firstName" [control]="accountForm?.controls['firstName']" appInputFluid appInputCompact></app-input>
+                  <app-input formControlName="firstName" [control]="accountForm?.controls['firstName']" appInputFluid
+                    appInputCompact></app-input>
                 </div>
               </div>
               <div class="account__option">
                 <div class="account__option__label">Nazwisko</div>
                 <div class="account__option__input">
-                  <app-input formControlName="lastName" [control]="accountForm?.controls['lastName']" appInputFluid appInputCompact></app-input>
+                  <app-input formControlName="lastName" [control]="accountForm?.controls['lastName']" appInputFluid
+                    appInputCompact></app-input>
                 </div>
               </div>
               <div class="account__option">
                 <div class="account__option__label">Adres email</div>
                 <div class="account__option__input">
-                  <app-input formControlName="email" [control]="accountForm?.controls['email']" appInputFluid appInputCompact></app-input>
+                  <app-input formControlName="email" [control]="accountForm?.controls['email']" appInputFluid
+                    appInputCompact></app-input>
                 </div>
               </div>
             </div>
-  
+
             <div class="account__option">
               <div class="account__option__label"></div>
               <app-button type="submit" primary>Zapisz dane</app-button>
             </div>
           </form>
         </div>
-  
+
       </app-tab-view-item>
     </app-tab-view>
   </div>

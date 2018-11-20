@@ -9,10 +9,17 @@ import { RouterModule } from '@angular/router';
 import { SidebarModule } from './components/sidebar/sidebar.module';
 import { StompService } from 'ng2-stomp-service';
 import { ErrorReportService } from '../../services/error-report/error-report.service';
+import { LoaderModule } from '../../components/loader/loader.module';
 
 @NgModule({
-  imports: [CommonModule, AdminRoutingModule,
-    RouterModule, HeaderModule, SidebarModule],
+  imports: [
+    CommonModule,
+    AdminRoutingModule,
+    RouterModule,
+    HeaderModule,
+    SidebarModule,
+    LoaderModule
+  ],
   exports: [],
   declarations: [AdminComponent],
   providers: [
