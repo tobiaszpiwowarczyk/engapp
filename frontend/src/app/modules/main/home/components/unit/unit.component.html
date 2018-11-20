@@ -1,14 +1,11 @@
-
 <div class="unit" [style.backgroundImage]="'url('+unit?.image+')'" @listItemAnimation>
   <div class="unit__filter">
-    <a [routerLink]="['/quiz', unit?.id]" [attr.title]="unit?.name">
+    <a [routerLink]="['/quiz', unit?.id]" [attr.title]="unit?.name" (click)="selectOption(selected)">
       <h3 class="unit__title">{{unit?.name}}</h3>
     </a>
 
-    <app-button circular primary
-            [style]="{'background': unit?.color}"
-            [ngClass]="{ 'options--shown': optionsShown }"
-            (click)="toggleOptions()">
+    <app-button circular primary [style]="{'background': unit?.color}" [ngClass]="{ 'options--shown': optionsShown }"
+      (click)="toggleOptions()">
       <div class="button__icon">
         <div class="material-icons">close</div>
       </div>
@@ -21,13 +18,11 @@
     <div class="unit__settings" [ngClass]="{'unit__settings--shown': optionsShown}">
       <h4>Ilość renderowanych słówek</h4>
       <div class="unit__options">
-        <div class="unit__option" 
-            [ngStyle]="{ 'borderColor': unit?.color, 'color': unit?.color, 'transitionDelay': (40 * i)+'ms' }"
-            [ngClass]="{'unit__option--active': selected == o}" 
-            *ngFor="let o of options; let i = index" (click)="selectOption(o)">
+        <div class="unit__option" [ngStyle]="{ 'borderColor': unit?.color, 'color': unit?.color, 'transitionDelay': (40 * i)+'ms' }"
+          [ngClass]="{'unit__option--active': selected == o}" *ngFor="let o of options; let i = index" (click)="selectOption(o)">
 
-            <span>{{o}}</span>
-            <div class="unit__option__label" [ngStyle]="{ 'background': unit?.color }"></div>
+          <span>{{o}}</span>
+          <div class="unit__option__label" [ngStyle]="{ 'background': unit?.color }"></div>
 
         </div>
       </div>

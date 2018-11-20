@@ -1,3 +1,4 @@
+import { UnitValidator } from './../../../../../../validator/UnitValidator';
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import "rxjs/add/operator/finally";
@@ -36,7 +37,7 @@ export class EditUnitModalComponent implements OnInit, Modal {
 
     this.editUnitForm = this.fb.group({
       id: ['', Validators.required],
-      name: ['', Validators.required],
+      name: ['', Validators.compose([Validators.required, UnitValidator.validateName])],
       color: ['', Validators.compose([Validators.required, ColorValidator.validate])],
       published: [false, Validators.required]
     });
@@ -57,6 +58,9 @@ export class EditUnitModalComponent implements OnInit, Modal {
             color: this.unit.color,
             published: this.unit.published
           });
+          this.editUnitForm.controls["name"].setAsyncValidators(
+            UnitValidator.validateEdition(this.unitService, this.unit.id)
+          );
           this.modal.preventApprove = false;
         }
 

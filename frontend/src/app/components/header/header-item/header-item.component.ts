@@ -13,11 +13,11 @@ export class HeaderItemComponent implements OnInit {
   @Input() imageSrc: string = "";
   @Input() href: any[] = [];
 
-  constructor(private hs: HeaderService) {}
-  ngOnInit() {}
+  constructor(private hs: HeaderService) { }
+  ngOnInit() { }
 
   @HostListener("click")
-  private closeAfterClick(): void {
+  closeAfterClick(): void {
     this.hs.setMenuOpen(false);
   }
 }

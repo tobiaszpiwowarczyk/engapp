@@ -1,36 +1,40 @@
-<app-header>
-  <div class="brand" title="Strona główna">
-    <div class="menu-opener" [class.menu-opener--opened]="sidebarExpanded" (click)="expand()">
-      <div>
-        <span></span>
-        <span></span>
-        <span></span>
+<app-loader loaderFullScreen [visible]="loading"></app-loader>
+
+<div *ngIf="!loading">
+  <app-header>
+    <div class="brand" title="Strona główna">
+      <div class="menu-opener" [class.menu-opener--opened]="sidebarExpanded" (click)="expand()">
+        <div>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
       </div>
+      <h5>EngApp Panel</h5>
     </div>
-    <h5>EngApp Panel</h5>
-  </div>
 
-  <app-menu-opener></app-menu-opener>
+    <app-menu-opener></app-menu-opener>
 
-  <app-header-menu>
-    <app-header-item *ngIf="user" [label]="user?.firstName +' '+ user?.lastName" 
-                    itemType="image" imageSrc="assets/img/default.jpg"
-                    [href]="['/account', user?.username]"></app-header-item>
-    <app-header-item label="Powrót" imageSrc="exit_to_app" [href]="['/']"></app-header-item>
-    <app-header-item label="Wyloguj się" imageSrc="power_settings_new" (click)="logout()"></app-header-item>
-  </app-header-menu>
-</app-header>
+    <app-header-menu>
+      <app-header-item *ngIf="user" [label]="user?.firstName +' '+ user?.lastName" itemType="image" imageSrc="assets/img/default.jpg"
+        [href]="['/account', user?.username]"></app-header-item>
+      <app-header-item label="Powrót" imageSrc="exit_to_app" [href]="['/']"></app-header-item>
+      <app-header-item label="Wyloguj się" imageSrc="power_settings_new" (click)="logout()"></app-header-item>
+    </app-header-menu>
+  </app-header>
 
 
-<div class="admin">
-  <app-sidebar>
-    <app-sidebar-item [href]="['./']" icon="dashboard" text="Panel" routerExact></app-sidebar-item>
-    <app-sidebar-item [href]="['./users']" icon="supervisor_account" text="Użytkownicy"></app-sidebar-item>
-    <app-sidebar-item [href]="['./units']" icon="view_list" text="Rozdziały"></app-sidebar-item>
-    <app-sidebar-item [href]="['./statistics']" icon="insert_chart" text="Statystyki"></app-sidebar-item>
-  </app-sidebar>
-  
-  <div class="admin__main">
-    <router-outlet></router-outlet>
+  <div class="admin">
+    <app-sidebar>
+      <app-sidebar-item [href]="['./']" icon="dashboard" text="Panel" routerExact></app-sidebar-item>
+      <app-sidebar-item [href]="['./users']" icon="supervisor_account" text="Użytkownicy"></app-sidebar-item>
+      <app-sidebar-item [href]="['./units']" icon="view_list" text="Rozdziały"></app-sidebar-item>
+      <app-sidebar-item [href]="['./statistics']" icon="insert_chart" text="Statystyki"></app-sidebar-item>
+      <app-sidebar-item [href]="['./error-reports']" icon="warning" text="Zgłoszone błędy" badge [badgeValue]="unreadErrors"></app-sidebar-item>
+    </app-sidebar>
+
+    <div class="admin__main">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>

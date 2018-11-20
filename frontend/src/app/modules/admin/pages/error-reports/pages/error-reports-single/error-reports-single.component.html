@@ -1,0 +1,23 @@
+<div class="admin-content">
+  <div class="container container__box">
+    <div class="container__box__header">
+      <app-button [routerLink]="['/admin/error-reports']" icon="arrow_back" primary></app-button>
+      <h2>{{errorReport?.subject}}</h2>
+    </div>
+
+    <div class="container__box__content" [innerHTML]="errorReport?.message"></div>
+
+    <div class="container__box__footer">
+      <a [routerLink]="['/admin/users', errorReport?.username]" class="user-profile">
+        <img src="/assets/img/default.jpg" alt="Zdjęcie użytkownika {{errorReport?.username}}" class="user-avatar" />
+        <span>{{errorReport?.username}}</span>
+      </a>
+
+      <div class="container__item">
+        <app-icon name="date_range"></app-icon>
+        <span class="data-text">{{errorReport?.createdAt}}</span>
+      </div>
+
+    </div>
+  </div>
+</div>

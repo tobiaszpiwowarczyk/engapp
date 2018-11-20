@@ -1,3 +1,4 @@
+import { SidebarItemBadgeDirective } from './sidebar-item/directives/sidebar-item-badge.directive';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SidebarComponent } from './sidebar.component';
@@ -10,7 +11,17 @@ import { SidebarItemRouterExactDirective } from './sidebar-item/directives/sideb
     CommonModule,
     RouterModule
   ],
-  declarations: [SidebarComponent, SidebarItemComponent, SidebarItemRouterExactDirective],
-  exports: [SidebarComponent, SidebarItemComponent, SidebarItemRouterExactDirective]
+  declarations: [
+    SidebarComponent,
+    SidebarItemComponent,
+    SidebarItemRouterExactDirective,
+    SidebarItemBadgeDirective
+  ],
+  exports: [
+    SidebarComponent,
+    SidebarItemComponent,
+    SidebarItemRouterExactDirective,
+    SidebarItemBadgeDirective
+  ]
 })
 export class SidebarModule { }

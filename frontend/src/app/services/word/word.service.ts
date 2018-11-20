@@ -4,8 +4,8 @@ import "rxjs/add/observable/throw";
 import "rxjs/add/operator/catch";
 import "rxjs/add/operator/map";
 import { Observable } from 'rxjs/Observable';
-import { LoginService } from '../../../../../services/login/login.service';
-import { Word } from './Word';
+import { LoginService } from '../login/login.service';
+import { Word, WordCreationEntity, WordEditionEntity } from './Word';
 
 
 @Injectable()
@@ -30,26 +30,37 @@ export class WordService {
 
   public randomWord(unitId: string, id: number): Observable<Word> {
     return this.http.get(`/db/api/word/${unitId}/${id}`, this.options)
-        .map(res => new Word(res.json()))
-        .catch(err => Observable.throw(err.json()));
-  }
-
-
-  public addWord(unitId: string, word: Word): Observable<Word> {
-    return this.http.post(`/db/api/word/${unitId}`, JSON.stringify(word), this.options)
       .map(res => new Word(res.json()))
       .catch(err => Observable.throw(err.json()));
   }
 
-  public editWord(unitId: string, word: Word): Observable<Word> {
-    return this.http.put(`/db/api/word/${unitId}`, JSON.stringify(word), this.options)
+  public addWord(word: WordCreationEntity): Observable<Word> {
+    return this.http.post(`/db/api/word`, JSON.stringify(word), this.options)
       .map(res => new Word(res.json()))
+      .catch(err => Observable.throw(err.json()));
+  }
+
+  public addWordValidation(word: WordCreationEntity, field: string): Observable<any> {
+    return this.http.post(`/db/api/word/validate?field=${field}`, JSON.stringify(word), this.options)
+      .map(res => res.json())
+      .catch(err => Observable.throw(err.json()));
+  }
+
+  public editWord(word: WordEditionEntity): Observable<Word> {
+    return this.http.put(`/db/api/word`, JSON.stringify(word), this.options)
+      .map(res => new Word(res.json()))
+      .catch(err => Observable.throw(err.json()));
+  }
+
+  public editWordValidation(word: WordEditionEntity, field: string): Observable<any> {
+    return this.http.put(`/db/api/word/validate?field=${field}`, JSON.stringify(word), this.options)
+      .map(res => res.json())
       .catch(err => Observable.throw(err.json()));
   }
 
   public deleteWord(unitId: string, wordNumber: number): Observable<any> {
     return this.http.delete(`/db/api/word/${unitId}/${wordNumber}`, this.options)
-    .map(res => res.json())
-    .catch(err => Observable.throw(err.json()));
+      .map(res => res.json())
+      .catch(err => Observable.throw(err.json()));
   }
 }

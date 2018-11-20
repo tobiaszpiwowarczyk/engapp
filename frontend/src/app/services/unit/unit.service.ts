@@ -3,7 +3,7 @@ import { Headers, Http, RequestOptionsArgs } from '@angular/http';
 import "rxjs/add/observable/throw";
 import "rxjs/add/operator/catch";
 import "rxjs/add/operator/map";
-import "rxjs/add/operator/toPromise";
+import "rxjs/add/operator/debounceTime";
 import { Observable } from 'rxjs/Observable';
 import { LoginService } from '../login/login.service';
 import { Unit } from './../../modules/main/home/components/unit/Unit';
@@ -63,6 +63,21 @@ export class UnitService {
   public addUnit(unit: Unit): Observable<Unit> {
     return this.http.post("/db/api/unit", JSON.stringify(unit), this.options)
       .map(res => res.json())
+      .catch(err => Observable.throw(err.json().errors));
+  }
+
+
+  /**
+   * Method for unit addition validation
+   *
+   * @param unit {@link Unit} - the unit
+   * @param field {@link string} - field name from {@link Unit} object
+   * @returns empty array with http status 200 if unit object is valid,
+   *          otherwise returns error list with http status 422 (Unprocessable Entity)
+   */
+  public addUnitValidation(unit: Unit, field: string): Observable<any> {
+    return this.http.post(`/db/api/unit/validate?field=${field}`, JSON.stringify(unit), this.options)
+      .map(res => res.json())
       .catch(err => Observable.throw(err.json()));
   }
 
@@ -79,6 +94,20 @@ export class UnitService {
       .catch(err => Observable.throw(err.json()));
   }
 
+
+  /**
+   * Method for unit edition validation
+   * 
+   * @param unit {@link Unit} - the unit
+   * @param field {@link string} - field name from {@link Unit} object
+   * @returns empty array with http status 200 if unit object is valid,
+   *          otherwise returns error list with http status 422 (Unprocessable Entity)
+   */
+  public editUnitValidation(unit: Unit, field: string): Observable<any> {
+    return this.http.put(`/db/api/unit/validate?field=${field}`, JSON.stringify(unit), this.options)
+      .map(res => res.json())
+      .catch(err => Observable.throw(err.json()));
+  }
 
   /**
    * Updates unit image

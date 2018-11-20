@@ -17,7 +17,7 @@ export class UnitComponent implements OnInit {
   selected: number = 20;
   optionsShown: boolean = false;
 
-  constructor(private uss: UnitScopeService) {}
+  constructor(private uss: UnitScopeService) { }
   ngOnInit() {
     this.uss.setScope(this.selected);
   }

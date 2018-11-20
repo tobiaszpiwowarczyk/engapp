@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.piwowarczyk.dbservice.unit.repository.UnitRepository;
 import pl.piwowarczyk.dbservice.word.Word;
 import pl.piwowarczyk.dbservice.word.domain.WordCreationEntity;
+import pl.piwowarczyk.dbservice.word.domain.WordEditionEntity;
 import pl.piwowarczyk.dbservice.word.exception.WordNotFoundException;
 
 import java.util.Map;
@@ -25,17 +26,13 @@ public class WordServiceImpl implements WordService {
     }
 
     @Override
-    public Word addWord(String unitId, WordCreationEntity word) {
-        return unitRepository.addWord(unitId, word);
+    public Word addWord(WordCreationEntity word) {
+        return unitRepository.addWord(word);
     }
 
     @Override
-    public Word editWord(String unitId, Word word) {
-
-        if(!unitRepository.existsByWordNumber(unitId, word.getWordNumber()))
-            throw new WordNotFoundException();
-        
-        return unitRepository.editWord(unitId, word);
+    public Word editWord(WordEditionEntity word) {
+        return unitRepository.editWord(word);
     }
 
     @Override

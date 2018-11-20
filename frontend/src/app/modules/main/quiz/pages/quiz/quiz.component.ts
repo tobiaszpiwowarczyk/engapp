@@ -1,15 +1,16 @@
-import { UnitScopeService } from './../../../services/unit-scope.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { InputComponent } from '../../../../../components/input/input.component';
 import { LoaderComponent } from '../../../../../components/loader/loader.component';
 import { UnitService } from '../../../../../services/unit/unit.service';
-import { Unit } from '../../../home/components/unit/Unit';
-import { Word } from '../../services/word/Word';
-import { WordService } from '../../services/word/word.service';
 import { UserStatisticsService } from '../../../../../services/user-statistics/user-statistics.service';
+import { Word } from '../../../../../services/word/Word';
+import { WordService } from '../../../../../services/word/word.service';
+import { Unit } from '../../../home/components/unit/Unit';
+import { SocketService } from './../../../../../services/socket/socket.service';
+import { UnitScopeService } from './../../../services/unit-scope.service';
 
 @Component({
   selector: 'app-quiz',
@@ -49,8 +50,8 @@ export class QuizComponent implements OnInit {
     private title: Title,
     private fb: FormBuilder,
     private wordService: WordService,
-    private uss: UserStatisticsService,
-    private unitss: UnitScopeService
+    private unitss: UnitScopeService,
+    private socket: SocketService
   ) { }
 
   ngOnInit() {
@@ -68,13 +69,6 @@ export class QuizComponent implements OnInit {
     this.quizForm = this.fb.group({
       word: this.wordControl
     });
-
-    window.addEventListener("keydown", (e) => {
-      const code = e.keyCode || e.which;
-      if(code == 13) {
-        if(this.shown) this.next();
-      }
-    }, false);
   }
 
 
@@ -131,7 +125,8 @@ export class QuizComponent implements OnInit {
 
       if(this.badWords.length == 0) {
         this.finished = true;
-        this.uss.addUserStatistcs({
+
+        this.socket.sendData("/app/add-user-statistics", {
           score: this.points,
           total: this.scope,
           unitId: this.unit.id

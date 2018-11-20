@@ -1,5 +1,5 @@
-import { Word } from './../modules/main/quiz/services/word/Word';
-import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Word } from '../services/word/Word';
 
 export class FormUtils {
 

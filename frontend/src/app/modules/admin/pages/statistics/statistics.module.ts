@@ -6,6 +6,9 @@ import { UserStatisticsModule } from './../../../../components/user-statistics/u
 import { StatisticsMainComponent } from './pages/statistics-main/statistics-main.component';
 import { StatisticsRoutingRoutingModule } from './statistics-routing.module';
 
+import { StompService } from "ng2-stomp-service";
+import { SocketService } from '../../../../services/socket/socket.service';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -15,6 +18,6 @@ import { StatisticsRoutingRoutingModule } from './statistics-routing.module';
   ],
   declarations: [StatisticsMainComponent],
   exports: [StatisticsMainComponent],
-  providers: [UserStatisticsService]
+  providers: [UserStatisticsService, StompService, SocketService]
 })
 export class StatisticsModule { }

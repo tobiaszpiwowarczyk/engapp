@@ -3,14 +3,14 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DomSanitizer, Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import "rxjs/add/operator/finally";
-import { MessageComponent } from '../../../../../../components/message/message.component';
+import { MessageContainerComponent } from '../../../../../../components/message/message-container/message-container.component';
+import { Word } from '../../../../../../services/word/Word';
+import { WordService } from '../../../../../../services/word/word.service';
 import { Unit } from '../../../../../main/home/components/unit/Unit';
 import { ModalService } from '../../services/modal.service';
 import { LoaderComponent } from './../../../../../../components/loader/loader.component';
 import { ModalComponent } from './../../../../../../components/modal/modal.component';
 import { UnitService } from './../../../../../../services/unit/unit.service';
-import { Word } from './../../../../../main/quiz/services/word/Word';
-import { WordService } from './../../../../../main/quiz/services/word/word.service';
 
 
 @Component({
@@ -35,7 +35,7 @@ export class UnitsSingleComponent implements OnInit {
   @ViewChild("boxLoader") boxLoader: LoaderComponent;
   @ViewChild("profileLoader") profileLoader: LoaderComponent;
   @ViewChild("approveModal") approveModal: ModalComponent;
-  @ViewChild("approveMessage") approveMessage: MessageComponent;
+  @ViewChild("message") message: MessageContainerComponent;
 
   constructor(
     private us: UnitService,
@@ -76,37 +76,42 @@ export class UnitsSingleComponent implements OnInit {
     this.unit.color = unit.color;
     this.unit.published = unit.published;
     this.loader.hide();
-    this.approveMessage.showWithText("Rozdział został zaktualizowany pomyślnie");
+    this.message.show("Rozdział został zaktualizowany pomyślnie");
   }
 
 
 
   public openNewWordModal(): void {
-    this.ms.setData({name: "addWordModal"});
+    this.ms.setData({ name: "addWordModal" });
   }
 
   public addWord(word: Word): void {
-    word.wordNumber = this.unit.words.length+1;
+    word.wordNumber = this.unit.words.length + 1;
     this.unit.wordsCount += 1;
     this.unit.words.push(word);
     this.boxLoader.hide();
-    this.approveMessage.showWithText("Słówko zostało dodane pomyślnie");
+    this.message.show("Słówko zostało dodane pomyślnie");
   }
 
 
 
 
-  public edit(word: Word): void {
+  public openEditWordModal(word: Word): void {
     this.ms.setData({
       name: "editWordModal",
-      data: word
+      data: {
+        unitId: this.unit.id,
+        wordNumber: word.wordNumber,
+        polish: word.polish,
+        english: word.english
+      }
     });
   }
 
   public editWord(word: Word): void {
     this.unit.words[word.wordNumber - 1] = word;
     this.boxLoader.hide();
-    this.approveMessage.showWithText("Słówko zostało zaktualizowane pomyślnie");
+    this.message.show("Słówko zostało zaktualizowane pomyślnie");
   }
 
 
@@ -123,19 +128,19 @@ export class UnitsSingleComponent implements OnInit {
         this.unit.words.splice(this.deletionWordNumber - 1, 1);
         this.unit.wordsCount--;
         this.boxLoader.hide();
-        this.approveMessage.showWithText(res.state);
+        this.message.show(res.state);
       });
   }
 
 
 
   public openChangeImageModal(): void {
-    this.ms.setData({name: "changeImageModal"});
+    this.ms.setData({ name: "changeImageModal" });
   }
 
   public changeImage(e: Unit): void {
     this.unit.image = e.image;
     this.profileLoader.hide();
-    this.approveMessage.showWithText("Zdjęcie zostało zmienione pomyślnie");
+    this.message.show("Zdjęcie zostało zmienione pomyślnie");
   }
 }

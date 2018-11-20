@@ -1,0 +1,93 @@
+@import "../variables";
+
+.textarea {
+
+  position: relative;
+  width: 300px;
+  border: $input-border-width solid darken($white, 40%);
+  border-radius: 3px;
+  margin: 10px 0;
+  overflow: hidden;
+  transition: border-color .4s $bezier;
+
+  textarea {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    resize: none;
+    padding: $input-height / 2;
+    margin: 0;
+    border: none;
+    background: none;
+
+    &::-webkit-input-placeholder {
+      color: $grey;
+    }
+  }
+
+  &__errors {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: none;
+    background: rgba($red, 0.29);
+    font-size: 14px;
+
+    padding: 6px;
+    padding-left: 27px;
+  }
+
+  &--focused {
+    border-color: $black;
+    box-shadow: 0 0 10px rgba($black, 0.4);
+
+    * {
+      color: $black !important;
+    }
+  }
+
+  &--invalid {
+    border-color: $red;
+    box-shadow: 0 0 10px rgba($red, 0.4);
+
+    * {
+      color: $red !important;
+    }
+  }
+
+  &--invalid & {
+    &__errors {
+      border-top: $input-border-width solid $red;
+      display: block;
+    }
+  }
+
+  body.dark-theme & {
+    color: $white;
+
+    &--focused {
+      border-color: $white;
+      box-shadow: 0 0 10px rgba($white, 0.4);
+
+      textarea {
+        color: $white !important;
+      }
+    }
+
+    &--invalid {
+      border-color: $red;
+      box-shadow: 0 0 10px rgba($red, 0.4);
+
+      * {
+        color: $red !important;
+      }
+    }
+
+    &--invalid & {
+      &__errors {
+        border-top: $input-border-width solid $red;
+        display: block;
+      }
+    }
+  }
+}

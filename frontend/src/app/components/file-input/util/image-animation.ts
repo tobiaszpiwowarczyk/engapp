@@ -1,5 +1,5 @@
-import { state, trigger, style, transition, animate } from "@angular/animations";
-import { BEZIER } from "../../message/util/message-animations";
+import { animate, state, style, transition, trigger } from "@angular/animations";
+import { defaultSettings } from "../../../animations/animations";
 
 export const imageAnimation = trigger("imageAnimation", [
   state("in", style({
@@ -14,7 +14,7 @@ export const imageAnimation = trigger("imageAnimation", [
       transformOrigin: "center 170%",
       marginTop: 0
     }),
-    animate(`400ms ${BEZIER}`, style({
+    animate(`400ms ${defaultSettings.bezier}`, style({
       opacity: 1,
       transform: "translateY(0) scale(1)",
       transformOrigin: "center 170%",
@@ -22,7 +22,7 @@ export const imageAnimation = trigger("imageAnimation", [
     }))
   ]),
   transition(":leave", [
-    animate(`400ms ${BEZIER}`, style({
+    animate(`400ms ${defaultSettings.bezier}`, style({
       opacity: 0,
       transform: "translateY(0) scale(0)",
       marginTop: 0

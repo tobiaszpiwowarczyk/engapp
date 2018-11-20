@@ -3,7 +3,6 @@ package pl.piwowarczyk.dbservice.unit;
 import lombok.AllArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
@@ -11,8 +10,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pl.piwowarczyk.dbservice.file.domain.DropFile;
-import pl.piwowarczyk.dbservice.file.domain.File;
-import pl.piwowarczyk.dbservice.file.utils.FileUtils;
 import pl.piwowarczyk.dbservice.unit.domain.UnitCreationEntity;
 import pl.piwowarczyk.dbservice.unit.domain.UnitEditionEntity;
 import pl.piwowarczyk.dbservice.unit.service.UnitServiceImpl;
@@ -83,14 +80,13 @@ public class UnitController {
         return unitService.addUnit(unit);
     }
 
-    
+
     /**
-     * 
-     * Method for {@link UnitEditionEntity} object validation
-     * 
-     * @param unit {@link UnitEditionEntity} - the unit
+     * Method for {@link UnitCreationEntity} object validation
+     *
+     * @param unit          {@link UnitCreationEntity} - the unit
      * @param bindingResult {@link BindingResult} - errors result
-     * @param field {@link String} - the unit field
+     * @param field         {@link String} - the unit field
      * @return an empty array if it's OK, otherwise returns list of {@link CustomValidationError} objects
      */
     @PostMapping("validate")
@@ -98,7 +94,7 @@ public class UnitController {
     public ResponseEntity<List<CustomValidationError>> addUnitValidation(
             @Validated({NameGroupSequence.class, ColorGroupSequence.class})
             @RequestBody UnitCreationEntity unit,
-            
+
             BindingResult bindingResult,
             @RequestParam(required = false, defaultValue = "") String field
     ) {
@@ -122,10 +118,30 @@ public class UnitController {
 
 
     /**
+     * Method for {@link UnitEditionEntity} object validation
+     *
+     * @param unit          {@link UnitEditionEntity} - the unit
+     * @param bindingResult {@link BindingResult} - errors result
+     * @param field         {@link String} - the unit field
+     * @return an empty array if it's OK, otherwise returns list of {@link CustomValidationError} objects
+     */
+    @PutMapping("validate")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    public ResponseEntity<List<CustomValidationError>> editUnitValidation(
+            @Validated({IdGroupSequence.class, NameGroupSequence.class, ColorGroupSequence.class, PublishedGroupSequence.class})
+            @RequestBody UnitEditionEntity unit,
+            BindingResult bindingResult,
+            @RequestParam(required = false, defaultValue = "") String field
+    ) {
+        return validationService.validate(bindingResult, messageSource, field);
+    }
+
+
+    /**
      * Updates unit background image
-     * 
+     *
      * @param unitId {@link String} - unit id, unit must exist by id
-     * @param image {@link MultipartFile} - image
+     * @param image  {@link MultipartFile} - image
      * @return {@link Unit} - unit with updated image
      * @throws {@link IOException}
      */
@@ -137,10 +153,7 @@ public class UnitController {
         return unitService.editUnitImage(unitId, image);
     }
 
-    
-    
-    
-    
+
     /**
      * Deletes {@link Unit} object from database
      *

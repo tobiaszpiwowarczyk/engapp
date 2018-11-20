@@ -16,11 +16,12 @@ export class ButtonComponent implements OnInit {
   fluid: boolean = false;
   circular: boolean = false;
   negative: boolean = false;
+  positive: boolean = false;
   primary: boolean = false;
   icon: string = "";
 
-  constructor() {}
-  ngOnInit() {}
+  constructor() { }
+  ngOnInit() { }
 
   @HostListener("click", ["$event"])
   public preventDisableClicking(e): void {

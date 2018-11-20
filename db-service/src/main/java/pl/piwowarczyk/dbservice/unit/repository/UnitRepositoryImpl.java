@@ -10,9 +10,9 @@ import pl.piwowarczyk.dbservice.unit.Unit;
 import pl.piwowarczyk.dbservice.unit.domain.UnitEditionEntity;
 import pl.piwowarczyk.dbservice.word.Word;
 import pl.piwowarczyk.dbservice.word.domain.WordCreationEntity;
+import pl.piwowarczyk.dbservice.word.domain.WordEditionEntity;
 import pl.piwowarczyk.library.util.UserPermissions;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -91,20 +91,31 @@ public class UnitRepositoryImpl implements UnitRepositoryCustom {
     
     @Override
     public boolean existsByWordNumber(String unitId, Long wordNumber) {
-        return mongoTemplate.count(new Query().addCriteria(where("_id").is(unitId).and("words.wordNumber").is(wordNumber)), collectionName) == 1;
+        return mongoTemplate.exists(new Query().addCriteria(where("_id").is(unitId).and("words.wordNumber").is(wordNumber)), collectionName);
     }
 
     @Override
     public boolean existsBy(String field, Object value) {
-        return mongoTemplate.count(new Query().addCriteria(where(field).is(value)), collectionName) == 1;
+        return mongoTemplate.exists(new Query().addCriteria(where(field).is(value)), collectionName);
     }
 
     @Override
-    public Word addWord(String unitId, WordCreationEntity word) {
+    public boolean wordExistsBy(String unitId, String field, Object value) {
+        return mongoTemplate.exists(
+                new Query(
+                        where("_id").is(new ObjectId(unitId))
+                        .and(field).is(value)
+                ), 
+                collectionName
+        );
+    }
+
+    @Override
+    public Word addWord(WordCreationEntity word) {
                 
-        long wordCount = (long) (this.findUnitById(unitId).getWords().size() + 1);
+        long wordCount = (long) (this.findUnitById(word.getUnitId()).getWords().size() + 1);
         mongoTemplate.updateFirst(
-                new Query(where("_id").is(new ObjectId(unitId))),
+                new Query(where("_id").is(new ObjectId(word.getUnitId()))),
                 new Update() {{
                     addToSet("words", Word.builder()
                             .wordNumber(wordCount)
@@ -116,14 +127,14 @@ public class UnitRepositoryImpl implements UnitRepositoryCustom {
                 collectionName
         );
         
-        return this.findWordByWordNumber(unitId, wordCount);
+        return this.findWordByWordNumber(word.getUnitId(), wordCount);
     }
 
     @Override
-    public Word editWord(String unitId, Word word) {
+    public Word editWord(WordEditionEntity word) {
         
         mongoTemplate.updateFirst(
-                new Query(where("_id").is(new ObjectId(unitId)).and("words.wordNumber").is(word.getWordNumber())),
+                new Query(where("_id").is(new ObjectId(word.getUnitId())).and("words.wordNumber").is(word.getWordNumber())),
                 new Update() {{
                     if(word.getPolish() != null) set("words.$.polish", word.getPolish());
                     if(word.getEnglish() != null) set("words.$.english", word.getEnglish());
@@ -132,7 +143,7 @@ public class UnitRepositoryImpl implements UnitRepositoryCustom {
                 collectionName
         );
         
-        return this.findWordByWordNumber(unitId, word.getWordNumber());
+        return this.findWordByWordNumber(word.getUnitId(), word.getWordNumber());
     }
 
     @Override

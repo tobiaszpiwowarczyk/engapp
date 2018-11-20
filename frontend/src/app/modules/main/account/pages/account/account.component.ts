@@ -3,17 +3,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import "rxjs/add/operator/finally";
 import { LoaderComponent } from '../../../../../components/loader/loader.component';
-import { MessageComponent } from '../../../../../components/message/message.component';
+import { MessageContainerComponent } from '../../../../../components/message/message-container/message-container.component';
 import { SwitchComponent } from '../../../../../components/switch/switch.component';
 import { LoginService } from '../../../../../services/login/login.service';
 import { ThemeService } from '../../../../../services/theme/theme.service';
+import { UserStatisticsService } from '../../../../../services/user-statistics/user-statistics.service';
+import { UserStatistics } from '../../../../../services/user-statistics/UserStatistics';
 import { User } from '../../../../../services/user/User';
 import { UserService } from '../../../../../services/user/user.service';
 import { EmailValidator } from '../../../../../validator/EmailValidator';
 import { NameValidator } from '../../../../../validator/NameValidator';
 import { UsernameValidator } from '../../../../../validator/UsernameValidator';
-import { UserStatisticsService } from '../../../../../services/user-statistics/user-statistics.service';
-import { UserStatistics } from '../../../../../services/user-statistics/UserStatistics';
 
 
 @Component({
@@ -32,7 +32,7 @@ export class AccountComponent implements OnInit {
   errors: any[] = [];
 
   @ViewChild("accountSettingsLoader") accountSettingsLoader: LoaderComponent;
-  @ViewChild("accountSettingsMessage") accountSettingsMessage: MessageComponent;
+  @ViewChild("accountSettingsMessage") accountSettingsMessage: MessageContainerComponent;
   @ViewChild("themeSwitch") themeSwitch: SwitchComponent;
 
   constructor(
@@ -76,7 +76,7 @@ export class AccountComponent implements OnInit {
       .finally(() => this.accountSettingsLoader.hide())
       .subscribe((res: User) => {
         this.ls.saveUserData(res);
-        this.accountSettingsMessage.show();
+        this.accountSettingsMessage.show("Dane użytkownika zostały zaktualizowane pomyślnie");
 
         for(const c in this.accountForm.controls) {
           this.accountForm.controls[c].markAsPristine();

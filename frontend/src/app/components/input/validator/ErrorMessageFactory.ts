@@ -20,6 +20,9 @@ export class ErrorMessageFactory {
       case "usernameTaken": return ErrorMessages.USERNAME_TAKEN;
       case "emailTaken": return ErrorMessages.EMAIL_TAKEN;
       case "color": return ErrorMessages.COLOR;
+      case "wordTaken": return ErrorMessages.WORD_TAKEN;
+      case "unitRegex": return ErrorMessages.UNIT_REGEX;
+      case "unitTaken": return ErrorMessages.UNIT_TAKEN;
       default: throw new Error(`Nierozpoznawalny typ wiadomości: "${type}".`);
     }
   }

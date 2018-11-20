@@ -1,22 +1,24 @@
-import { NgModule } from '@angular/core';
-import { MessageComponent } from './message.component';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { MessageHideableDirective } from './directives/message-hideable.directive';
+import { MessageContainerComponent } from './message-container/message-container.component';
+import { MessageComponent } from './message/message.component';
+import { MessageService } from './services/message.service';
 import { MessageFloatingDirective } from './directives/message-floating.directive';
-import { MessageTypeDirective } from './directives/message-type.directive';
-import { MessageAutoHideDirective } from './directives/message-auto-hide.directive';
 
 @NgModule({
   imports: [CommonModule],
   exports: [
-    MessageComponent,
-    MessageFloatingDirective,
-    MessageTypeDirective,
-    MessageAutoHideDirective],
+    MessageContainerComponent,
+    MessageHideableDirective,
+    MessageFloatingDirective
+  ],
   declarations: [
     MessageComponent,
-    MessageFloatingDirective,
-    MessageTypeDirective,
-    MessageAutoHideDirective
+    MessageContainerComponent,
+    MessageHideableDirective,
+    MessageFloatingDirective
   ],
+  providers: [MessageService]
 })
 export class MessageModule { }

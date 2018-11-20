@@ -17,7 +17,7 @@ export class ColorValidator {
    *             otherwise returns {@link ValidationErrors} object
    */
   public static validate(c: AbstractControl): ValidationErrors {
-    return ColorValidator.COLOR_REGEX.test(c.value) ? null : {color: true};
+    return ColorValidator.COLOR_REGEX.test(c.value) ? null : { color: true };
   }
 
 }

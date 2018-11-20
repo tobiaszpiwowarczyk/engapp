@@ -16,11 +16,15 @@ export class MainComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.ls.getUserData()
-      .subscribe((res: User) => {
-        this.user = res;
-        this.loading = false;
-      });
+    this.ls.tokenValid.subscribe(res => {
+      if(res == true) {
+        this.ls.getUserData()
+          .subscribe((user: User) => {
+            this.user = user;
+            this.loading = false;
+          });
+      }
+    })
   }
 
   public logout(): void {

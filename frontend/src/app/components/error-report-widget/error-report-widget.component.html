@@ -1,0 +1,47 @@
+<div class="error-report-widget">
+
+  <div class="container error-report-widget__form" *ngIf="widgetShown" @listItemAnimation errorWidgetForm>
+
+    <app-loader [visible]="loaderShown"></app-loader>
+
+    <div class="error-report-widget__form__header">
+      <div class="error-report-widget__form__title">
+        <h3>Zgłoś błąd</h3>
+      </div>
+      <div class="error-report-widget__form__close-btn" (click)="hideWidget()">
+        <app-icon name="close"></app-icon>
+      </div>
+    </div>
+
+    <div class="error-report-widget__form__content">
+      <form [formGroup]="errorReportForm" (ngSubmit)="submitReport()">
+        <app-input formControlName="subject" [control]="errorReportForm?.controls['subject']" placeholder="Wprowadź temat..."
+          appInputFluid></app-input>
+        <div class="textarea" [class.textarea--invalid]="errorMessage?.errors && errorMessage.dirty && errorMessage.touched"
+          appTextArea>
+          <textarea class="textarea" formControlName="message" placeholder="Wprowadź tekst..." cols="36" rows="10"></textarea>
+          <div class="textarea__errors">
+            <div *ngIf="errorMessage?.errors['required']">To pole jest wymagane</div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="error-report-widget__form__footer">
+      <app-input-group>
+        <app-button [disabled]="errorReportSubmitButtonDisabled" (click)="submitReport()" primary>Wyślij</app-button>
+        <app-button (click)="hideWidget()">Anuluj</app-button>
+      </app-input-group>
+    </div>
+  </div>
+
+
+  <app-input-group>
+    <app-message-container hideable #msg></app-message-container>
+    <app-button class="error-report-btn" positive (click)="widgetShown ? hideWidget() : showWidget()">
+      <app-input-group>
+        <app-icon name="bug_report"></app-icon>
+        <span>Zgłoś błąd</span>
+      </app-input-group>
+    </app-button>
+  </app-input-group>
+</div>
