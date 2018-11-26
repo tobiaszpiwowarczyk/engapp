@@ -20,7 +20,7 @@
         <div class="textarea" [class.textarea--invalid]="errorMessage?.errors && errorMessage.dirty && errorMessage.touched"
           appTextArea>
           <textarea class="textarea" formControlName="message" placeholder="Wprowadź tekst..." cols="36" rows="10"></textarea>
-          <div class="textarea__errors">
+          <div class="textarea__errors" *ngIf="errorMessage?.errors != null">
             <div *ngIf="errorMessage?.errors['required']">To pole jest wymagane</div>
           </div>
         </div>
