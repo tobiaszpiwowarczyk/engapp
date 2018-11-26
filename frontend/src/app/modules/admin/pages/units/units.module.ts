@@ -24,6 +24,7 @@ import { UnitMarkPipe } from './pipes/unit-mark.pipe';
 import { ModalService } from './services/modal.service';
 import { UnitsRoutingModule } from './units-routing.module';
 import { WordService } from '../../../../services/word/word.service';
+import { TableSortableFilterModule } from '../../../../components/table-sortable-filter/table-sortable-filter.module';
 
 @NgModule({
   imports: [
@@ -41,7 +42,8 @@ import { WordService } from '../../../../services/word/word.service';
     SwitchModule,
     ReactiveFormsModule,
     ModalModule,
-    ChangeImageModalModule
+    ChangeImageModalModule,
+    TableSortableFilterModule
   ],
   declarations: [
     UnitsMainComponent,

@@ -9,7 +9,6 @@
   margin: 0 auto;
   background: rgba($blue, 0.1);
   border-radius: $border-radius;
-  overflow: hidden;
   text-align: left;
 
 
@@ -49,6 +48,8 @@
   }
 
   td {
+    word-break: break-word;
+
     ul {
       padding-left: 18px;
     }

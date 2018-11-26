@@ -1,0 +1,25 @@
+@import "../../../../../assets/_variables";
+
+.filter-property {
+  position: relative;
+  height: $input-height + ($input-border-width * 2);
+  display: flex;
+  align-items: center;
+  background: $blue;
+  border-radius: $border-radius;
+
+  &__text {
+    padding-left: 15px;
+    font-weight: 900;
+  }
+
+  &__close-btn {
+    position: relative;
+    width: $input-height + ($input-border-width * 2);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+}

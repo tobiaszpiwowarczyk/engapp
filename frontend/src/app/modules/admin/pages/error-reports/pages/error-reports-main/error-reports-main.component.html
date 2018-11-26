@@ -2,23 +2,30 @@
 
 <div class="admin-content" [hidden]="loading">
   <div class="container container__box">
+
+    <div class="container__box__menu">
+      <app-filter-property *ngFor="let property of filterProperties" [property]="property"></app-filter-property>
+      <app-button (click)="toggleFilter()" icon="filter_list" primary></app-button>
+    </div>
+
     <h2 class="container__box__header">Zgłoszone błędy</h2>
+
     <div class="container__box__content">
       <h3 [style.textAlign]="'center'" *ngIf="errorReports.length == 0">W tej chwili nie posiadasz
         żadnych zgłoszeń</h3>
       <table class="table" *ngIf="errorReports.length > 0">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Użytkownik</th>
-            <th>Temat</th>
+            <th table-sortable-filter="lp">Lp.</th>
+            <th table-sortable-filter="username">Użytkownik</th>
+            <th table-sortable-filter="subject">Temat</th>
             <th>Utworzono</th>
             <th>Opcje</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let error of errorReports; let i = index" [class.selected]="!error?.read">
-            <td>{{i+1}}</td>
+          <tr *ngFor="let error of errorReports" [class.selected]="!error?.read">
+            <td>{{error?.lp}}</td>
             <td>
               <a [routerLink]="['/admin/users', error?.username]" class="user-profile">
                 <img src="assets/img/default.jpg" class="user-avatar" alt="Zdjęcie użytkownika {{error?.username}}">

@@ -6,7 +6,6 @@
   background: $white;
   box-shadow: $box-shadow;
   border-radius: $border-radius;
-  overflow: hidden;
 
   &__form {
     display: flex;
@@ -30,6 +29,7 @@
       position: absolute;
       top: 0;
       right: 0;
+      display: flex;
     }
 
     &__header {
