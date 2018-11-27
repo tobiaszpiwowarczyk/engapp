@@ -57,8 +57,8 @@
         <form [formGroup]="wordsSearchFormGroup">
           <app-input formControlName="word" placeholder="Szukaj słowek..." appInputFluid></app-input>
         </form>
-        <p *ngIf="(unit?.words | unitFilter:searchWord.value).length == 0">Nie znaleziono słowek z wartością <b>{{searchWord.value}}</b></p>
-        <table class="table" *ngIf="(unit?.words | unitFilter:searchWord.value).length > 0">
+        <p *ngIf="(unit?.words | unitWordFilter:searchWord.value).length == 0">Nie znaleziono słowek z wartością <b>{{searchWord.value}}</b></p>
+        <table class="table" *ngIf="(unit?.words | unitWordFilter:searchWord.value).length > 0">
           <thead>
             <tr>
               <th table-sortable-filter="wordNumber">Lp.</th>
@@ -68,13 +68,13 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let word of unit?.words | unitFilter:searchWord.value">
+            <tr *ngFor="let word of unit?.words | unitWordFilter:searchWord.value">
               <td>{{word?.wordNumber}}</td>
-              <td [innerHTML]="word?.polish | unitMark:searchWord.value"></td>
+              <td [innerHTML]="word?.polish | unitWordMark:searchWord.value"></td>
               <td>
-                <span *ngIf="word?.english.length == 1" [innerHTML]="word?.english[0] | unitMark:searchWord.value"></span>
+                <span *ngIf="word?.english.length == 1" [innerHTML]="word?.english[0] | unitWordMark:searchWord.value"></span>
                 <ul *ngIf="word?.english.length > 1">
-                  <li *ngFor="let e of word?.english" [innerHTML]="e | unitMark:searchWord.value"></li>
+                  <li *ngFor="let e of word?.english" [innerHTML]="e | unitWordMark:searchWord.value"></li>
                 </ul>
               </td>
               <td>

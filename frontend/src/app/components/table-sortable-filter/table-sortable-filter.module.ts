@@ -11,6 +11,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TableSortaleOptionClearSpacePipe } from './pipes/table-sortable-option-clear-space.pipe';
 import { TableSortableFilterOutOfScreenDirective } from './directives/table-sortable-filter-content-out-of-screen.directive';
 import { FilterPropertyComponent } from './components/filter-property/filter-property.component';
+import { TableSortableFilterMarkOptionPipe } from './pipes/table-sortable-options-mark.pipe';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import { FilterPropertyComponent } from './components/filter-property/filter-pro
     TableSortableOptionsFilterPipe,
     TableSortaleOptionClearSpacePipe,
     TableSortableFilterOutOfScreenDirective,
-    FilterPropertyComponent
+    FilterPropertyComponent,
+    TableSortableFilterMarkOptionPipe
   ],
   exports: [TableSortableFilterComponent, FilterPropertyComponent],
   providers: [TableSortableService]

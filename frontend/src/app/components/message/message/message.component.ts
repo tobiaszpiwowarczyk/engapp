@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import "rxjs/add/operator/filter";
-import { defaultSettings, listItemAnimation } from '../../../animations/animations';
+import { defaultSettings, itemAnimation } from '../../../animations/animations';
 import { MessageService } from '../services/message.service';
 import { Message } from '../util/Message';
 import { messageProgressAnimation, PROGRESS_INITIAL, PROGRESS_LOADING } from '../util/message-animations';
@@ -10,7 +10,7 @@ import { messageProgressAnimation, PROGRESS_INITIAL, PROGRESS_LOADING } from '..
   selector: 'app-message',
   templateUrl: './message.component.html',
   styleUrls: ['./message.component.scss'],
-  animations: [listItemAnimation, messageProgressAnimation]
+  animations: [itemAnimation, messageProgressAnimation]
 })
 export class MessageComponent implements OnInit {
 

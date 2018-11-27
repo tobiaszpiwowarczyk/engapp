@@ -25,6 +25,8 @@ export class UnitsMainComponent implements OnInit {
 
   addModalShown: boolean = false;
 
+  unitSearchInputValue: string = "";
+
   @ViewChild("boxLoader") boxLoader: LoaderComponent;
   @ViewChild("approveModal") approveModal: ModalComponent;
   @ViewChild("message") message: MessageContainerComponent;

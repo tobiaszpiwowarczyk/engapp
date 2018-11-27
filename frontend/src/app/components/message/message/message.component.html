@@ -1,4 +1,4 @@
-<div class="message message--{{data?.type?.name}}" *ngIf="data?.shown" @listItemAnimation (@listItemAnimation.done)="runProgress()">
+<div class="message message--{{data?.type?.name}}" *ngIf="data?.shown" @itemAnimation (@itemAnimation.done)="runProgress()">
   <div class="message__collumn">
     <div class="message__icon material-icons">{{data?.type?.icon}}</div>
     <div class="message__content">{{data?.text}}</div>

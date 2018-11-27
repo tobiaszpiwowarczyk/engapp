@@ -7,7 +7,9 @@ import { LoaderModule } from '../../../components/loader/loader.module';
 import { UnitComponent } from './components/unit/unit.component';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './pages/home/home.component';
-import { UnitPublishedModule } from '../../../pipes/unit-filter/unit-filter.module';
+import { UnitFilterModule } from '../../../pipes/unit-filter/unit-filter.module';
+import { InputModule } from '../../../components/input/input.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -15,10 +17,12 @@ import { UnitPublishedModule } from '../../../pipes/unit-filter/unit-filter.modu
     CommonModule,
     LoaderModule,
     ButtonModule,
-    UnitPublishedModule,
+    UnitFilterModule,
     HomeRoutingModule,
-    HttpModule
+    HttpModule,
+    InputModule,
+    FormsModule
   ],
   declarations: [HomeComponent, UnitComponent]
 })
-export class HomeModule {}
+export class HomeModule { }

@@ -3,7 +3,7 @@
 <div class="admin-content" [hidden]="loading">
   <div class="container container__box">
 
-    <div class="container__box__menu">
+    <div class="container__box__menu" *ngIf="errorReports.length > 0">
       <app-filter-property *ngFor="let property of filterProperties" [property]="property"></app-filter-property>
       <app-button (click)="toggleFilter()" icon="filter_list" primary></app-button>
     </div>
