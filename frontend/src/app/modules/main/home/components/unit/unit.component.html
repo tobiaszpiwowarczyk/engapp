@@ -1,4 +1,4 @@
-<div class="unit" [style.backgroundImage]="'url('+unit?.image+')'" @listItemAnimation>
+<div class="unit" [style.backgroundImage]="'url('+unit?.image+')'" @itemAnimation>
   <div class="unit__filter">
     <a [routerLink]="['/quiz', unit?.id]" [attr.title]="unit?.name" (click)="selectOption(selected)">
       <h3 class="unit__title">{{unit?.name}}</h3>

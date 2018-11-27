@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit } from '@angular/core';
 import "rxjs/add/operator/map";
 import { FilterCriteria, FilterProperty, FilterValue, SortDirection, TableSortableService } from '../services/table-sortable.service';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 
 @Component({
@@ -13,14 +14,14 @@ export class TableSortableFilterComponent implements OnInit, AfterViewInit {
   @Input("table-sortable-filter") column: string;
 
   enabled: boolean = false;
-  filterOpened: boolean = false;
   sortDirection: SortDirection = SortDirection.ASC;
   sortActive: boolean = false;
 
   allSelected: boolean = true;
   filtered: boolean = false;
+  filterOpened: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   filterSearchCriteria: string = "";
-  filterOptions: FilterValue[] = [];
+  filterValues: FilterValue[] = [];
   filterProperty: FilterProperty;
 
 
@@ -30,7 +31,11 @@ export class TableSortableFilterComponent implements OnInit, AfterViewInit {
     private el: ElementRef
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.filterOpened.subscribe(res => {
+      if(!res) this.filterSearchCriteria = "";
+    });
+  }
 
   ngAfterViewInit() {
     this.filterProperty = {
@@ -52,8 +57,8 @@ export class TableSortableFilterComponent implements OnInit, AfterViewInit {
 
         this.tss.retrieveFilterOptions(this.column)
           .subscribe(x => {
-            this.filterOptions = x;
-            this.allSelected = this.filterOptions.filter(y => y.selected).length == this.filterOptions.length;
+            this.filterValues = x;
+            this.allSelected = this.filterValues.filter(y => y.selected).length == this.filterValues.length;
           });
 
         this.tss.sortActive.subscribe(x => this.sortActive = x == this.column);
@@ -76,24 +81,24 @@ export class TableSortableFilterComponent implements OnInit, AfterViewInit {
 
   }
 
-  public openFilter(): void {
-    this.filterOpened = !this.filterOpened;
-  }
+  public openFilter = (): void => this.filterOpened.next(!this.filterOpened.getValue());
 
   public filterData(): void {
-    this.tss.filterData(this.filterProperty, this.filterOptions);
+    this.tss.filterData(this.filterProperty, this.filterValues);
     this.closeFilter();
   }
 
 
   public toggleAll(): void {
-    this.filterOptions.forEach(p => p.selected = !this.allSelected);
+    this.filterValues.forEach(p => p.selected = !this.allSelected);
     this.allSelected = !this.allSelected;
   }
 
-  public toggleSelectedOption(index: number) {
-    this.filterOptions[index].selected = !this.filterOptions[index].selected;
-    if(this.filterOptions.filter(x => x.selected).length < this.filterOptions.length) {
+  public toggleSelectedOption(value: any) {
+    this.filterValues[this.filterValues.map(x => x.value).indexOf(value)].selected =
+      !this.filterValues[this.filterValues.map(x => x.value).indexOf(value)].selected;
+
+    if(this.filterValues.filter(x => x.selected).length < this.filterValues.length) {
       this.allSelected = false;
     }
     else this.allSelected = true;
@@ -101,7 +106,5 @@ export class TableSortableFilterComponent implements OnInit, AfterViewInit {
 
 
 
-  private closeFilter(): void {
-    this.filterOpened = false;
-  }
+  private closeFilter = (): void => this.filterOpened.next(false);
 }

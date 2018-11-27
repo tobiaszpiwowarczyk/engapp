@@ -5,15 +5,18 @@
     <app-loader #boxLoader></app-loader>
 
     <div class="container__box__menu">
+      <app-input icon="search" [(ngModel)]="unitSearchInputValue" placeholder="Szukaj rozdziałów" appInputCompact></app-input>
       <app-button (click)="openAddUnitModal()" primary>Nowy rozdział</app-button>
     </div>
 
     <h2 class="container__box__header">Rozdziały</h2>
     <div class="container__box__content">
-      <div [@listAnimation]="units.length">
+      <h3 *ngIf="(units | unitFilter:unitSearchInputValue).length == 0">Nie znaleziono rozdziałów</h3>
+      <div *ngIf="(units | unitFilter:unitSearchInputValue).length > 0" [@listAnimation]="units.length">
         <h3>Opublikowane</h3>
-        <div *ngFor="let unit of units | unitPublished:true" class="unit" [style.backgroundImage]="'url('+unit?.image+')'"
-          [style.borderColor]="unit?.color" @listItemAnimation>
+
+        <div *ngFor="let unit of (units | unitFilter:unitSearchInputValue) | unitPublished:true" class="unit"
+          [style.backgroundImage]="'url('+unit?.image+')'" [style.borderColor]="unit?.color" @listItemAnimation>
 
           <div class="unit__filter">
             <a [routerLink]="['./', unit?.id]" class="unit__link">

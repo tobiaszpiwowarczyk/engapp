@@ -9,7 +9,7 @@ export class TableSortableFilterOptionsCloseableDirective {
   @HostListener("window:click", ["$event"])
   public close(e): void {
     if(!EventTargetUtils.reachedTarget(e, "filter-option") && !EventTargetUtils.reachedTarget(e, "table-sortable-filter__content")) {
-      this.c.filterOpened = false;
+      this.c.filterOpened.next(false);
     }
   }
 
@@ -18,9 +18,7 @@ export class TableSortableFilterOptionsCloseableDirective {
     const keyCode: number = e.keyCode || e.which;
 
     if(keyCode == 27) {
-      this.c.filterOpened = false;
+      this.c.filterOpened.next(false);
     }
-
-    console.log(keyCode);
   }
 }

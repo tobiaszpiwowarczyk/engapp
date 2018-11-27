@@ -2,7 +2,7 @@ import { InputComponent } from '../input.component';
 import { Directive } from '@angular/core';
 
 @Directive({
-  selector: '[appInputCompact]'
+  selector: 'app-input[appInputCompact]'
 })
 export class InputCompactDirective {
 
