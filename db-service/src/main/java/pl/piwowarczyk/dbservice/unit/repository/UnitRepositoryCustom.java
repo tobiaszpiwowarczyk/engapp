@@ -14,7 +14,7 @@ public interface UnitRepositoryCustom {
     Unit findUnitById(String id);
     Unit editUnit(UnitEditionEntity unit);
     Word findWordByWordNumber(String unitId, Long wordNumber);
-    boolean existsByWordNumber(String unitId, Long wordNumber);
+    boolean wordExistsByWordNumber(String unitId, Long wordNumber);
     boolean existsBy(String field, Object value);
     boolean wordExistsBy(String unitId, String field, Object value);
     

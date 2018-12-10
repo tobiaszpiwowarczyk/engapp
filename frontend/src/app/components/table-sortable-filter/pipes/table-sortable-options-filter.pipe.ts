@@ -6,6 +6,6 @@ import { FilterValue } from '../services/table-sortable.service';
 })
 export class TableSortableOptionsFilterPipe implements PipeTransform {
   transform(arr: FilterValue[], criteria: string): any {
-    return criteria.length == 0 ? arr : arr.filter(x => x.value.toString().toLocaleLowerCase().startsWith(criteria));
+    return criteria.length == 0 ? arr : arr.filter(x => x.value.toString().toLocaleLowerCase().startsWith(criteria.toLocaleLowerCase()));
   }
 }

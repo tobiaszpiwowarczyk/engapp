@@ -1,7 +1,6 @@
 .settings
 /bin/
-/build/classes/
-/build/resources/
-/build/tmp/
+/build/
+/out/
 .classpath
 .project

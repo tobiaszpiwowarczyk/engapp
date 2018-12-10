@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import "rxjs/add/operator/map";
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
+import { SortDirection, ArrayUtils } from '../../../util/ArrayUtils';
 
 
 export class FilterValue {
@@ -23,10 +24,6 @@ export interface FilterProperty {
 export interface FilterCriteria {
   property: FilterProperty;
   values: FilterValue[];
-}
-
-export enum SortDirection {
-  ASC, DESC
 }
 
 
@@ -117,20 +114,7 @@ export class TableSortableService {
 
   public sortData(prop: FilterProperty, direction: SortDirection): void {
     this.sortActive.next(prop.name);
-    this.data.next(this.data.getValue()
-      .sort((a, b) => {
-        if(typeof a[prop.name] == "number" && typeof b[prop.name] == "number") {
-          return direction == SortDirection.ASC
-            ? a[prop.name] - b[prop.name]
-            : b[prop.name] - a[prop.name]
-        }
-        else {
-          return direction == SortDirection.ASC
-            ? ('' + a[prop.name]).localeCompare(b[prop.name])
-            : ('' + b[prop.name]).localeCompare(a[prop.name])
-        }
-      })
-    );
+    this.data.next(ArrayUtils.sortBy(this.data.getValue(), prop.name, direction));
   }
 
 
@@ -142,7 +126,7 @@ export class TableSortableService {
 
   public removeFilterProperty(prop: FilterProperty): void {
 
-    this.filterCriteria.getValue().splice(this.filterCriteria.getValue().map(x => x.property).indexOf(prop), 1);
+    this.filterCriteria.getValue().splice(ArrayUtils.fieldIndexOf(this.filterCriteria.getValue(), "property", prop), 1);
     this.filterCriteria.next(this.filterCriteria.getValue());
 
   }
