@@ -90,7 +90,7 @@ public class UnitRepositoryImpl implements UnitRepositoryCustom {
 
     
     @Override
-    public boolean existsByWordNumber(String unitId, Long wordNumber) {
+    public boolean wordExistsByWordNumber(String unitId, Long wordNumber) {
         return mongoTemplate.exists(new Query().addCriteria(where("_id").is(unitId).and("words.wordNumber").is(wordNumber)), collectionName);
     }
 

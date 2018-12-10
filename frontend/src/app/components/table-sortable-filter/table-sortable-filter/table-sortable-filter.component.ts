@@ -1,7 +1,8 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit } from '@angular/core';
 import "rxjs/add/operator/map";
-import { FilterCriteria, FilterProperty, FilterValue, SortDirection, TableSortableService } from '../services/table-sortable.service';
+import { FilterCriteria, FilterProperty, FilterValue, TableSortableService } from '../services/table-sortable.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { SortDirection } from '../../../util/ArrayUtils';
 
 
 @Component({
