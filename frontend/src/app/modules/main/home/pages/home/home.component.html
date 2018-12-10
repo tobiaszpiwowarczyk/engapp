@@ -1,13 +1,19 @@
 <app-loader [visible]="loading"></app-loader>
 
 <div class="content wrapper" [hidden]="loading">
-  <h2>Wybierz rozdział</h2>
-
-  <div class="units" [@listAnimation]="units.length" *ngIf="isUser">
-    <app-unit *ngFor="let unit of units" [unit]="unit"></app-unit>
+  <div class="home-header">
+    <h2>Wybierz rozdział</h2>
+    <app-input icon="search" placeholder="Szukaj rozdziałów..." [(ngModel)]="unitSearchInputValue" appInputCompact></app-input>
   </div>
 
-  <div class="units" [@listAnimation]="units.length" *ngIf="!isUser">
-    <app-unit *ngFor="let unit of units | unitPublished" [unit]="unit"></app-unit>
+  <h3 [ngStyle]="{'marginTop': '40px'}" *ngIf="(units | unitFilter:unitSearchInputValue).length == 0">Nie znaleziono
+    rozdziału: {{unitSearchInputValue}}</h3>
+
+  <div class="units" [@listAnimation]="units.length" *ngIf="isUser && (units | unitFilter:unitSearchInputValue).length > 0">
+    <app-unit *ngFor="let unit of (units | unitFilter:unitSearchInputValue)" [unit]="unit"></app-unit>
+  </div>
+
+  <div class="units" [@listAnimation]="units.length" *ngIf="!isUser  && (units | unitFilter:unitSearchInputValue).length > 0">
+    <app-unit *ngFor="let unit of (units | unitFilter:unitSearchInputValue) | unitPublished" [unit]="unit"></app-unit>
   </div>
 </div>

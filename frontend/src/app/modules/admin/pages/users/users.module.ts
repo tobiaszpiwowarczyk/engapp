@@ -10,6 +10,8 @@ import { LoaderModule } from '../../../../components/loader/loader.module';
 import { InputModule } from '../../../../components/input/input.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from '../../../../components/button/button.module';
+import { TableSortableFilterModule } from '../../../../components/table-sortable-filter/table-sortable-filter.module';
+import { IconModule } from '../../../../components/icon/icon.module';
 
 @NgModule({
   imports: [
@@ -21,6 +23,8 @@ import { ButtonModule } from '../../../../components/button/button.module';
     LoaderModule,
     InputModule,
     ButtonModule,
+    IconModule,
+    TableSortableFilterModule,
     ReactiveFormsModule
   ],
   declarations: [UsersMainComponent, UsersSingleComponent]

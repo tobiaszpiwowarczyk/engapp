@@ -8,6 +8,7 @@ import { ErrorReportsRoutingModule } from './error-reports-routing.module';
 import { ErrorReportsMainComponent } from './pages/error-reports-main/error-reports-main.component';
 import { ErrorReportsSingleComponent } from './pages/error-reports-single/error-reports-single.component';
 import { ErrorReportResolver } from './resolver/error-reports.resolver';
+import { TableSortableFilterModule } from '../../../../components/table-sortable-filter/table-sortable-filter.module';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { ErrorReportResolver } from './resolver/error-reports.resolver';
     LoaderModule,
     ButtonModule,
     InputGroupModule,
-    IconModule
+    IconModule,
+    TableSortableFilterModule
   ],
   declarations: [
     ErrorReportsMainComponent,

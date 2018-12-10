@@ -22,6 +22,8 @@ export class HomeComponent implements OnInit {
   units: Array<Unit> = [];
   loading: boolean = true;
 
+  unitSearchInputValue: string = "";
+
   constructor(
     private loginService: LoginService,
     private unitService: UnitService,

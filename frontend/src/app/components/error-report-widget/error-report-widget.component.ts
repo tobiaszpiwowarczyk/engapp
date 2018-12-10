@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { listItemAnimation } from '../../animations/animations';
+import { itemAnimation } from '../../animations/animations';
 import { MessageContainerComponent } from '../message/message-container/message-container.component';
 import { ErrorReportService } from './../../services/error-report/error-report.service';
 
@@ -8,7 +8,7 @@ import { ErrorReportService } from './../../services/error-report/error-report.s
   selector: 'app-error-report-widget',
   templateUrl: './error-report-widget.component.html',
   styleUrls: ['./error-report-widget.component.scss'],
-  animations: [listItemAnimation]
+  animations: [itemAnimation]
 })
 export class ErrorReportWidgetComponent implements OnInit {
 

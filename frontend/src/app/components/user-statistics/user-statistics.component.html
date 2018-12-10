@@ -1,4 +1,4 @@
-<div class="container user-statistics" [class.user-statistics--last]="last" @listItemAnimation>
+<div class="container user-statistics" [class.user-statistics--last]="last" @itemAnimation>
   <div class="user-statistics__header" [style.color]="data?.unit?.color">
     <div class="user-statistics__header__item">
       <a class="container__item" [routerLink]="['/admin/users', data?.username]" [style.color]="data?.unit?.color"
@@ -13,7 +13,7 @@
       </div>
       <div class="container__item">
         <app-icon name="access_time"></app-icon>
-        <span class="data-text">{{data?.createdAt | date: "hh:mm:ss"}}</span>
+        <span class="data-text">{{data?.createdAt | date: "HH:mm:ss"}}</span>
       </div>
     </div>
 

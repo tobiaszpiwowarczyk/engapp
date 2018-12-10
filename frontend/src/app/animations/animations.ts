@@ -43,12 +43,13 @@ export const defaultSettings: AnimationDataConfig = {
 
 export const listAnimation = trigger("listAnimation", [
   transition("* => *", [
-    query("@listItemAnimation", stagger(100, animateChild()), { optional: true })
+    query("@listItemAnimation", stagger(100, animateChild()), { optional: true }),
+    query("@itemAnimation", stagger(100, animateChild()), { optional: true }),
   ])
 ]);
 
 
-export const listItemAnimation = trigger("listItemAnimation", [
+export const itemAnimation = trigger("itemAnimation", [
   transition(":enter", [
     style(defaultSettings.item.hiddenState),
     animate(`${defaultSettings.item.time}ms ${defaultSettings.bezier}`, style(defaultSettings.item.shownState))
@@ -56,5 +57,12 @@ export const listItemAnimation = trigger("listItemAnimation", [
   transition(":leave", [
     style(defaultSettings.item.shownState),
     animate(`${defaultSettings.item.time}ms ${defaultSettings.bezier}`, style(defaultSettings.item.hiddenState))
+  ])
+]);
+
+export const listItemAnimation = trigger("listItemAnimation", [
+  transition(":enter", [
+    style(defaultSettings.item.hiddenState),
+    animate(`${defaultSettings.item.time}ms ${defaultSettings.bezier}`, style(defaultSettings.item.shownState))
   ])
 ]);

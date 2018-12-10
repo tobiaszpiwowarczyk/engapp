@@ -1,0 +1,42 @@
+<div class="table-sortable-filter" [class.table-sortable-filter--sort-active]="sortActive">
+  <div class="table-sortable-filter__text">
+    <ng-content></ng-content>
+  </div>
+
+  <div class="table-sortable-filter__options" [style.visibility]="enabled ? 'visible' : 'hidden'">
+    <div class="filter-option" (click)="sort()">
+      <app-icon [name]="sortDirection == 0 ? 'arrow_drop_down' : 'arrow_drop_up'"></app-icon>
+    </div>
+    <div class="filter-option" [class.filter-option--filtered]="filtered" (click)="openFilter()">
+      <app-icon name="filter_list"></app-icon>
+    </div>
+  </div>
+
+
+  <div class="container table-sortable-filter__content" closeable out-of-screen *ngIf="filterOpened.getValue()">
+    <app-input appInputFluid appInputCompact [(ngModel)]="filterSearchCriteria" placeholder="Szukaj..."></app-input>
+
+    <div class="filter-content-list">
+      <div *ngIf="(filterValues | optionsFilter:filterSearchCriteria).length > 0">
+        <div class="filter-content-list__option">
+          <input type="checkbox" id="opt-All" (change)="toggleAll()" [checked]="allSelected ? 'checked': null">
+          <label for="opt-All">Wszystko</label>
+        </div>
+        <div class="filter-content-list__option" *ngFor="let filterOption of (filterValues | optionsFilter:filterSearchCriteria); let i = index">
+          <input type="checkbox" [attr.id]="'opt-' + (filterOption.value | clearSpace)" [checked]="filterOption.selected ? 'checked' : null"
+            (change)="toggleSelectedOption(filterOption?.value)" />
+          <label [attr.for]="'opt-' + (filterOption.value | clearSpace)" [innerHTML]="filterOption?.value | markOption:filterSearchCriteria"></label>
+        </div>
+      </div>
+
+      <div *ngIf="(filterValues | optionsFilter:filterSearchCriteria).length == 0">
+        Nie znaleziono danych według słów: {{filterSearchCriteria}}
+      </div>
+
+    </div>
+
+    <app-button (click)="filterData()" fluid primary>Filtruj</app-button>
+
+  </div>
+
+</div>

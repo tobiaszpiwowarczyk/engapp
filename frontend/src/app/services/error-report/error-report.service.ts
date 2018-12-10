@@ -33,6 +33,10 @@ export class ErrorReportService {
   public findAll(): Observable<ErrorReport[]> {
     return this.http.get("/db/api/error-reports", this.options)
       .map(res => res.json())
+      .map((res: ErrorReport[]) => res.map((x: ErrorReport) => {
+        x.lp = res.indexOf(x) + 1;
+        return x;
+      }))
       .catch(err => Observable.throw(err.json()));
   }
 

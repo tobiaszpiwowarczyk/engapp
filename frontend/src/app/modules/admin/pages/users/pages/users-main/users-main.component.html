@@ -1,26 +1,29 @@
-
 <app-loader [visible]="loading"></app-loader>
 
 <div class="admin-content" [hidden]="loading">
   <div class="container container__box">
+
+    <div class="container__box__menu">
+      <app-filter-property *ngFor="let prop of filterProps" [property]="prop"></app-filter-property>
+      <app-button (click)="toggleFilter()" icon="filter_list" primary></app-button>
+    </div>
+
     <h2 class="container__box__header">Użytkownicy</h2>
     <div class="container__box__content">
-      <!-- todo: create table sorting support -->
-      <!-- todo: create table filter -->
       <table class="table">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Imię</th>
-            <th>Nazwisko</th>
-            <th>Adres e-mail</th>
-            <th>Typ użytkownika</th>
+            <th table-sortable-filter="lp">Lp</th>
+            <th table-sortable-filter="firstName">Imię</th>
+            <th table-sortable-filter="lastName">Nazwisko</th>
+            <th table-sortable-filter="email">Adres e-mail</th>
+            <th table-sortable-filter="role">Typ użytkownika</th>
             <th>Opcje</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let user of users; let i = index">
-            <td>{{i+1}}</td>
+          <tr *ngFor="let user of users">
+            <td>{{user?.lp}}</td>
             <td>{{user?.firstName}}</td>
             <td>{{user?.lastName}}</td>
             <td>{{user?.email}}</td>

@@ -1,13 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Unit } from './Unit';
-import { listItemAnimation } from '../../../../../animations/animations';
+import { itemAnimation } from '../../../../../animations/animations';
 import { UnitScopeService } from '../../../services/unit-scope.service';
 
 @Component({
   selector: 'app-unit',
   templateUrl: './unit.component.html',
   styleUrls: ['./scss/unit.component.scss'],
-  animations: [listItemAnimation]
+  animations: [itemAnimation]
 })
 export class UnitComponent implements OnInit {
 

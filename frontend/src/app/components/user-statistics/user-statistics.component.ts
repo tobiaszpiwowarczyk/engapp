@@ -1,12 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { listItemAnimation } from '../../animations/animations';
+import { itemAnimation } from '../../animations/animations';
 import { UserStatistics } from '../../services/user-statistics/UserStatistics';
 
 @Component({
   selector: 'app-user-statistics',
   templateUrl: './user-statistics.component.html',
   styleUrls: ['./user-statistics.component.scss'],
-  animations: [listItemAnimation]
+  animations: [itemAnimation]
 })
 export class UserStatisticsComponent implements OnInit {
 

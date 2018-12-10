@@ -19,7 +19,7 @@ public class WordServiceImpl implements WordService {
     @Override
     public Word findWordByWordNumber(String unitId, Long wordNumber) {
 
-        if(!unitRepository.existsByWordNumber(unitId, wordNumber))
+        if(!unitRepository.wordExistsByWordNumber(unitId, wordNumber))
             throw new WordNotFoundException();
         
         return unitRepository.findWordByWordNumber(unitId, wordNumber);
